@@ -25,6 +25,19 @@ endif
 " turn on this option as well
 set background=dark
 
+colorscheme rdark "mustang
+" Pour highlighter la ligne courante (pour mieux se repérer) :
+set cursorline
+hi CursorLine guibg=grey20 
+
+" et pour la coloration du shell :
+let g:is_posix = 1
+
+"gestion lignes trop longues
+hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
+match OverLength /\%200v.*/
+
+
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
@@ -49,40 +62,33 @@ set incsearch		" Incremental search
 set hlsearch
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden             " Hide buffers when they are abandoned
-set mouse=a		
-" Pour highlighter la ligne courante (pour mieux se repérer) en bleu :
-set cursorline
-highlight CursorLine ctermbg=gray
+set mouse=a		" Enable mouse usage (all modes)
+set ruler " Show line, column number, and relative position within a file in the status line
+set ttyfast
 
 "touche leader plus accessible
-map <Leader> = ","
-
-
-colorscheme mustang
-
-" et pour la coloration du shell :
-let g:is_posix = 1
-
-"gestion lignes trop longues
-highlight OverLength ctermbg=red ctermfg=white
-match OverLength /\%100v.\+/
+let mapleader = ","
 
 set preserveindent
-" Use 4 spaces for <Tab> and :retab
-set tabstop =4 
-" Round indent to multiple of 'shiftwidth' for > and < commands
-set shiftround
-" Use 4 spaces for (auto)indent
-set shiftwidth =4
+set tabstop =4 " Use 4 spaces for <Tab> and :retab
+set shiftround " Round indent to multiple of 'shiftwidth' for > and < commands
+set shiftwidth =4 " Use 4 spaces for (auto)indent
 set softtabstop =4
 set expandtab "remplace les tabs par des espaces
-" numeros de lignes
-set number
-"permettre l'utilisation de backspace dans tous les cas
-set backspace=2 
+set number " numeros de lignes
+set backspace=2 "permettre l'utilisation de backspace dans tous les cas
 set wrapscan "recherche en rond
-" taille max d'une ligne
-set textwidth=100
+set textwidth=100 " taille max d'une ligne
+set enc=utf-8 " Use UTF-8 as the default buffer encoding
+set history=1000 " Remember up to 100 'colon' commmands and search patterns
+set showmatch "Show matching bracets when text indicator is over them
+set mat=2 "How many tenths of a second to blink
+set shell=bash\ --login " use my bashrc in vim command mode
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Completion                           "
+""""""""""""""""""""""""""""""""""""""""
 
 " Use menu to show command-line completion (in 'full' case)
 set wildmenu
@@ -100,28 +106,16 @@ set completeopt=menu,longest,preview
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>': '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Use UTF-8 as the default buffer encoding
-set enc=utf-8
-
-" Remember up to 100 'colon' commmands and search patterns
-set history=1000
-
 " shebang automatique lors de l'ouverture nouveau
 " " d'un fichier *.py, *.sh (bash), modifier l'entête selon les besoins :
 :autocmd BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: UTF8 -*-\<nl>\<nl>\"|$
 :autocmd BufNewFile *.py 0put=\"#!/usr/bin/env python\"|1put=\"# -*- coding: UTF8 -*-\<nl>\<nl>\"|$
-
-" Go back to the position the cursor was on the last time this file was edited
-au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")|execute("normal `\"")|endif
 
 "do php lint after saving a php file
 "au BufWritePost *.php !php -l %
 
 " lien vers doc php
 :autocmd FileType php set keywordprg=pman
-
-" use my bashrc in vim command mode
-set shell=bash\ --login
 
 " insertion de phpdoc
 source ~/.vim/plugin/php-doc.vim
@@ -162,12 +156,39 @@ function! RestoreSession()
 endfunction
 
 autocmd VimEnter * call RestoreSession()
-
+set sessionoptions="buffers,tabpages"
 autocmd VimLeavePre * mksession! ~/.vim/Session.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git anyway...
+"set nobackup
+"set nowb
+"set noswapfile
+
+"Persistent undo
+try
+    if MySys() == "windows"
+      set undodir=C:\Windows\Temp
+    else
+      set undodir=~/.vim/undodir
+    endif
+
+    set undofile
+catch
+endtry
+
+" to use lint for php if using :make
+:autocmd FileType php set makeprg=php\ -l\ %
+:autocmd FileType php set errorformat+=%m\ in\ %f\ on\ line\ %l
+
+" let php_sql_query=1
+" let php_htmlInStrings = 1
 
 " Tag list
 " F4: Switch on/off TagList
-nnoremap <silent> <F4> :TlistToggle<CR>
+noremap <silent> <F4> :TlistToggle<CR>
 let Tlist_Show_One_File = 1 " Displaying tags for only one file~
 let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
 let Tlist_Use_Right_Window = 1 " split to the right side of the screen
@@ -179,7 +200,8 @@ let Tlist_Display_Tag_Scope = 1 " Show tag scope next to the tag name.
 let Tlist_Close_On_Select = 1 " Close the taglist window when a file or tag is selected.
 let Tlist_Enable_Fold_Column = 0 " Don't Show the fold indicator column in the taglist window.
 let Tlist_WinWidth = 40
+let tlist_php_settings = 'php;c:class;f:function'
 "project shortcut
-"nmap <silent> <F2> <Plug>ToggleProject
-nmap <silent> <F3> :NERDTreeToggle<CR>
+noremap <silent> <F3> :NERDTreeToggle<CR>
+let NERDTreeMouseMode = 2 " single click opens directories, double click for files
 
