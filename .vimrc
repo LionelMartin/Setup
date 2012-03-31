@@ -25,7 +25,13 @@ endif
 " turn on this option as well
 set background=dark
 
-colorscheme rdark "mustang
+if has("gui_running")
+  set t_Co=256
+  colorscheme rdark
+else
+  colorscheme mustang
+endif
+
 " Pour highlighter la ligne courante (pour mieux se repérer) :
 set cursorline
 hi CursorLine guibg=grey20 
@@ -68,6 +74,9 @@ set ttyfast
 
 "touche leader plus accessible
 let mapleader = ","
+
+" When pressing <leader>cd switch to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>
 
 set preserveindent
 set tabstop =4 " Use 4 spaces for <Tab> and :retab
