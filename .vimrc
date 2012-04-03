@@ -21,6 +21,11 @@ if has("syntax")
   syntax on
 endif
 
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 set background=dark
@@ -41,7 +46,7 @@ let g:is_posix = 1
 
 "gestion lignes trop longues
 hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
-match OverLength /\%200v.*/
+match OverLength /\%160v.*/
 
 
 " Uncomment the following to have Vim jump to the last position when
@@ -72,6 +77,9 @@ set mouse=a		" Enable mouse usage (all modes)
 set ruler " Show line, column number, and relative position within a file in the status line
 set ttyfast
 
+"ignore these patterns when scanning
+set wildignore+=*.o,*.obj,.git,.bzr
+
 "touche leader plus accessible
 let mapleader = ","
 
@@ -87,7 +95,7 @@ set expandtab "remplace les tabs par des espaces
 set number " numeros de lignes
 set backspace=2 "permettre l'utilisation de backspace dans tous les cas
 set wrapscan "recherche en rond
-set textwidth=100 " taille max d'une ligne
+" set textwidth=100 " taille max d'une ligne
 set enc=utf-8 " Use UTF-8 as the default buffer encoding
 set history=1000 " Remember up to 100 'colon' commmands and search patterns
 set showmatch "Show matching bracets when text indicator is over them
@@ -128,7 +136,7 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>': '<C-n><C-r>=pumvisible() ? "\<lt>D
 
 " insertion de phpdoc
 source ~/.vim/plugin/php-doc.vim
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
+inoremap <C-P> <ESC>:call PhpDocSingle()<CR>
 nnoremap <C-P> :call PhpDocSingle()<CR>
 vnoremap <C-P> :call PhpDocRange()<CR> 
 
@@ -152,10 +160,7 @@ set browsedir=current
 " sauvegarder en tant que root:
 command! Wroot :w !sudo tee %
 
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
+
 
 " save session on exit and restore it on load
 function! RestoreSession()
@@ -165,7 +170,7 @@ function! RestoreSession()
 endfunction
 
 autocmd VimEnter * call RestoreSession()
-set sessionoptions="buffers,tabpages"
+set sessionoptions="buffers,tabpages" "only store buffers and tabs in session (no options...)
 autocmd VimLeavePre * mksession! ~/.vim/Session.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -210,7 +215,20 @@ let Tlist_Close_On_Select = 1 " Close the taglist window when a file or tag is s
 let Tlist_Enable_Fold_Column = 0 " Don't Show the fold indicator column in the taglist window.
 let Tlist_WinWidth = 40
 let tlist_php_settings = 'php;c:class;f:function'
-"project shortcut
+
+" toggle NERDTreee
 noremap <silent> <F3> :NERDTreeToggle<CR>
 let NERDTreeMouseMode = 2 " single click opens directories, double click for files
 
+" jump to file
+noremap <silent> <F5> :CommandT<CR>
+" jump to tag
+noremap <silent> <F6> :CommandTTag<CR>
+
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+if filereadable("~/.vim/vimrc.local")
+        source ~/.vim/vimrc.local
+endif
