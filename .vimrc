@@ -135,7 +135,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>': '<C-n><C-r>=pumvisible() ? "\<lt>D
 :autocmd FileType php set keywordprg=pman
 
 " insertion de phpdoc
-source ~/.vim/plugin/php-doc.vim
 inoremap <C-P> <ESC>:call PhpDocSingle()<CR>
 nnoremap <C-P> :call PhpDocSingle()<CR>
 vnoremap <C-P> :call PhpDocRange()<CR> 
@@ -152,6 +151,9 @@ autocmd Filetype js set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
+autocmd bufnewfile *.php so ~/.vim/php_header.txt
+autocmd bufnewfile *.php exe "1," . 10."g/<date_created>/s//".strftime("%d/%m/%Y %H:%M")
 
 " dossier par défaut
 :chdir $HOME/
@@ -225,10 +227,7 @@ noremap <silent> <F5> :CommandT<CR>
 " jump to tag
 noremap <silent> <F6> :CommandTTag<CR>
 
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
+"local vimrc (not in synchro)
 if filereadable("~/.vim/vimrc.local")
         source ~/.vim/vimrc.local
 endif

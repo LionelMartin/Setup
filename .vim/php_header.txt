@@ -1,0 +1,13 @@
+<?
+/*********************************************\
+ *        Copyright (c) blogSpirit 2000-2012
+ *
+ *  Description:.......
+ *  Author: ........... Lionel Martin 
+ *  Date Created: ..... <date_created>
+ *  Revision:.......... $Revision$
+ *  Last Modified:..... $Date$
+ *  By:................ $Author$
+ *  Modification Desc:.
+ *
+\*********************************************/
