@@ -153,7 +153,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
 autocmd bufnewfile *.php so ~/.vim/php_header.txt
-autocmd bufnewfile *.php exe "1," . 10."g/<date_created>/s//".strftime("%d/%m/%Y %H:%M")
+autocmd bufnewfile *.php exe "%s/<date_created>/" . strftime("%d/%m/%Y %H:%M") ."//e"
 
 " dossier par défaut
 :chdir $HOME/
@@ -162,8 +162,6 @@ set browsedir=current
 " sauvegarder en tant que root:
 command! Wroot :w !sudo tee %
 
-
-
 " save session on exit and restore it on load
 function! RestoreSession()
   if argc() == 0 "vim called without arguments
@@ -171,8 +169,9 @@ function! RestoreSession()
   end
 endfunction
 
-autocmd VimEnter * call RestoreSession()
-set sessionoptions="buffers,tabpages" "only store buffers and tabs in session (no options...)
+autocmd VimEnter * nested call RestoreSession()
+set ssop-=options
+" set sessionoptions="buffers,tabpages" "only store buffers and tabs in session (no options...)
 autocmd VimLeavePre * mksession! ~/.vim/Session.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -190,7 +189,6 @@ try
     else
       set undodir=~/.vim/undodir
     endif
-
     set undofile
 catch
 endtry

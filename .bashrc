@@ -96,8 +96,8 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-if [ -f ~/.bash_aliases2 ]; then                                                 
-        . ~/.bash_aliases2
+if [ -f ~/.bash_local ]; then                                                 
+        . ~/.bash_local
 fi
 
 
