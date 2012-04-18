@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/network/dev/lionel/app/tests/library'
 let g:netrw_dirhist_2='/network/dev/lionel/app/tests/library/Selenium'
 let g:netrw_dirhist_3='/network/dev/lionel/app/tests/library'
 let g:netrw_dirhist_4='/network/dev/lionel/app/tests/library/Selenium'
 let g:netrw_dirhist_5='/network/dev/lionel/app/tests/library/Selenium/Signup'
 let g:netrw_dirhist_6='/network/dev/lionel/app/public'
+let g:netrw_dirhist_7='/media/dev002/lm/bsbcm/trunk/.bzr/repository'

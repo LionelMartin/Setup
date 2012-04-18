@@ -318,7 +318,7 @@ func! PhpDocFunc()
 		exe l:txtBOL . g:pdv_cfg_Commentn . "@param" . l:paramtype . " $" . l:paramname . " " . g:pdv_cfg_EOL
 	endwhile
     
-    if l:paramname != ""
+    if l:parameters != ""
         exe l:txtBOL . g:pdv_cfg_Commentn . g:pdv_cfg_EOL
     endif
 
