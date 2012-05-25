@@ -186,8 +186,10 @@ autocmd VimLeavePre * mksession! ~/.vim/Session.vim
 try
     if MySys() == "windows"
       set undodir=C:\Windows\Temp
+      set clipboard=unnamed
     else
       set undodir=~/.vim/undodir
+      set clipboard=unnamedplus
     endif
     set undofile
 catch
@@ -225,6 +227,9 @@ noremap <silent> <F5> :CommandT<CR>
 " jump to tag
 noremap <silent> <F6> :CommandTTag<CR>
 
+silent execute '!mkdir "'.$HOME.'/.vim_temp"'
+set backupdir=$HOME/.vim_temp//
+set directory=$HOME/.vim_temp//
 "local vimrc (not in synchro)
 if filereadable("~/.vim/vimrc.local")
         source ~/.vim/vimrc.local

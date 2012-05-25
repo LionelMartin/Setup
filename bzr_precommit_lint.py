@@ -10,6 +10,7 @@
 
 import os
 from bzrlib.branch import Branch
+from bzrlib import errors
 
 GREEN = '\033[32m'
 RED = '\033[31m'
@@ -18,10 +19,19 @@ BOLD = '\033[1m'
 
 def check_syntax(local, master, old_revno, old_revid, future_revno, future_revid, tree_delta, future_tree):
     import commands,py_compile
-    from bzrlib import errors
     from bzrlib import urlutils
-    BASE_PATH = urlutils.local_path_from_url(master.base)
-    errors = False
+    if local:
+        BASE_PATH = urlutils.local_path_from_url(local.base)
+    else:
+        path = os.getcwd()
+        idx = path.find('trunk')
+        #not commiting on trunk => probably shouldn't run tests
+        if idx < 1: 
+            print 'Current branch is not trunk, bypassing precommit'
+            return True
+        BASE_PATH = path[0:idx + 6]
+    
+    errorsFound = False
     messages = []
     for i in tree_delta.added + tree_delta.modified:
         if i[0].find('.') == -1: 
@@ -43,24 +53,57 @@ def check_syntax(local, master, old_revno, old_revid, future_revno, future_revid
             if ext == 'php':
                 (rc,mess) = commands.getstatusoutput("grep -e '^[=|<|>]{7}' %s"%file)
                 if mess != '':
-                    errors = True
-                    messages.append("Conflict not resolved in %s"%file)
+                    errorsFound = True
+                    messages.append("/!\\ Conflict not resolved in %s /!\\"%file)
                 (rc,mess) = commands.getstatusoutput("php -l %s | grep 'Parse error'"%file)
                 if mess != '': 
-                    messages.append('[php lint] %s'%mess)
-                    errors = True
+                    messages.append('[php lint] -----------\n%s\n----------------'%mess)
+                    errorsFound = True
                 (rc,mess) = commands.getstatusoutput("phpcs --report=emacs --standard=blogSpirit %s"%file)
                 if mess != '':
-                    if 'ERROR' in mess:
-                        errors = True
-                    messages.append('[phpcs] %s'%mess)
+                    if 'error' in mess:
+                        errorsFound = True
+                    messages.append('[phpcs] --------------\n%s\n----------------'%mess)
                 (rc, mess) = commands.getstatusoutput("phpmd %s text ~/bs/phpmd.xml"%file)
-                messages.append('[phpmd] %s'%mess)
+                if mess != '':
+                    messages.append('[phpmd] --------------\n%s\n----------------'%mess)
                 break
-    if errors:
-        print '\n%s%s%s%s'%(BOLD,RED,'\n'.join(messages),RESET)
-        raise errors.BzrError("Commit aborted because pre-commit failed. You can do better :p")
+    messages = '\n'.join(messages)
+    if errorsFound:
+        gui = os.system("ps aux |grep %s |grep -v grep| grep 'bzr qsubprocess --bencode'"%os.getpid())
+        msg_info = "Pre commit checks failed\n%s"%messages
+        msg_continue = "Are you really sure you want to commit anyway ? (y/n)"
+        msg_error = "Pre commit checks failed."
+        if gui == 0:
+            gui_dialog(msg_info, msg_continue, msg_error)
+        else:
+            cmdline_input(msg_info, msg_continue, msg_error)
+
     else:
-        print '\n%s%s\nPhp code is ok :)%s'%(BOLD,GREEN,RESET)
+        print messages
+        print 'Code is good enough :)'
         
 Branch.hooks.install_named_hook('pre_commit', check_syntax,'Pre-commit')
+## Create a dialog Window bleh
+def gui_dialog(msg_info, msg_continue, msg_error):
+       import gtk
+       label = gtk.Label(msg_info)
+       dialog = gtk.Dialog(msg_continue, None, 0, (gtk.STOCK_YES, gtk.RESPONSE_YES, gtk.STOCK_NO, gtk.RESPONSE_NO))
+       dialog.vbox.pack_start(label)
+       label.show()
+       response = dialog.run()
+       dialog.destroy()
+       while gtk.events_pending():
+           gtk.main_iteration(False)
+           if response == gtk.RESPONSE_YES:
+               break
+           elif response == gtk.RESPONSE_NO:
+               raise errors.BzrError(msg_error)
+
+## Cmd line input
+def cmdline_input(msg_info, msg_continue, msg_error):
+    print msg_info
+    var = raw_input(msg_continue)
+    if var.lower() != "y":
+        raise errors.BzrError(msg_error)
+

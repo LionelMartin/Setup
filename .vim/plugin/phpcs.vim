@@ -9,7 +9,7 @@ endfunction
 
 function! RunPhpmd()
     let l:filename=@%
-    let l:phpmd_output=system('phpmd '.l:filename.' text unusedcode,codesize,naming')
+    let l:phpmd_output=system('phpmd '.l:filename.' text ~/bs/phpmd.xml')
     let l:phpmd_list=split(l:phpmd_output, "\n")
     unlet l:phpmd_list[0]
     cexpr l:phpmd_list
