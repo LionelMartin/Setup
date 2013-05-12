@@ -1,0 +1,187 @@
+#!/bin/bash
+# This hook do some checks before committing
+
+if [ $DISABLED_PREC ] ; then
+    exit 0;
+fi
+
+if git-rev-parse --verify HEAD 2>/dev/null >/dev/null; then
+  against=HEAD
+else
+  # Initial commit: diff against an empty tree object
+  against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+# -- some variables / const init
+VERT="\\033[1;32m"
+NORMAL="\\033[0;39m"
+ROUGE="\\033[1;31m"
+current_status=0
+final_status=0
+
+
+# -- Find files with trailing whitespace / convert tab to spaces 
+echo -e "$NORMAL" "\nREMOVING TRALING SPACES AND CONVERT TABs TO SPACES...\n"
+for FILE in `exec git diff-index --cached --name-only $against | grep "\.php\|.phtml\|\.js\|\.css" | sed '/^[+-]/d' | sed -r 's/:[0-9]+:.*//' | uniq` ; do
+   # Fix them!
+    echo -e "$NORMAL" "PARSE " "$FILE"   
+   sed -i 's/\t/    /g' "$FILE"   
+   sed -i 's/[[:space:]]*$//' "$FILE"
+   sed -i 's/^M$//' "$FILE"
+   git add "$FILE" 
+done
+
+
+# -- Php parsing to check parse errors
+for f in `git diff-index --cached --name-only $against | grep -e '\.php$'`; do
+  if [ -f $f ]; then
+    php -l $f
+    if [ $? -gt 0 ]; then
+      current_status=1
+    fi
+  fi
+done
+if [ $current_status -eq 0 ]; then
+    echo -e "$VERT" "PHP PARSING (php -l) : OK" "$NORMAL"
+else
+    echo -e "$ROUGE" "PHP PARSING (php -l) : KO" "$NORMAL"
+    final_status=1
+fi
+current_status=0
+
+# -- check if unsolved conflict
+for f in `git diff-index --cached --name-only $against | grep -e '[php|js|css|ini|phtml]$' | grep -v 'No such file or directory'`; do
+  conflict_unsolved=$(grep -e '^[=|<|>]\{7\}' $f)
+  if [ -n  "$conflict_unsolved" ]; then
+    echo $f
+    current_status=1
+  fi
+done
+if [ $current_status -eq 0 ]; then
+    echo -e "$VERT" "CHECK GIT UNSOLVED CONFLICT : OK" "$NORMAL"
+else
+    echo -e "$ROUGE" "CHECK GIT UNSOLVED CONFLICT : KO" "$NORMAL"
+    final_status=1
+fi
+current_status=0
+
+
+# -- Test with php code sniffer (excluding tests/ folder)
+for f in `git diff-index --cached --name-only $against | grep -E '\.(php|css)$' | grep -v tests | grep -v others | grep -v externals| grep -v ZFDebug| grep -v "Mo/Ext/View/Helper" `; do
+  if [ -f $f ]; then
+    return_phpcs=$(phpcs --standard=Mo $f)
+    errors_phpcs=$(echo "$return_phpcs" | grep ' ERROR ')
+    warning_phpcs=$(echo "$return_phpcs" | grep ' WARNING ')
+    # ERREUR : on rejette
+    if [ -n "$errors_phpcs" ]; then
+      echo "$return_phpcs"
+      current_status=1
+    fi
+    # WARNING : on accepte mais on affiche
+    if [ -n "$warnings_phpcs" ]; then
+      echo "$return_phpcs"
+    fi
+
+  fi
+done
+if [ $current_status -eq 0 ]; then
+    if [ -n "$return_phpcs" ]; then
+        echo "$return_phpcs"
+    fi
+    echo -e "$VERT" "PHPCS : OK" "$NORMAL"
+else
+    echo -e "$ROUGE" "PHPCS : KO" "$NORMAL"
+    final_status=1
+fi
+current_status=0
+
+# -- Test with js lint (only common* and bymodule files)
+for f in `git diff-index --cached --name-only $against | grep -e 'media/js/.*\.js$' | grep -E 'Mo|bymodule|common' `; do
+  if [ -f $f ]; then
+    return_jslint=$(rhino externals/jslint.js $f)
+    errors_jslint=$(echo "$return_jslint" | grep -A 1 'Lint ')
+    # ERREUR : on rejette
+    if [ -n "$errors_jslint" ]; then
+      echo "Error on file: " "$f"
+      echo "$return_jslint"
+      current_status=1
+    fi
+  fi
+done
+if [ $current_status -eq 0 ]; then
+    if [ -n "$return_jslint" ]; then
+        echo "$return_jslint"
+    fi
+    echo -e "$VERT" "JSLINT : OK" "$NORMAL"
+else
+    echo -e "$ROUGE" "JSLINT : KO" "$NORMAL"
+    final_status=1
+fi
+current_status=0
+
+# -- Test if fast track allowed
+diff_plus=$(git diff --cached HEAD application/ library/ tests/ public/media/js bin/ nodejs/ others/ sql/ | grep '^+' |grep -v '^+++' | wc -l)
+diff_moins=$(git diff --cached HEAD application/ library/ tests/ public/media/js bin/ nodejs/ others/ sql/ | grep '^\-' |grep -v '\-\-\-' | wc -l)
+
+if [ $diff_plus -gt $diff_moins ] ; then
+    diff_max=$diff_plus
+else
+    diff_max=$diff_moins
+fi
+if [ $diff_max -gt 30 ] ; then
+    echo -e  "NORMAL PROCESS"
+else
+    echo -e  "FAST TRACK ALLOWED"
+fi
+
+# -- execution of all phpunit test on MoFramework
+errors_phpunit=$(phpunit --tap tests/library/TestMo/AllTests.php  | grep "^not ok")
+if [ -n "$errors_phpunit" ]; then
+    echo "PHPUNIT : KO"
+    echo "$errors_phpunit"
+    current_status=1
+fi
+if [ $current_status -eq 0 ]; then
+    echo -e "$VERT" "PHPUNIT : OK" "$NORMAL"
+else
+    echo -e "$ROUGE" "PHPUNIT : KO" "$NORMAL"
+    final_status=1
+fi
+current_status=0
+
+# -- execution of all phpunit test on Soft
+if [ -f "tests/Soft/AllTests.php" ]; then
+    errors_phpunit=$(phpunit --tap --bootstrap tests/bootstrap.php tests/Soft/AllTests.php  | grep -i "^not ok\|fatal")
+    if [ -n "$errors_phpunit" ]; then
+        echo "PHPUNIT SOFT : KO"
+        echo "$errors_phpunit"
+        current_status=1
+    fi
+    if [ $current_status -eq 0 ]; then
+        echo -e "$VERT" "PHPUNIT SOFT : OK" "$NORMAL"
+    else
+        echo -e "$ROUGE" "PHPUNIT SOFT : KO" "$NORMAL"
+        final_status=1
+    fi
+    current_status=0
+fi
+
+
+# -- check of some metrics on the code
+# errors_phpmd=$(externals/phpmd/phpmd.php library/Mo/ text externals/phpmd/rulesets/codesize.xml && externals/phpmd/phpmd.php application/ text externals/phpmd/rulesets/codesize.xml)
+# if [ -n "$errors_phpmd" ]; then
+#     echo "$errors_phpmd"
+#     current_status=1
+# fi
+# if [ $current_status -eq 0 ]; then
+#     echo -e "$VERT" "PHPMD : OK" "$NORMAL"
+# else
+#     echo -e "$ROUGE" "PHPMD : KO" "$NORMAL"
+#     final_status=1
+# fi
+# current_status=0
+
+if [ $final_status -eq 1 ]; then
+    echo -e "$ROUGE" "commit failed, check your code" "$NORMAL"
+fi
+exit $final_status
