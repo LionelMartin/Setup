@@ -2,6 +2,7 @@
 let g:indent_guides_enable_on_vim_startup=0
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_php_checkers=['php', 'phpcs']
+let g:sessiondir= $HOME."./vim/sessions"
 
 " start out files with all folds opened
 autocmd Syntax * normal zR
@@ -15,10 +16,20 @@ colorscheme molokai
 " save session on exit and restore it on load
 function! RestoreSession()
     if argc() == 0 "vim called without arguments
-        execute 'source ~/.vim/Session.vim'
-    end
+        let file=g:sessiondir.'autosave_session.vim'
+        if filereadable(file)
+            execute 'source '.file
+        endif
+    endif
 endfunction
-
+function! SaveSession()
+    if argc() == 0 "vim called without arguments
+        if !isdirectory(g:sessiondir)
+            call mkdir(g:sessiondir, "p")
+        endif
+        execute "mksession! ".g:sessiondir."autosave_session.vim"
+    endif
+endfunction
 "gestion lignes trop longues
 hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
 match OverLength /\%160v.*/
@@ -28,5 +39,5 @@ match OverLength /\%160v.*/
 map <leader>cd :cd %:p:h<cr>
 
 autocmd VimEnter * nested call RestoreSession()
-autocmd VimLeavePre * mksession! ~/.vim/Session.vim
+autocmd VimLeavePre * call SaveSession()
 
