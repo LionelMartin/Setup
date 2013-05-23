@@ -1,8 +1,5 @@
 #!/bin/bash
-git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
-alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
-homeshick clone LionelMartin/Setup
-homeshick clone robbyrussell/oh-my-zsh
+
 aptget='sudo apt-get'
 chsh='sudo chsh'
 if [ `whoami` = 'root' ]; then
@@ -11,6 +8,12 @@ if [ `whoami` = 'root' ]; then
 fi
 $aptget update
 $aptget install -y zsh exuberant-ctags ack gvim git python fasd
+
+git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
+alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
+homeshick clone LionelMartin/Setup
+homeshick clone robbyrussell/oh-my-zsh
+
 echo "installing spf 13"
 curl http://j.mp/spf13-vim3 -L -o - | sh
 #echo "installing bash it"
