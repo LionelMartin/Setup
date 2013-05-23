@@ -31,8 +31,10 @@ export TODO="t"
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
 # Load Bash It
-source $BASH_IT/bash_it.sh
-if [ -f ~/.liquidprompt/liquidprompt ]; then
-        . ~/.liquidprompt/liquidprompt
+if [-f $BASH_IT/bash_it.sh]; then 
+    source $BASH_IT/bash_it.sh
+fi
+if [ -f $HOME/.liquidprompt/liquidprompt ]; then
+        . $HOME/.liquidprompt/liquidprompt
 fi
 

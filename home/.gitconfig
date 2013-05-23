@@ -1,0 +1,27 @@
+[user]
+	name = Lionel Martin
+    email = renarddesmers@gmail.com
+    editor = vim
+
+[core]
+    autocrlf = input
+    pager = /usr/bin/less
+[merge]
+    tool = lvimdiff
+[mergetool "lvimdiff"]
+    cmd = "vim -d -c 'wincmd J' $MERGED $LOCAL $BASE $REMOTE"
+[diff]
+    tool = vimdiff
+[color]
+    ui = auto
+[github]
+	user = LionelMartin
+	token = 2f32b1e8aa40edf581e1abc0c591bff7
+[alias]
+    st = status
+    df = diff
+    co = checkout
+    ci = commit
+    br = branch
+[push]
+	default = matching

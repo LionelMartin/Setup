@@ -73,7 +73,7 @@ export TERM=xterm-256color
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -92,14 +92,14 @@ fi
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_profile ]; then
-    . ~/.bash_profile
+if [ -f $HOME/.bash_profile ]; then
+    . $HOME/.bash_profile
 fi
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi
-if [ -f ~/.bash_local ]; then
-        . ~/.bash_local
+if [ -f $HOME/.bash_local ]; then
+        . $HOME/.bash_local
 fi
 
 

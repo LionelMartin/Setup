@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 alias vi='vim'
 alias sshdev='ssh lionel@dev'
 alias big_dirs='du -xk | sort -n | tail -20'
@@ -10,4 +8,5 @@ alias vim='vim -T xterm-256color'
 
 alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 alias gitcheck="python $HOME/Applications/gitcheck/gitcheck.py"
+alias clean_vim="rm $HOME/.vimswap/*"
 

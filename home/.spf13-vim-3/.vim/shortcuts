@@ -1,0 +1,39 @@
+# vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+# Editor {
+
+gt gT = switch tabs
+,/ = switch search highlight
+cd. = change to directory of current file
+w!! = sudo write
+%% = directory of current file (:tabe %%, :e %% ...)
+,ff = list all occurrences of word and jump to it
+# }
+
+# Plugins {
+
+Ctrl-e = open Nerd Tree
+,e = Nerd Tree Find
+
+,c<space> = comment (help :NERDCommenter)
+
+ds" = delete surrounding "
+cs]) = change []] to ()
+ysW( = add () to the current word :help surround
+
+,a[char] = tab-align to character
+
+,sl = list sessions
+,ss = save session
+
+Ctrl-p = ouverture rapide d'un fichier
+
+Ctrl-] = jump to definition
+,tt = ouvre la liste des symboles
+
+,g[action] :Git [action] :G[action] = action git
+
+,u = undo tree
+
+,,w = quick move to word
+,,f[char] = quick move to char
+# }

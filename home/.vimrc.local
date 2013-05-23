@@ -4,7 +4,7 @@ let g:syntastic_python_checkers=['flake8']
 let g:syntastic_php_checkers=['php', 'phpcs']
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
-
+let g:spf13_no_autochdir = 1 "do not change vim directory to current file
 " start out files with all folds opened
 autocmd Syntax * normal zR
 let g:DisableAutoPHPFolding = 1
@@ -40,5 +40,6 @@ match OverLength /\%160v.*/
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
+map :Shortcut :vsp $HOME.".vim/shortcuts"<cr>
 
 
