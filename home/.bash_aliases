@@ -9,4 +9,5 @@ alias vim='vim -T xterm-256color'
 alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 alias gitcheck="python $HOME/Applications/gitcheck/gitcheck.py"
 alias clean_vim="rm $HOME/.vimswap/*"
+alias t="$HOME/.homesick/repos/Setup/todo.txt_cli/todo.sh -d $HOME/.homesick/repos/Setup/todo.txt_cli/todo.cfg"
 
