@@ -1,8 +1,7 @@
 [user]
-	name = Lionel Martin
+    name = "Lionel Martin"
     email = renarddesmers@gmail.com
     editor = vim
-
 [core]
     autocrlf = input
     pager = /usr/bin/less
@@ -15,8 +14,8 @@
 [color]
     ui = auto
 [github]
-	user = LionelMartin
-	token = 2f32b1e8aa40edf581e1abc0c591bff7
+    user = LionelMartin
+    token = 2f32b1e8aa40edf581e1abc0c591bff7
 [alias]
     st = status
     df = diff
@@ -24,4 +23,4 @@
     ci = commit
     br = branch
 [push]
-	default = matching
+    default = matching
