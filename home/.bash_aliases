@@ -11,3 +11,4 @@ alias gitcheck="python $HOME/Applications/gitcheck/gitcheck.py"
 alias clean_vim="rm $HOME/.vimswap/*"
 alias t="$HOME/.homesick/repos/Setup/todo.txt_cli/todo.sh -d $HOME/.homesick/repos/Setup/todo.txt_cli/todo.cfg"
 
+gitcheck='python ~/Applications/gitcheck/gitcheck.py'

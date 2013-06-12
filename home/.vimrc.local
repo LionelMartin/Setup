@@ -5,6 +5,13 @@ let g:syntastic_php_checkers=['php', 'phpcs']
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
+let g:spf13_no_views = 1
+
+let g:snips_author = 'Lionel Martin'
+let g:snips_email = 'martin.lionel01@free.fr'
+let g:snips_github = 'https://github.com/LionelMartin/'
+
+
 " start out files with all folds opened
 autocmd Syntax * normal zR
 let g:DisableAutoPHPFolding = 1
@@ -41,5 +48,23 @@ match OverLength /\%160v.*/
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
 map :Shortcut :vsp $HOME.".vim/shortcuts"<cr>
+
+" removing useless plugins (use :BundleClean after)
+let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'python', 'twig', 'javascript', 'html', 'misc']
+UnBundle 'myusuf3/numbers.vim'
+UnBundle 'honza/vim-snippets'
+
+map <F3> :NERDTreeTabsToggle<CR>:NERDTreeMirrorOpen<CR>
+map <F4> :TagBarToggle<CR>
+
+
+
+" Use work version of vimrc if available {
+    if filereadable(expand("~/.vimrc.local.work"))
+        source ~/.vimrc.local.work
+    endif
+" }
+
+
 
 

@@ -36,4 +36,10 @@ Ctrl-] = jump to definition
 
 ,,w = quick move to word
 ,,f[char] = quick move to char
+
+Ctrl-k = asks for snippets
+Shift-k = php doc
+
+cr(s-m-c-u) Change to snake_case, MixedCase, camelCase, UPPERCASE
+
 # }
