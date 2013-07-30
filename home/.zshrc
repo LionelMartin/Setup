@@ -55,3 +55,6 @@ fi
 homeshick --quiet refresh
 
 # Customize to your needs...
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

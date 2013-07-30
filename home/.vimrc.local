@@ -44,17 +44,22 @@ autocmd VimLeavePre * call SaveSession()
 hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
 match OverLength /\%160v.*/
 
+"please no barbarian autocomplete, i'm going crazy
+au! CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
-map :Shortcut :vsp $HOME.".vim/shortcuts"<cr>
+map :Shortcut :vsp $HOME."/.vim/shortcuts"<cr>
 
 " removing useless plugins (use :BundleClean after)
 let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'python', 'twig', 'javascript', 'html', 'misc']
 UnBundle 'myusuf3/numbers.vim'
 UnBundle 'honza/vim-snippets'
 
-map <F3> :NERDTreeTabsToggle<CR>:NERDTreeMirrorOpen<CR>
+let NERDTreeShowHidden=0
+let NERDTreeQuitOnOpen=0
+
+map <F3> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 map <F4> :TagBarToggle<CR>
 
 
