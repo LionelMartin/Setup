@@ -11,4 +11,8 @@ alias gitcheck="python $HOME/Applications/gitcheck/gitcheck.py"
 alias clean_vim="rm $HOME/.vimswap/*"
 alias t="$HOME/.homesick/repos/Setup/todo.txt_cli/todo.sh -d $HOME/.homesick/repos/Setup/todo.txt_cli/todo.cfg"
 
-gitcheck='python ~/Applications/gitcheck/gitcheck.py'
+alias gitcheck='python ~/Applications/gitcheck/gitcheck.py'
+alias nginxerr="tail /var/log/nginx/error.log"
+alias mongoerr="tail /var/log/mongodb/mongodb.log"
+alias sfxerr="tail /var/www/sticker/data/logs/application.log"
+

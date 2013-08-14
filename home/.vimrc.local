@@ -2,6 +2,7 @@
 let g:indent_guides_enable_on_vim_startup=0
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_php_phpcs_args="--standard=Zend"
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
@@ -60,16 +61,19 @@ let NERDTreeShowHidden=0
 let NERDTreeQuitOnOpen=0
 
 map <F3> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-map <F4> :TagBarToggle<CR>
+map <F4> :TagbarToggle<CR>
 
+if has('gui_running')
+    set guioptions+=T
+endif
 
+set tags=./tags;/,~/.vimtags,./.git/tags
 
 " Use work version of vimrc if available {
     if filereadable(expand("~/.vimrc.local.work"))
         source ~/.vimrc.local.work
     endif
 " }
-
 
 
 
