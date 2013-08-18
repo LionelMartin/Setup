@@ -2,6 +2,7 @@
 let g:indent_guides_enable_on_vim_startup=0
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_javascript_checkers=['jshint']
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
@@ -56,10 +57,11 @@ let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'py
 UnBundle 'myusuf3/numbers.vim'
 UnBundle 'honza/vim-snippets'
 
+
 let NERDTreeShowHidden=0
 let NERDTreeQuitOnOpen=0
 
-map <F3> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+map <F3> :NERDTreeTabsToggle<CR>
 map <F4> :TagBarToggle<CR>
 
 
