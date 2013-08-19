@@ -1,5 +1,4 @@
 alias vi='vim'
-alias sshdev='ssh lionel@dev'
 alias big_dirs='du -xk | sort -n | tail -20'
 alias cable_plugged='mii-tool eth0'
 alias open_ports='netstat -ntauple'
@@ -12,7 +11,5 @@ alias clean_vim="rm $HOME/.vimswap/*"
 alias t="$HOME/.homesick/repos/Setup/todo.txt_cli/todo.sh -d $HOME/.homesick/repos/Setup/todo.txt_cli/todo.cfg"
 
 alias gitcheck='python ~/Applications/gitcheck/gitcheck.py'
-alias nginxerr="tail /var/log/nginx/error.log"
-alias mongoerr="tail /var/log/mongodb/mongodb.log"
-alias sfxerr="tail /var/www/sticker/data/logs/application.log"
-
+alias log_nginx="tail /var/log/nginx/error.log"
+alias log_mongo="tail /var/log/mongodb/mongodb.log"
