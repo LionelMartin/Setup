@@ -19,6 +19,7 @@
     co = checkout
     ci = commit
     br = branch
+    uncommit = reset --soft HEAD^
 [push]
     default = matching
 [credential]
