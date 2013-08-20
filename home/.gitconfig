@@ -1,6 +1,6 @@
 [user]
-    name = "Lionel Martin"
-    email = renarddesmers@gmail.com
+	name = Lionel Martin
+	email = lionel@stickyads.tv
     editor = vim
 [core]
     autocrlf = input
@@ -13,9 +13,6 @@
     tool = vimdiff
 [color]
     ui = auto
-[github]
-    user = LionelMartin
-    token = 2f32b1e8aa40edf581e1abc0c591bff7
 [alias]
     st = status
     df = diff
@@ -24,3 +21,7 @@
     br = branch
 [push]
     default = matching
+[credential]
+    helper = cache
+[include]
+    path= ~/.gitconfig.local
