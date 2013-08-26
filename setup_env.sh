@@ -14,7 +14,7 @@ alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 homeshick clone LionelMartin/Setup
 homeshick clone robbyrussell/oh-my-zsh
 
-echo "installing spf 13"
+echo "installing spf 13 - probably will not work from within a script"
 curl http://j.mp/spf13-vim3 -L -o - | sh
 #echo "installing bash it"
 #git clone http://github.com/revans/bash-it.git ~/.bash_it && ~/.bash_it/install.sh
