@@ -62,7 +62,7 @@ UnBundle 'honza/vim-snippets'
 let NERDTreeShowHidden=0
 let NERDTreeQuitOnOpen=0
 
-map <F3> :NERDTreeTabsToggle<CR>
+map <F3> :NERDTreeToggle<CR>
 map <F4> :TagBarToggle<CR>
 
 if has('gui_running')
