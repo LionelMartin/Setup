@@ -20,9 +20,12 @@
     ci = commit
     br = branch
     uncommit = reset --soft HEAD^
+	ctags = !.git/hooks/ctags
 [push]
     default = matching
 [credential]
     helper = cache
 [include]
     path= ~/.gitconfig.local
+[init]
+	templatedir = ~/.git_template
