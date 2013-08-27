@@ -17,7 +17,8 @@ let g:snips_github = 'https://github.com/LionelMartin/'
 " start out files with all folds opened
 autocmd Syntax * normal zR
 let g:DisableAutoPHPFolding = 1
-
+" disables hiddden, I use tabs
+set nohidden
 set guifont=Droid\ Sans\ Mono\ 10
 colorscheme molokai
 
