@@ -13,6 +13,10 @@ let g:snips_author = 'Lionel Martin'
 let g:snips_email = 'martin.lionel01@free.fr'
 let g:snips_github = 'https://github.com/LionelMartin/'
 
+let php_sql_query = 0
+let php_html_in_strings = 0
+let php_folding = 0
+
 
 " start out files with all folds opened
 autocmd Syntax * normal zR
@@ -64,7 +68,7 @@ let NERDTreeShowHidden=0
 let NERDTreeQuitOnOpen=0
 
 map <F3> :NERDTreeToggle<CR>
-map <F4> :TagBarToggle<CR>
+map <F4> :TagbarToggle<CR>
 
 if has('gui_running')
     set guioptions+=T
