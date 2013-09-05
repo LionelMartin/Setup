@@ -8,10 +8,13 @@ let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
 let g:spf13_no_views = 1
+let g:airline_theme="molokai"
 
 let g:snips_author = 'Lionel Martin'
 let g:snips_email = 'martin.lionel01@free.fr'
 let g:snips_github = 'https://github.com/LionelMartin/'
+
+set noswapfile
 
 let php_sql_query = 0
 let php_html_in_strings = 0
@@ -19,10 +22,12 @@ let php_folding = 0
 
 
 " start out files with all folds opened
-autocmd Syntax * normal zR
 let g:DisableAutoPHPFolding = 1
+
 " disables hiddden, I use tabs
 set nohidden
+set bufhidden="delete"
+
 set guifont=Droid\ Sans\ Mono\ 10
 colorscheme molokai
 
@@ -49,7 +54,7 @@ autocmd VimLeavePre * call SaveSession()
 
 "gestion lignes trop longues
 hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
-match OverLength /\%160v.*/
+match OverLength /\%120v.*/
 
 "please no barbarian autocomplete, i'm going crazy
 au! CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -73,8 +78,6 @@ map <F4> :TagbarToggle<CR>
 if has('gui_running')
     set guioptions+=T
 endif
-
-set tags=./tags;/,~/.vimtags,./.git/tags
 
 " Use work version of vimrc if available {
     if filereadable(expand("~/.vimrc.local.work"))
