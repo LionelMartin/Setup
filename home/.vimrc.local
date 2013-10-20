@@ -11,8 +11,8 @@ let g:sessionfile= g:sessiondir."/autosave_session.vim"
 
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
 let g:spf13_no_views = 1
-
-let g:airline_theme="molokai"
+"let g:airline_theme="molokai"
+let g:airline#extensions#tabline#enabled = 1
 
 let g:snips_author = 'Lionel Martin'
 let g:snips_email = 'martin.lionel01@free.fr'
@@ -20,17 +20,15 @@ let g:snips_github = 'https://github.com/LionelMartin/'
 
 set noswapfile
 
+set relativenumber
+set number
+
 let php_sql_query = 0
 let php_html_in_strings = 0
 let php_folding = 0
 
-
 " start out files with all folds opened
 let g:DisableAutoPHPFolding = 1
-
-" disables hiddden, I use tabs
-set nohidden
-set bufhidden="delete"
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
 colorscheme molokai
@@ -53,8 +51,8 @@ function! SaveSession()
     endif
 endfunction
 
-autocmd VimEnter * nested call RestoreSession()
-autocmd VimLeavePre * call SaveSession()
+"autocmd VimEnter * nested call RestoreSession()
+"autocmd VimLeavePre * call SaveSession()
 
 "gestion lignes trop longues
 hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
@@ -67,10 +65,12 @@ au! CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 map <leader>cd :cd %:p:h<cr>
 map :Shortcut :vsp $HOME."/.vim/shortcuts"<cr>
 
-" removing useless plugins (use :BundleClean after)
-UnBundle 'myusuf3/numbers.vim'
-UnBundle 'honza/vim-snippets'
+" move easily through buffers
+map <C-h> :bp<cr>
+map <C-l> :bn<cr>
 
+UnBundle 'honza/vim-snippets'
+UnBundle 'myusuf3/numbers.vim'
 
 let NERDTreeShowHidden=0
 let NERDTreeQuitOnOpen=0
@@ -78,15 +78,12 @@ let NERDTreeQuitOnOpen=0
 map <F3> :NERDTreeToggle<CR>
 map <F4> :TagbarToggle<CR>
 
-if has('gui_running')
-    set guioptions+=T
-endif
+"if has('gui_running')
+    "set guioptions+=T
+"endif
 
 " Use work version of vimrc if available {
     if filereadable(expand("~/.vimrc.local.work"))
         source ~/.vimrc.local.work
     endif
 " }
-
-
-
