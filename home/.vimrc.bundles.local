@@ -1,6 +1,6 @@
 let g:spf13_no_autochdir = 1 "no autochange to current dir
 let g:skeletons_dir = "$HOME/.vim/bundle/vim-skeleton-files"
-Bundle "tobyS/skeletons.vim"
-Bundle "LionelMartin/vim-skeleton-files"
+let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'python', 'twig', 'javascript', 'html', 'misc']
+
 Bundle "LionelMartin/vim-snippets"
 Bundle "marijnh/tern_for_vim"

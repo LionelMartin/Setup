@@ -1,13 +1,17 @@
 "disable indent guides
 let g:indent_guides_enable_on_vim_startup=0
+
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_php_checkers=['php', 'phpcs']
 let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_php_phpcs_args="--standard=Zend"
+
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
+
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
 let g:spf13_no_views = 1
+
 let g:airline_theme="molokai"
 
 let g:snips_author = 'Lionel Martin'
@@ -28,7 +32,7 @@ let g:DisableAutoPHPFolding = 1
 set nohidden
 set bufhidden="delete"
 
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
 colorscheme molokai
 
 " save session on exit and restore it on load
@@ -64,7 +68,6 @@ map <leader>cd :cd %:p:h<cr>
 map :Shortcut :vsp $HOME."/.vim/shortcuts"<cr>
 
 " removing useless plugins (use :BundleClean after)
-let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'python', 'twig', 'javascript', 'html', 'misc']
 UnBundle 'myusuf3/numbers.vim'
 UnBundle 'honza/vim-snippets'
 
