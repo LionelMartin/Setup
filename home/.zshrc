@@ -46,7 +46,7 @@ plugins=(colored-man debian cp django extract git gitfast github last-working-di
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
-
+source $HOME/.homesick/repos/homeshick/homeshick.sh
 
 if [ -f $HOME/.bash_local ]; then
         source $HOME/.bash_local
