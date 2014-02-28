@@ -7,7 +7,7 @@ let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_php_phpcs_args="--standard=Zend --config-set report_width 120"
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
-let g:pdv_cfg_foldmarker = 0
+let g:pdv_cfg_foldmarker = 0 "disabled fold markers around function docs
 let g:spf13_no_autochdir = 1 "do not change vim directory to current file
 let g:spf13_no_views = 1
 "let g:airline_theme="molokai"
@@ -25,9 +25,10 @@ set number
 let php_sql_query = 0
 let php_html_in_strings = 0
 let php_folding = 0
-
+let g:pdv_cfg_php4always = 0 "do not display old @access doc string
 " start out files with all folds opened
 let g:DisableAutoPHPFolding = 1
+let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
 colorscheme molokai
@@ -71,8 +72,8 @@ map <C-l> :bn<cr>
 UnBundle 'honza/vim-snippets'
 UnBundle 'myusuf3/numbers.vim'
 
-let NERDTreeShowHidden=0
-let NERDTreeQuitOnOpen=0
+"let NERDTreeShowHidden=0
+"let NERDTreeQuitOnOpen=0
 
 map <F3> :NERDTreeToggle<CR>
 map <F4> :TagbarToggle<CR>
