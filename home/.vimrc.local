@@ -12,6 +12,7 @@ let g:spf13_no_autochdir = 1 "do not change vim directory to current file
 let g:spf13_no_views = 1
 "let g:airline_theme="molokai"
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 let g:snips_author = 'Lionel Martin'
 let g:snips_email = 'martin.lionel01@free.fr'
@@ -21,6 +22,8 @@ set noswapfile
 
 set relativenumber
 set number
+
+set nofoldenable
 
 let php_sql_query = 0
 let php_html_in_strings = 0
