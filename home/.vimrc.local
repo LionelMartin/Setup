@@ -17,13 +17,24 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:snips_author = 'Lionel Martin'
 let g:snips_email = 'martin.lionel01@free.fr'
 let g:snips_github = 'https://github.com/LionelMartin/'
-
+let tern#is_show_argument_hints_enabled = 1
 set noswapfile
 
 set relativenumber
 set number
 
 set nofoldenable
+
+nnoremap  <up> <nop>
+nnoremap  <down> <nop>
+nnoremap  <left> <nop>
+nnoremap  <right> <nop>
+
+nnoremap <space> <leader>
+
+inoremap jj <Esc>
+
+
 
 let php_sql_query = 0
 let php_html_in_strings = 0
