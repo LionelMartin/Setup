@@ -18,12 +18,15 @@ let g:snips_author = 'Lionel Martin'
 let g:snips_email = 'martin.lionel01@free.fr'
 let g:snips_github = 'https://github.com/LionelMartin/'
 let tern#is_show_argument_hints_enabled = 1
+let g:jsdoc_default_mapping = 0
+
+nnoremap <Leader>jd :JsDoc
 set noswapfile
 
 set relativenumber
 set number
 
-set nofoldenable
+"set nofoldenable
 
 nnoremap  <up> <nop>
 nnoremap  <down> <nop>
@@ -38,10 +41,10 @@ inoremap jj <Esc>
 
 let php_sql_query = 0
 let php_html_in_strings = 0
-let php_folding = 0
+let php_folding = 1
 let g:pdv_cfg_php4always = 0 "do not display old @access doc string
 " start out files with all folds opened
-let g:DisableAutoPHPFolding = 1
+let g:DisableAutoPHPFolding = 0
 let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10

@@ -19,6 +19,11 @@
     co = checkout
     ci = commit
     br = branch
+    ss = stash save
+    sp = stash pop
+    sl = stash list
+    ls =  log --pretty=format:"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]" --decorate --date=short  # pretty one-line log with tags, branches and authors
+    lsv = log --pretty=format:"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]" --decorate --date=short --numstat    # a verbose ls, shows changed files too
     uncommit = reset --soft HEAD^
 	ctags = !.git/hooks/ctags
 [push]
@@ -29,3 +34,5 @@
     path= ~/.gitconfig.local
 [init]
 	templatedir = ~/.git_template
+[help]
+	autocorrect = 1
