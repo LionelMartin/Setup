@@ -290,8 +290,12 @@
     " PHP {
         let g:DisableAutoPHPFolding = 0
         let g:PIVAutoClose = 0
-        unlet php_sql_query
-        unlet php_html_in_strings
+        if exists("php_sql_query")
+            unlet php_sql_query
+        endif
+        if exists("php_html_in_strings")
+            unlet php_html_in_strings
+        endif
         let php_folding = 1
         let g:pdv_cfg_php4always = 0 "do not display old @access doc string
         let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
@@ -455,7 +459,7 @@
     "}
 
         " neocomplcache {
-        elseif count(g:spf13_bundle_groups, 'neocomplcache')
+        if count(g:spf13_bundle_groups, 'neocomplcache')
             let g:acp_enableAtStartup = 0
             let g:neocomplcache_enable_at_startup = 1
             let g:neocomplcache_enable_camel_case_completion = 1
@@ -536,11 +540,12 @@
             let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
             let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
             let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+        endif
     " }
     " Normal Vim omni-completion {
     " To disable omni complete, add the following to your .vimrc.before.local file:
     "   let g:spf13_no_omni_complete = 1
-        elseif !exists('g:spf13_no_omni_complete')
+        if !exists('g:spf13_no_omni_complete')
             " Enable omni-completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
