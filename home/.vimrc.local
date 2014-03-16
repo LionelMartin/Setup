@@ -1,5 +1,5 @@
 "disable indent guides
-let g:indent_guides_enable_on_vim_startup=0
+"let g:indent_guides_enable_on_vim_startup=0
 
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_php_checkers=['php', 'phpcs']
@@ -8,9 +8,7 @@ let g:syntastic_php_phpcs_args="--standard=Zend --config-set report_width 120"
 let g:sessiondir= $HOME."/.vim/sessions"
 let g:sessionfile= g:sessiondir."/autosave_session.vim"
 let g:pdv_cfg_foldmarker = 0 "disabled fold markers around function docs
-let g:spf13_no_autochdir = 1 "do not change vim directory to current file
-let g:spf13_no_views = 1
-"let g:airline_theme="molokai"
+let g:airline_theme="powerlineish"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -19,6 +17,7 @@ let g:snips_email = 'martin.lionel01@free.fr'
 let g:snips_github = 'https://github.com/LionelMartin/'
 let tern#is_show_argument_hints_enabled = 1
 let g:jsdoc_default_mapping = 0
+let g:used_javascript_libs = 'jquery'
 
 nnoremap <Leader>jd :JsDoc
 set noswapfile
@@ -39,12 +38,12 @@ inoremap jj <Esc>
 
 
 
-let php_sql_query = 0
-let php_html_in_strings = 0
+unlet php_sql_query
+unlet php_html_in_strings
 let php_folding = 1
 let g:pdv_cfg_php4always = 0 "do not display old @access doc string
 " start out files with all folds opened
-let g:DisableAutoPHPFolding = 0
+""let g:DisableAutoPHPFolding = 0
 let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
@@ -86,9 +85,6 @@ map :Shortcut :vsp $HOME."/.vim/shortcuts"<cr>
 map <C-h> :bp<cr>
 map <C-l> :bn<cr>
 
-UnBundle 'honza/vim-snippets'
-UnBundle 'myusuf3/numbers.vim'
-
 "let NERDTreeShowHidden=0
 "let NERDTreeQuitOnOpen=0
 
@@ -98,6 +94,10 @@ map <F4> :TagbarToggle<CR>
 "if has('gui_running')
     "set guioptions+=T
 "endif
+
+UnBundle "mhinz/vim-signify"
+UnBundle "bling/vim-bufferline"
+UnBundle "spf13/PIV"
 
 " Use work version of vimrc if available {
     if filereadable(expand("~/.vimrc.local.work"))

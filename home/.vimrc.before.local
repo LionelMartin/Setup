@@ -1,0 +1,9 @@
+let g:airline_powerline_fonts = 1
+let g:spf13_no_easyWindows = 1
+let g:spf13_no_views = 1
+let g:spf13_no_autochdir = 1
+" Use work version of vimrc if available {
+    if filereadable(expand("~/.vimrc.before.local.work"))
+        source ~/.vimrc.before.local.work
+    endif
+" }
