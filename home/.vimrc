@@ -262,7 +262,7 @@
     noremap  <left> <nop>
     noremap  <right> <nop>
 
-    nnoremap <space> <leader>
+    let mapleader = " "
 
     inoremap jj <Esc>
 
