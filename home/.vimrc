@@ -271,7 +271,7 @@
 
     " When pressing <leader>cd switch to the directory of the open buffer
     map <leader>cd :cd %:p:h<cr>
-    map <leader>h :vsp $HOME."/.vim/shortcuts"<cr>
+    map <leader>h :vsp $HOME/.vim/shortcuts<cr>
 
     " move easily through buffers
     map <C-h> :bp<cr>
@@ -280,9 +280,18 @@
     map <F3> :NERDTreeToggle<CR>
     map <F4> :TagbarToggle<CR>
 
-    nnoremap <leader>ev :e $HOME."/.vimrc"<cr>
-    nnoremap <leader>sv source $HOME."/.vimrc"<cr>
+    nnoremap <leader>ev :e $HOME/.vimrc<cr>
+    nnoremap <leader>sv source $HOME/.vimrc<cr>
 
+    "copy/paste from system clipboard
+    vmap <Leader>y "+y
+    vmap <Leader>d "+d
+    nmap <Leader>p "+p
+    nmap <Leader>P "+P
+    vmap <Leader>p "+p
+    vmap <Leader>P "+P
+
+    nnoremap <Leader>w :w<CR>
 " }
 
 " Plugins {
@@ -306,7 +315,7 @@
         let g:NERDShutUp=1
         let b:match_ignorecase = 1
     " }
-    "
+
     " Git Gutter {
         let g:gitgutter_realtime = 0
         let g:gitgutter_eager = 0
@@ -318,7 +327,7 @@
         let g:syntastic_javascript_checkers=['jshint']
         let g:syntastic_php_phpcs_args="--standard=Zend --config-set report_width 120"
     " }
-    
+
     " javascript {
         let tern#is_show_argument_hints_enabled = 1
         let g:used_javascript_libs = 'jquery'
