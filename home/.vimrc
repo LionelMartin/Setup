@@ -218,6 +218,10 @@
     nmap <leader>f8 :set foldlevel=8<CR>
     nmap <leader>f9 :set foldlevel=9<CR>
 
+    "better fold move commands
+    nnoremap zk zk[z
+    nnoremap zK zk
+    nnoremap zJ zj]z
     " Find merge conflict markers
     map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
@@ -274,8 +278,8 @@
     map <leader>h :vsp $HOME."/.vim/shortcuts"<cr>
 
     " move easily through buffers
-    map <C-h> :bp<cr>
-    map <C-l> :bn<cr>
+    nnoremap <C-h> :bp<cr>
+    nnoremap <C-l> :bn<cr>
 
     map <F3> :NERDTreeToggle<CR>
     map <F4> :TagbarToggle<CR>
@@ -299,7 +303,7 @@
         let php_folding = 1
         let g:pdv_cfg_php4always = 0 "do not display old @access doc string
         let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
-
+        let g:pdv_template_dir = $HOME."/.vim/bundle/pdv/templates"
     " }
 
     " Misc {

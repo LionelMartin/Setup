@@ -144,6 +144,7 @@
     " PHP {
         if count(g:spf13_bundle_groups, 'php')
             "Bundle 'spf13/PIV'
+            Bundle 'tobyS/vmustache'
             Bundle 'tobyS/pdv'
             "Bundle 'arnaud-lb/vim-php-namespace'
             Bundle 'StanAngeloff/php.vim'
