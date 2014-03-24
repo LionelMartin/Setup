@@ -68,7 +68,7 @@
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'python', 'javascript', 'html', 'misc']
+        let g:spf13_bundle_groups=['general', 'youcompleteme', 'programming', 'php', 'python', 'javascript', 'html', 'misc']
     endif
 
     " To override all the included bundles, add the following to your
@@ -109,7 +109,10 @@
             Bundle 'godlygeek/tabular'
             Bundle 'airblade/vim-gitgutter'
             Bundle 'jaxbot/github-issues.vim'
-            Bundle 'lionel-sticky/vim-template'
+            Bundle 'tobyS/skeletons.vim'
+            Bundle 'LionelMartin/vim-skeleton-files'
+            let g:skeletons_dir = $HOME"/.vim/bundles/vim-skeletons-files/skeletons/"
+            Bundle 'bkad/CamelCaseMotion'
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
@@ -119,7 +122,7 @@
     " Snippets & AutoComplete {
         if count(g:spf13_bundle_groups, 'snipmate')
             Bundle 'garbas/vim-snipmate'
-            Bundle 'honza/vim-snippets'
+            Bundle 'LionelMartin/vim-snippets'
             " Source support_function.vim to support vim-snippets.
             if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
                 source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
@@ -127,17 +130,17 @@
         elseif count(g:spf13_bundle_groups, 'youcompleteme')
             Bundle 'Valloric/YouCompleteMe'
             Bundle 'SirVer/ultisnips'
-            Bundle 'honza/vim-snippets'
+            Bundle 'LionelMartin/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplcache')
             Bundle 'Shougo/neocomplcache'
             Bundle 'Shougo/neosnippet'
             Bundle 'Shougo/neosnippet-snippets'
-            Bundle 'honza/vim-snippets'
+            Bundle 'LionelMartin/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplete')
             Bundle 'Shougo/neocomplete.vim.git'
             Bundle 'Shougo/neosnippet'
             Bundle 'Shougo/neosnippet-snippets'
-            Bundle 'honza/vim-snippets'
+            Bundle 'LionelMartin/vim-snippets'
         endif
     " }
 
@@ -147,6 +150,7 @@
             Bundle 'tobyS/vmustache'
             Bundle 'tobyS/pdv'
             "Bundle 'arnaud-lb/vim-php-namespace'
+            Bundle 'shawncplus/phpcomplete.vim'
             Bundle 'StanAngeloff/php.vim'
             Bundle 'rayburgemeestre/phpfolding.vim'
             Bundle 'foursking/vim-php-manual'
@@ -192,9 +196,7 @@
             Bundle 'spf13/vim-preview'
         endif
     " }
-
     endif
-
 " }
 
 " Use local bundles config if available {

@@ -245,9 +245,6 @@
     " http://vimcasts.org/e/14
     cnoremap %% <C-R>=expand('%:h').'/'<cr>
     map <leader>ew :e %%
-    map <leader>es :sp %%
-    map <leader>ev :vsp %%
-    map <leader>et :tabe %%
 
     " Adjust viewports to the same size
     map <Leader>= <C-w>=
@@ -275,7 +272,7 @@
 
     " When pressing <leader>cd switch to the directory of the open buffer
     map <leader>cd :cd %:p:h<cr>
-    map <leader>h :vsp $HOME."/.vim/shortcuts"<cr>
+    map <leader>h :vsp $HOME/.vim/shortcuts<cr>
 
     " move easily through buffers
     nnoremap <C-h> :bp<cr>
@@ -284,9 +281,18 @@
     map <F3> :NERDTreeToggle<CR>
     map <F4> :TagbarToggle<CR>
 
-    nnoremap <leader>ev :e $HOME."/.vimrc"<cr>
-    nnoremap <leader>sv source $HOME."/.vimrc"<cr>
+    nnoremap <leader>ev :e $HOME/.vimrc<cr>
+    nnoremap <leader>sv source $HOME/.vimrc<cr>
 
+    "copy/paste from system clipboard
+    vmap <Leader>y "+y
+    vmap <Leader>d "+d
+    nmap <Leader>p "+p
+    nmap <Leader>P "+P
+    vmap <Leader>p "+p
+    vmap <Leader>P "+P
+
+    nnoremap <Leader>w :w<CR>
 " }
 
 " Plugins {
@@ -303,14 +309,16 @@
         let php_folding = 1
         let g:pdv_cfg_php4always = 0 "do not display old @access doc string
         let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
-        let g:pdv_template_dir = $HOME."/.vim/bundle/pdv/templates"
+        let g:phpcomplete_parse_docblock_comments = 1
+        let g:phpcomplete_add_class_extensions = ['mongo']
+        let g:phpcomplete_add_function_extensions = ['mongo']
     " }
 
     " Misc {
         let g:NERDShutUp=1
         let b:match_ignorecase = 1
     " }
-    "
+
     " Git Gutter {
         let g:gitgutter_realtime = 0
         let g:gitgutter_eager = 0
@@ -322,7 +330,7 @@
         let g:syntastic_javascript_checkers=['jshint']
         let g:syntastic_php_phpcs_args="--standard=Zend --config-set report_width 120"
     " }
-    
+
     " javascript {
         let tern#is_show_argument_hints_enabled = 1
         let g:used_javascript_libs = 'jquery'
@@ -439,6 +447,7 @@
 
     " TagBar {
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    "}
 
     " PythonMode {
         " Disable if python support not present
@@ -461,7 +470,47 @@
         nnoremap <silent> <leader>gi :Git add -p %<CR>
         nnoremap <silent> <leader>gg :SignifyToggle<CR>
     "}
+         " YouCompleteMe {
+                if count(g:spf13_bundle_groups, 'youcompleteme')
+                    let g:acp_enableAtStartup = 0
 
+        " enable completion from tags
+                    let g:ycm_collect_identifiers_from_tags_files = 1
+
+        " remap Ultisnips for compatibility for YCM
+                    let g:UltiSnipsExpandTrigger = '<C-j>'
+                    let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+                    let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+        " Enable omni completion.
+                    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+                    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+                    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+                    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+                    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+                    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+                    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+        " Haskell post write lint and check with ghcmod
+        " $ `cabal install ghcmod` if missing and ensure
+        " ~/.cabal/bin is in your $PATH.
+                    if !executable("ghcmod")
+                        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+                    endif
+
+        " For snippet_complete marker.
+                    if !exists("g:spf13_no_conceal")
+                        if has('conceal')
+                            set conceallevel=2 concealcursor=i
+                        endif
+                    endif
+
+        " Disable the neosnippet preview candidate window
+        " When enabled, there can be too much visual noise
+        " especially when splits are used.
+                    set completeopt-=preview
+                endif
+        " }
         " neocomplcache {
         if count(g:spf13_bundle_groups, 'neocomplcache')
             let g:acp_enableAtStartup = 0
@@ -553,7 +602,7 @@
             " Enable omni-completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -563,6 +612,7 @@
     " }
 
     " Snippets {
+    "
         if count(g:spf13_bundle_groups, 'neocomplcache') ||
                     \ count(g:spf13_bundle_groups, 'neocomplete')
 
@@ -585,7 +635,6 @@
             set completeopt-=preview
         endif
     " }
-
 
     " UndoTree {
         nnoremap <Leader>u :UndotreeToggle<CR>
