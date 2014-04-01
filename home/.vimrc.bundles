@@ -68,7 +68,7 @@
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'youcompleteme', 'programming', 'php', 'python', 'javascript', 'html', 'misc']
+        let g:spf13_bundle_groups=['general', 'neocomplete', 'programming', 'php', 'python', 'javascript', 'html', 'misc']
     endif
 
     " To override all the included bundles, add the following to your
@@ -82,6 +82,8 @@
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
             Bundle 'spf13/vim-autoclose'
+            Bundle 'chriskempson/vim-tomorrow-theme'
+            Bundle 'chriskempson/base16-vim'
             Bundle 'kien/ctrlp.vim'
             Bundle 'terryma/vim-multiple-cursors'
             Bundle 'vim-scripts/sessionman.vim'
@@ -138,8 +140,9 @@
             Bundle 'LionelMartin/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplete')
             Bundle 'Shougo/neocomplete.vim.git'
-            Bundle 'Shougo/neosnippet'
-            Bundle 'Shougo/neosnippet-snippets'
+            Bundle 'SirVer/ultisnips'
+            "Bundle 'Shougo/neosnippet'
+            "Bundle 'Shougo/neosnippet-snippets'
             Bundle 'LionelMartin/vim-snippets'
         endif
     " }
@@ -172,8 +175,8 @@
             Bundle 'elzr/vim-json'
             Bundle 'groenewege/vim-less'
             Bundle 'pangloss/vim-javascript'
-            Bundle 'briancollins/vim-jst'
-            Bundle 'kchmck/vim-coffee-script'
+            "Bundle 'briancollins/vim-jst'
+            "Bundle 'kchmck/vim-coffee-script'
             Bundle 'marijnh/tern_for_vim'
             Bundle 'heavenshell/vim-jsdoc'
             Bundle 'jelera/vim-javascript-syntax'
