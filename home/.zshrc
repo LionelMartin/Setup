@@ -42,7 +42,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(colored-man debian cp django extract git gitfast github last-working-dir nyan pip python rsync themes)
+plugins=(colored-man common-aliases command-not-found copydir copyfile cp dircycle dirhistory extract git git-extras gitfast github history json-tools last-working-dir nyan pip python rsync themes vim-interaction vundle)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
@@ -56,5 +56,3 @@ homeshick --quiet refresh
 
 # Customize to your needs...
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"

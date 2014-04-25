@@ -218,10 +218,15 @@
     nmap <leader>f8 :set foldlevel=8<CR>
     nmap <leader>f9 :set foldlevel=9<CR>
 
-    "better fold move commands
+
+    " better fold move commands
     nnoremap zk zk[z
     nnoremap zK zk
     nnoremap zJ zj]z
+
+    " fix for azerty keyboard
+    nnoremap <C-)> <C-]>
+
     " Find merge conflict markers
     map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
@@ -778,12 +783,12 @@
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
         if !exists('g:airline_theme')
-            let g:airline_theme = 'powerlineish'
+            let g:airline_theme = 'tomorrow'
         endif
         if !exists('g:airline_powerline_fonts')
             " Use the default set of separators with a few customizations
-            let g:airline_left_sep='›'  " Slightly fancier than '>'
-            let g:airline_right_sep='‹' " Slightly fancier than '<'
+            let g:airline_left_sep=''  " Slightly fancier than '>'
+            let g:airline_right_sep='' " Slightly fancier than '<'
         endif
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#buffer_nr_show = 1
