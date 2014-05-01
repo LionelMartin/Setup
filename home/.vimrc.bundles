@@ -92,7 +92,7 @@
             Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
             Bundle 'mbbill/undotree'
-            Bundle 'nathanaelkane/vim-indent-guides'
+            "Bundle 'nathanaelkane/vim-indent-guides'
             Bundle 'tpope/vim-abolish.git'
             Bundle 'osyo-manga/vim-over'
         endif
@@ -170,10 +170,10 @@
     " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
             Bundle 'elzr/vim-json'
-            Bundle 'groenewege/vim-less'
+            "Bundle 'groenewege/vim-less'
             Bundle 'pangloss/vim-javascript'
-            Bundle 'briancollins/vim-jst'
-            Bundle 'kchmck/vim-coffee-script'
+            "Bundle 'briancollins/vim-jst'
+            "Bundle 'kchmck/vim-coffee-script'
             Bundle 'marijnh/tern_for_vim'
             Bundle 'heavenshell/vim-jsdoc'
             Bundle 'jelera/vim-javascript-syntax'
@@ -186,14 +186,14 @@
             Bundle 'amirh/HTML-AutoCloseTag'
             Bundle 'hail2u/vim-css3-syntax'
             Bundle 'gorodinskiy/vim-coloresque'
-            Bundle 'tpope/vim-haml'
+            "Bundle 'tpope/vim-haml'
         endif
     " }
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
             Bundle 'tpope/vim-markdown'
-            Bundle 'spf13/vim-preview'
+            "Bundle 'spf13/vim-preview'
         endif
     " }
     endif
