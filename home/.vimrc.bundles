@@ -97,6 +97,7 @@
             "Bundle 'nathanaelkane/vim-indent-guides'
             Bundle 'tpope/vim-abolish.git'
             Bundle 'osyo-manga/vim-over'
+            Bundle 'szw/vim-ctrlspace'
         endif
     " }
 
@@ -156,7 +157,7 @@
             Bundle 'shawncplus/phpcomplete.vim'
             Bundle 'StanAngeloff/php.vim'
             Bundle 'rayburgemeestre/phpfolding.vim'
-            Bundle 'foursking/vim-php-manual'
+            Bundle 'LionelMartin/vim-php-manual'
         endif
     " }
 
