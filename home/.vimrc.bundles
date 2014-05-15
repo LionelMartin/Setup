@@ -116,6 +116,8 @@
             Bundle 'LionelMartin/vim-skeleton-files'
             let g:skeletons_dir = $HOME"/.vim/bundles/vim-skeletons-files/skeletons/"
             Bundle 'bkad/CamelCaseMotion'
+            Bundle 'brookhong/DBGPavim'
+            let g:dbgPavimPort = 9009
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif

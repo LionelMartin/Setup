@@ -185,7 +185,6 @@
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
     set splitright                  " Puts new vsplit windows to the right of the current
     set splitbelow                  " Puts new split windows to the bottom of the current
-    set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
@@ -283,8 +282,8 @@
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-    map <F3> :NERDTreeToggle<CR>
-    map <F4> :TagbarToggle<CR>
+    nnoremap <leader>tt :NERDTreeToggle<CR>
+    nnoremap <leader>tag :TagbarToggle<CR>
 
     nnoremap <leader>ev :e $HOME/.vimrc<cr>
     nnoremap <leader>sv :source $HOME/.vimrc<cr>
