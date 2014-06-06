@@ -14,6 +14,8 @@
 [color]
     ui = auto
 [alias]
+    pu = pull --rebase
+    ps = push
     st = status
     df = diff
     co = checkout

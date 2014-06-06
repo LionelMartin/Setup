@@ -68,9 +68,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-#256 couleurs
-export TERM=xterm-256color
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"

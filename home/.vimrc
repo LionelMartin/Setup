@@ -78,7 +78,7 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
-    set spell                           " Spell checking on
+    set nospell                           " Spell checking off
     set hidden                          " Allow buffer switching without saving
 
     set noswapfile
@@ -161,10 +161,13 @@
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    set foldenable                  " Auto fold code
+    "set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
+    if !has('gui_running')
+        set t_ut=
+    endif
     set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
     colorscheme Tomorrow-Night
 
@@ -195,9 +198,6 @@
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
-    if argc() == 0 "vim called without arguments
-        SessionOpenLast
-    endif
 " }
 
 " Key (re)Mappings {
@@ -222,6 +222,23 @@
     nnoremap zk zk[z
     nnoremap zK zk
     nnoremap zJ zj]z
+
+    function! MyFoldText() " {{{
+        let line = getline(v:foldstart)
+
+        let nucolwidth = &fdc + &number * &numberwidth
+        let windowwidth = winwidth(0) - nucolwidth - 3
+        let foldedlinecount = v:foldend - v:foldstart
+
+        " expand tabs into spaces
+        let onetab = strpart(' ', 0, &tabstop)
+        let line = substitute(line, '\t', onetab, 'g')
+
+        let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+        let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+        return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+    endfunction " }}}
+    set foldtext=MyFoldText()
 
     " fix for azerty keyboard
     nnoremap <C-)> <C-]>
@@ -272,7 +289,6 @@
     inoremap jj <Esc>
 
     nnoremap <Leader>jd :JsDoc<cr>
-    nnoremap <leader>pd :call pdv#DocumentWithSnip()<cr>
 
     " When pressing <leader>cd switch to the directory of the open buffer
     map <leader>cd :cd %:p:h<cr>
@@ -300,24 +316,6 @@
 " }
 
 " Plugins {
-
-    " PHP {
-        let g:DisableAutoPHPFolding = 0
-        let g:PIVAutoClose = 0
-        if exists("php_sql_query")
-            unlet php_sql_query
-        endif
-        if exists("php_html_in_strings")
-            unlet php_html_in_strings
-        endif
-        let php_folding = 1
-        let g:pdv_cfg_php4always = 0 "do not display old @access doc string
-        let PHP_vintage_case_default_indent = 1 "cases in switch will be indented
-        let g:phpcomplete_parse_docblock_comments = 1
-        let g:phpcomplete_add_class_extensions = ['mongo']
-        let g:phpcomplete_add_function_extensions = ['mongo']
-        let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
-    " }
 
     " Misc {
         let g:NERDShutUp=1
@@ -560,10 +558,6 @@
             else
                 " <C-k> Complete Snippet
                 " <C-k> Jump to next snippet point
-                imap <silent><expr><C-k> neosnippet#expandable() ?
-                            \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-                            \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
-                smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
 
                 inoremap <expr><C-g> neocomplete#undo_completion()
                 inoremap <expr><C-l> neocomplete#complete_common_string()
@@ -576,12 +570,7 @@
 
                 function! CleverCr()
                     if pumvisible()
-                        if neosnippet#expandable()
-                            let exp = "\<Plug>(neosnippet_expand)"
-                            return exp . neocomplete#close_popup()
-                        else
-                            return neocomplete#close_popup()
-                        endif
+                        return neocomplete#close_popup()
                     else
                         return "\<CR>"
                     endif
@@ -610,11 +599,7 @@
                     return "\<Tab>"
                 else
                     " existing text matching
-                    if neosnippet#expandable_or_jumpable()
-                        return "\<Plug>(neosnippet_expand_or_jump)"
-                    else
-                        return neocomplete#start_manual_complete()
-                    endif
+                    return neocomplete#start_manual_complete()
                 endif
             endfunction
 
@@ -764,12 +749,6 @@
         let g:undotree_SetFocusWhenToggle=1
     " }
 
-    " indent_guides {
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_guide_size = 1
-        let g:indent_guides_enable_on_vim_startup = 1
-    " }
-
     " vim-airline {
         " Set configuration options for the statusline plugin vim-airline.
         " Use the powerline theme and optionally enable powerline symbols.
@@ -790,8 +769,8 @@
             let g:airline_left_sep=''  " Slightly fancier than '>'
             let g:airline_right_sep='' " Slightly fancier than '<'
         endif
-        "let g:airline#extensions#tabline#enabled = 1
-        "let g:airline#extensions#tabline#buffer_nr_show = 1
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#buffer_nr_show = 1
 
     " }
 
@@ -810,11 +789,6 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-    else
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        endif
-        "set term=builtin_ansi       " Make arrow and other keys work
     endif
 
 " }
@@ -889,6 +863,11 @@
         " clean up: restore previous search history, and cursor position
         let @/=_s
         call cursor(l, c)
+    endfunction
+    " }
+    " TabPHPDoc {
+    function TabPHPDoc()
+        Tabularize/@\w\+\s\+\zs\S\+\|\%(@\w\+.*\)\@<=\u.*/
     endfunction
     " }
 
