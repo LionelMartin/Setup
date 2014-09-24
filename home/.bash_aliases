@@ -11,5 +11,7 @@ alias t="$HOME/.homesick/repos/Setup/todo.txt_cli/todo.sh -d $HOME/.homesick/rep
 
 alias gitcheck='python ~/Applications/gitcheck/gitcheck.py'
 alias log_nginx="tail /var/log/nginx/error.log"
-alias log_mongo="tail /var/log/mongodb/mongodb.log"
+alias log_mongo="tail /var/log/mongodb/mongod.log"
 alias gti="git"
+alias gpp="git push --rebase && git pull"
+alias gc="git commit"

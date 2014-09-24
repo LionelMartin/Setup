@@ -78,26 +78,18 @@
 
     " General {
         if count(g:spf13_bundle_groups, 'general')
-            Bundle 'scrooloose/nerdtree'
+            "Bundle 'scrooloose/nerdtree'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
-            Bundle 'spf13/vim-autoclose'
             Bundle 'chriskempson/vim-tomorrow-theme'
             Bundle 'chriskempson/base16-vim'
             Bundle 'kien/ctrlp.vim'
-            "Bundle 'terryma/vim-multiple-cursors'
-            "Bundle 'vim-scripts/sessionman.vim'
             Bundle 'matchit.zip'
             Bundle 'bling/vim-airline'
-            "Bundle 'Lokaltog/vim-easymotion'
-            "Bundle 'godlygeek/csapprox'
-            Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
-            Bundle 'mbbill/undotree'
-            "Bundle 'nathanaelkane/vim-indent-guides'
-            Bundle 'tpope/vim-abolish.git'
-            Bundle 'osyo-manga/vim-over'
-            "Bundle 'szw/vim-ctrlspace'
+            "Bundle 'mbbill/undotree'
+            Bundle 'tpope/vim-abolish'
+            Bundle 'tpope/vim-repeat'
         endif
     " }
 
@@ -108,7 +100,6 @@
             Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
-            Bundle 'scrooloose/nerdcommenter'
             Bundle 'godlygeek/tabular'
             Bundle 'airblade/vim-gitgutter'
             Bundle 'jaxbot/github-issues.vim'
@@ -122,6 +113,7 @@
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
+            Bundle 'tpope/vim-commentary'
         endif
     " }
 

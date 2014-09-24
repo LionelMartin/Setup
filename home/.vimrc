@@ -1,5 +1,6 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" }
 
 " Picked up from spf13
 " Environment {
@@ -194,7 +195,7 @@
     " To disable the stripping of whitespace, add the following to your
     " .vimrc.before.local file:
     "   let g:spf13_keep_trailing_whitespace = 1
-    autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    "autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
@@ -284,6 +285,7 @@
     let mapleader = " "
 
     inoremap jj <Esc>
+    inoremap kk <Esc>
 
     nnoremap <Leader>jd :JsDoc<cr>
 
@@ -294,9 +296,6 @@
     " move easily through buffers
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
-
-    nnoremap <leader>tt :NERDTreeToggle<CR>
-    nnoremap <leader>tag :TagbarToggle<CR>
 
     nnoremap <leader>ev :e $HOME/.vimrc<cr>
     nnoremap <leader>sv :source $HOME/.vimrc<cr>
@@ -310,12 +309,12 @@
     vmap <Leader>P "+P
 
     nnoremap <Leader>w :w<CR>
+    cnoremap %z /usr/share/php/libzend-framework-php/Zend/
 " }
 
 " Plugins {
 
     " Misc {
-        let g:NERDShutUp=1
         let b:match_ignorecase = 1
     " }
 
@@ -365,27 +364,6 @@
             set completeopt=menu,preview,longest
         endif
 
-    " }
-
-    " AutoCloseTag {
-        " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-    " }
-
-    " NerdTree {
-        map <C-e> <plug>NERDTreeTabsToggle<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
-
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
-        let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
-        let g:nerdtree_tabs_open_on_gui_startup=0
     " }
 
     " Tabularize {
@@ -769,14 +747,6 @@
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#buffer_nr_show = 1
 
-    " }
-
-    " Ctrl-space {
-        let g:ctrlspace_save_workspace_on_exit = 1
-        "let g:ctrlspace_load_last_workspace_on_start = 1
-        hi CtrlSpaceSelected term=reverse ctermfg=187 ctermbg=23 cterm=bold
-        hi CtrlSpaceNormal   term=NONE    ctermfg=244 ctermbg=232   cterm=NONE
-        hi CtrlSpaceFound    ctermfg=220  ctermbg=NONE  cterm=bold
     " }
 " }
 
