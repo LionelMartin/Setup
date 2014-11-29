@@ -13,5 +13,5 @@ alias gitcheck='python ~/Applications/gitcheck/gitcheck.py'
 alias log_nginx="tail /var/log/nginx/error.log"
 alias log_mongo="tail /var/log/mongodb/mongod.log"
 alias gti="git"
-alias gpp="git push --rebase && git pull"
+alias gpp="git pull --rebase && git push"
 alias gc="git commit"

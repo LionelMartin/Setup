@@ -90,6 +90,8 @@
             "Bundle 'mbbill/undotree'
             Bundle 'tpope/vim-abolish'
             Bundle 'tpope/vim-repeat'
+            Bundle 'AndrewRadev/splitjoin.vim'
+            Bundle 'wellle/targets.vim'
         endif
     " }
 
