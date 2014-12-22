@@ -92,6 +92,8 @@
             Bundle 'tpope/vim-repeat'
             Bundle 'AndrewRadev/splitjoin.vim'
             Bundle 'wellle/targets.vim'
+            Plugin 'mhinz/vim-startify'
+            Plugin 'Shougo/vimproc.vim'
         endif
     " }
 
@@ -109,9 +111,9 @@
             Bundle 'LionelMartin/vim-skeleton-files'
             let g:skeletons_dir = $HOME"/.vim/bundles/vim-skeletons-files/skeletons/"
             Bundle 'bkad/CamelCaseMotion'
-            Bundle 'brookhong/DBGPavim'
+            Bundle 'joonty/vdebug'
             Bundle 'tpope/vim-dispatch'
-            let g:dbgPavimPort = 9009
+            let g:dbgPavimPort = 9000
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
@@ -156,6 +158,8 @@
             Bundle 'rayburgemeestre/phpfolding.vim'
             Bundle 'LionelMartin/vim-php-manual'
             Bundle 'docteurklein/php-getter-setter.vim'
+            Plugin 'vim-php/vim-php-refactoring'
+            Plugin 'stephpy/vim-php-cs-fixer'
         endif
     " }
 

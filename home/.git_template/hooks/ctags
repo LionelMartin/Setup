@@ -2,6 +2,6 @@
 set -e
 PATH="/usr/local/bin:$PATH"
 trap "rm -f .git/tags.$$" EXIT
-ctags --tag-relative -Rf .git/tags.$$ --exclude=.git --languages=-javascript,sql
-ctags -aRf .git/tags.$$ /usr/share/php/PHPUnit
+ctags --tag-relative -Rf .git/tags.$$ --exclude=.git --languages=php
+ctags -aRf .git/tags.$$ /usr/share/php/PHPUnit --languages=php
 mv .git/tags.$$ .git/tags
