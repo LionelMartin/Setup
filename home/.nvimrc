@@ -1,58 +1,21 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 " }
-" Environment {
-
-    " Identify platform {
-        silent function! OSX()
-            return has('macunix')
-        endfunction
-        silent function! LINUX()
-            return has('unix') && !has('macunix') && !has('win32unix')
-        endfunction
-        silent function! WINDOWS()
-            return  (has('win16') || has('win32') || has('win64'))
-        endfunction
-    " }
-
-    " Basics {
-        set nocompatible        " Must be first line
-        if !WINDOWS()
-            set shell=/bin/sh
-        endif
-    " }
-
-    " Windows Compatible {
-        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-        " across (heterogeneous) systems easier.
-        if WINDOWS()
-          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-        endif
-    " }
-
-" }
-" Use before config if available {
-    if filereadable(expand("~/.vimrc.before"))
-        source ~/.vimrc.before
-    endif
-" }
+"
 " Use bundles config {
-    if filereadable(expand("~/.vimrc.bundles"))
-        source ~/.vimrc.bundles
+    if filereadable(expand("~/.nvimrc.bundles"))
+        source ~/.nvimrc.bundles
     endif
 " }
 " General {
-
-    set background=dark         " Assume a dark background
-    " if !has('gui')
-        "set term=$TERM          " Make arrow and other keys work
-    " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
-    set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
-
+    set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+    set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+    set virtualedit=onemore             " Allow for cursor beyond last character
+    set nospell                           " Spell checking off
+    set hidden                          " Allow buffer switching without saving
     if has('clipboard')
         if has('unnamedplus')  " When possible use + register for copy-paste
             set clipboard=unnamedplus
@@ -60,14 +23,6 @@
             set clipboard=unnamed
         endif
     endif
-
-    set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
-    set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-    set virtualedit=onemore             " Allow for cursor beyond last character
-    set history=1000                    " Store a ton of history (default is 20)
-    set nospell                           " Spell checking off
-    set hidden                          " Allow buffer switching without saving
-
     set noswapfile
     " Instead of reverting the cursor to the last position in the buffer, we
     " set it to the first line when editing a git commit message
@@ -75,21 +30,21 @@
 
     " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
     " Restore cursor to file position in previous editing session
-    " To disable this, add the following to your .vimrc.before.local file:
-    "   let g:spf13_no_restore_cursor = 1
-    if !exists('g:spf13_no_restore_cursor')
-        function! ResCur()
-            if line("'\"") <= line("$")
-                normal! g`"
-                return 1
-            endif
-        endfunction
+    function! ResCur()
+        if line("'\"") <= line("$")
+            normal! g`"
+            return 1
+        endif
+    endfunction
 
-        augroup resCur
-            autocmd!
-            autocmd BufWinEnter * call ResCur()
-        augroup END
-    endif
+    augroup resCur
+        autocmd!
+        autocmd BufWinEnter * call ResCur()
+    augroup END
+    let g:python_host_prog = '/usr/bin/python3'
+    set ttimeout
+    set ttimeoutlen=0
+
     " Setting up the directories {
         set backup                  " Backups are nice ...
         if has('persistent_undo')
@@ -99,17 +54,12 @@
         endif
     " }
 " }
-
 " Vim UI {
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
     set cursorline                  " Highlight current line
-
-    "highlight clear SignColumn      " SignColumn should match background
-    "highlight clear LineNr          " Current line number row will have same background color in relative mode
-    "let g:CSApprox_hook_post = ['hi clear SignColumn']
 
     if has('cmdline_info')
         set ruler                   " Show the ruler
@@ -130,26 +80,18 @@
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
     endif
 
-    set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
     set nu                          " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
-    set incsearch                   " Find as you type search
-    set hlsearch                    " Highlight search terms
     set winminheight=0              " Windows can be 0 line high
     set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
-    set wildmenu                    " Show list instead of just completing
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    "set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
 
-    if !has('gui_running')
-        set t_ut=
-    endif
     set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
     colorscheme Tomorrow-Night
 
@@ -161,7 +103,6 @@
 " Formatting {
 
     set nowrap                      " Do not wrap long lines
-    set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
@@ -175,7 +116,8 @@
     " To disable the stripping of whitespace, add the following to your
     " .vimrc.before.local file:
     "   let g:spf13_keep_trailing_whitespace = 1
-    "autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    "autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer>
+    "if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
@@ -276,8 +218,8 @@
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-    nnoremap <leader>ev :e $HOME/.vimrc<cr>
-    nnoremap <leader>sv :source $HOME/.vimrc<cr>
+    nnoremap <leader>ev :e $HOME/.nvimrc<cr>
+    nnoremap <leader>sv :source $HOME/.nvimrc<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -299,14 +241,15 @@
         let g:gitgutter_realtime = 0
         let g:gitgutter_eager = 0
     " }
-    " Syntactic {
-        let g:syntastic_python_checkers=['flake8']
-        let g:syntastic_php_checkers=['php', 'phpcs']
-        let g:syntastic_javascript_checkers=['jshint']
-        let g:syntastic_php_phpcs_args="--standard=Zend --config-set report_width 120"
-        let g:syntastic_error_symbol = "✗"
-        let g:syntastic_warning_symbol = "⚠"
-        let g:syntastic_enable_balloons = 1
+    " Neomake {
+        autocmd! BufWritePost * Neomake
+        let g:neomake_python_enabled_makers=['flake8']
+        let g:neomake_php_enabled_makers=['php', 'phpcs']
+        let g:neomake_javascript_enabled_makers=['jshint']
+        let g:neomake_php_phpcs_args_standard="Zend"
+        let g:neomake_error_symbol = "✗"
+        let g:neomake_warning_symbol = "⚠"
+        let g:neomake_enable_balloons = 1
     " }
     " javascript {
         let tern#is_show_argument_hints_enabled = 1
@@ -357,9 +300,6 @@
         nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
         vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     " }
-    " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-    " }
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
     " }
@@ -376,9 +316,7 @@
             \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
         " On Windows use "dir" as fallback command.
-        if WINDOWS()
-            let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-        elseif executable('ag')
+        if executable('ag')
             let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
         elseif executable('ack')
             let s:ctrlp_fallback = 'ack %s --nocolor -f'
@@ -416,108 +354,57 @@
         nnoremap <silent> <leader>gi :Git add -p %<CR>
         nnoremap <silent> <leader>gg :SignifyToggle<CR>
     "}
-    " YouCompleteMe {
-                if count(g:spf13_bundle_groups, 'youcompleteme')
-                    let g:acp_enableAtStartup = 0
-
-        " enable completion from tags
-                    let g:ycm_collect_identifiers_from_tags_files = 1
-
-        " remap Ultisnips for compatibility for YCM
-                    let g:UltiSnipsExpandTrigger = '<C-j>'
-                    let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-                    let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-
-        " Enable omni completion.
-                    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-                    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-                    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-                    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-                    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-                    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-                    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-        " For snippet_complete marker.
-                    if !exists("g:spf13_no_conceal")
-                        if has('conceal')
-                            set conceallevel=2 concealcursor=i
-                        endif
-                    endif
-
-        " Disable the neosnippet preview candidate window
-        " When enabled, there can be too much visual noise
-        " especially when splits are used.
-                    set completeopt-=preview
-                endif
-        " }
+    " deoplete {
+        let g:deoplete#enable_at_startup = 1
+    " }
     " neocomplete {
-    if count(g:spf13_bundle_groups, 'neocomplete')
-        let g:acp_enableAtStartup = 0
-        let g:neocomplete#enable_at_startup = 1
-        let g:neocomplete#enable_smart_case = 1
-        let g:neocomplete#enable_auto_delimiter = 1
-        let g:neocomplete#max_list = 15
-        let g:neocomplete#force_overwrite_completefunc = 1
+        " let g:acp_enableAtStartup = 0
+        " let g:neocomplete#enable_at_startup = 1
+        " let g:neocomplete#enable_smart_case = 1
+        " let g:neocomplete#enable_auto_delimiter = 1
+        " let g:neocomplete#max_list = 15
+        " let g:neocomplete#force_overwrite_completefunc = 1
 
 
-        " Define dictionary.
-        let g:neocomplete#sources#dictionary#dictionaries = {
-                    \ 'default' : '',
-                    \ 'vimshell' : $HOME.'/.vimshell_hist',
-                    \ 'scheme' : $HOME.'/.gosh_completions'
-                    \ }
+        " " Define dictionary.
+        " let g:neocomplete#sources#dictionary#dictionaries = {
+        "             \ 'default' : '',
+        "             \ 'vimshell' : $HOME.'/.vimshell_hist',
+        "             \ 'scheme' : $HOME.'/.gosh_completions'
+        "             \ }
 
-        " Define keyword.
-        if !exists('g:neocomplete#keyword_patterns')
-            let g:neocomplete#keyword_patterns = {}
-        endif
-        let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+        " " Define keyword.
+        " if !exists('g:neocomplete#keyword_patterns')
+        "     let g:neocomplete#keyword_patterns = {}
+        " endif
+        " let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-            iunmap <CR>
-            " <ESC> takes you out of insert mode
-            inoremap <expr> <Esc> pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-            " <CR> accepts first, then sends the <CR>
-            inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-            " <Down> and <Up> cycle like <Tab> and <S-Tab>
-            inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-            inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
-            " Jump up and down the list
-            inoremap <expr> <C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-            inoremap <expr> <C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-        " <TAB>: completion.
-        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+        "     iunmap <CR>
+        "     " <ESC> takes you out of insert mode
+        "     inoremap <expr> <Esc> pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+        "     " <CR> accepts first, then sends the <CR>
+        "     inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+        "     " <Down> and <Up> cycle like <Tab> and <S-Tab>
+        "     inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+        "     inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
+        "     " Jump up and down the list
+        "     inoremap <expr> <C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+        "     inoremap <expr> <C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+        " " <TAB>: completion.
+        " inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+        " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
-        " Courtesy of Matteo Cavalleri
+        " " Courtesy of Matteo Cavalleri
 
-        function! CleverTab()
-            if pumvisible()
-                return "\<C-n>"
-            endif
-            let substr = strpart(getline('.'), 0, col('.') - 1)
-            let substr = matchstr(substr, '[^ \t]*$')
-            if strlen(substr) == 0
-                " nothing to match on empty string
-                return "\<Tab>"
-            else
-                " existing text matching
-                return neocomplete#start_manual_complete()
-            endif
-        endfunction
-
-        imap <expr> <Tab> CleverTab()
-
-        " Enable heavy omni completion.
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-            let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-        let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-
-        endif
+        " " Enable heavy omni completion.
+        " if !exists('g:neocomplete#sources#omni#input_patterns')
+        "     let g:neocomplete#sources#omni#input_patterns = {}
+        " endif
+        " let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+        " let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+        " let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+        " let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+        " let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
     " }
     " Normal Vim omni-completion {
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -528,35 +415,6 @@
         autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
         autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     " }
-    " Snippets {
-    "
-        if count(g:spf13_bundle_groups, 'neocomplcache') ||
-                    \ count(g:spf13_bundle_groups, 'neocomplete')
-
-            " Use honza's snippets.
-            let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-            " Enable neosnippet snipmate compatibility mode
-            let g:neosnippet#enable_snipmate_compatibility = 1
-
-            " For snippet_complete marker.
-            if !exists("g:spf13_no_conceal")
-                if has('conceal')
-                    set conceallevel=2 concealcursor=i
-                endif
-            endif
-
-            " Disable the neosnippet preview candidate window
-            " When enabled, there can be too much visual noise
-            " especially when splits are used.
-            set completeopt-=preview
-        endif
-    " }
-    " UndoTree {
-        nnoremap <Leader>u :UndotreeToggle<CR>
-        " If undotree is opened, it is likely one wants to interact with it.
-        let g:undotree_SetFocusWhenToggle=1
-    " }
     " vim-airline {
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
@@ -564,6 +422,7 @@
         if !exists('g:airline_theme')
             let g:airline_theme = 'tomorrow'
         endif
+        let g:airline_powerline_fonts = 1
         if !exists('g:airline_powerline_fonts')
             " Use the default set of separators with a few customizations
             let g:airline_left_sep=''  " Slightly fancier than '>'
@@ -585,6 +444,14 @@
         let g:startify_session_autoload       = 1
         let g:startify_session_persistence    = 1
         let g:startify_session_delete_buffers = 1
+    " }
+    " grepper {
+        nnoremap <leader>g :Grepper<CR>
+        let g:grepper = {}
+        let g:grepper.open = 1
+        let g:grepper.switch = 1
+        let g:grepper.jump = 0
+        let g:grepper.next_tool = '<leader>g'
     " }
 " }
 
@@ -640,19 +507,6 @@
         endfor
     endfunction
     call InitializeDirectories()
-    " }
-    " Initialize NERDTree as needed {
-    function! NERDTreeInitAsNeeded()
-        redir => bufoutput
-        buffers!
-        redir END
-        let idx = stridx(bufoutput, "NERD_tree")
-        if idx > -1
-            NERDTreeMirror
-            NERDTreeFind
-            wincmd l
-        endif
-    endfunction
     " }
     " Strip whitespace {
     function! StripTrailingWhitespace()
@@ -720,13 +574,5 @@
 " Use local vimrc if available {
     if filereadable(expand("~/.vimrc.local"))
         source ~/.vimrc.local
-    endif
-" }
-
-" Use local gvimrc if available and gui is running {
-    if has('gui_running')
-        if filereadable(expand("~/.gvimrc.local"))
-            source ~/.gvimrc.local
-        endif
     endif
 " }

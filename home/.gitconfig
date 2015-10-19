@@ -1,16 +1,17 @@
 [user]
-	name = Lionel Martin
-	email = lionel@stickyads.tv
-    editor = vim
+    name = Lionel Martin
+    email = lionel@stickyads.tv
+    editor = nvim
 [core]
     autocrlf = input
     pager = /usr/bin/less
+    commentchar = ";"
 [merge]
     tool = lvimdiff
 [mergetool "lvimdiff"]
-    cmd = "vim -d -c 'wincmd J' $MERGED $LOCAL $BASE $REMOTE"
+    cmd = "nvim -d -c 'wincmd J' $MERGED $LOCAL $BASE $REMOTE"
 [diff]
-    tool = vimdiff
+    tool = nvimdiff
 [color]
     ui = auto
 [alias]
@@ -27,7 +28,7 @@
     ls =  log --pretty=format:"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]" --decorate --date=short  # pretty one-line log with tags, branches and authors
     lsv = log --pretty=format:"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]" --decorate --date=short --numstat    # a verbose ls, shows changed files too
     uncommit = reset --soft HEAD^
-	ctags = !.git/hooks/ctags
+    ctags = !.git/hooks/ctags
 [push]
     default = matching
 [credential]
@@ -35,6 +36,6 @@
 [include]
     path= ~/.gitconfig.local
 [init]
-	templatedir = ~/.git_template
+    templatedir = ~/.git_template
 [help]
-	autocorrect = 1
+    autocorrect = 1
