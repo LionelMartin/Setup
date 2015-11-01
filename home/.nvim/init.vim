@@ -189,10 +189,6 @@
     " Adjust viewports to the same size
     map <Leader>= <C-w>=
 
-    " Map <Leader>ff to display all lines with keyword under cursor
-    " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
     " Easier horizontal scrolling
     map zl zL
     map zh zH
@@ -210,16 +206,12 @@
 
     nnoremap <Leader>jd :JsDoc<cr>
 
-    " When pressing <leader>cd switch to the directory of the open buffer
-    map <leader>cd :cd %:p:h<cr>
-    map <leader>h :vsp $HOME/.vim/shortcuts<cr>
-
     " move easily through buffers
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-    nnoremap <leader>ev :e $HOME/.nvimrc<cr>
-    nnoremap <leader>sv :source $HOME/.nvimrc<cr>
+    nnoremap <leader>ve :e $HOME/.nvimrc<cr>
+    nnoremap <leader>vs :source $HOME/.nvimrc<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -446,12 +438,12 @@
         let g:startify_session_delete_buffers = 1
     " }
     " grepper {
-        nnoremap <leader>g :Grepper<CR>
+        nnoremap <leader>s :Grepper<CR>
         let g:grepper = {}
         let g:grepper.open = 1
         let g:grepper.switch = 1
         let g:grepper.jump = 0
-        let g:grepper.next_tool = '<leader>g'
+        let g:grepper.next_tool = '<leader>s'
     " }
 " }
 
