@@ -1,0 +1,1 @@
+/home/lionel/.homesick/repos/Setup/home/.nvim/init.vim
