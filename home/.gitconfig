@@ -16,7 +16,7 @@
 [color]
     ui = auto
 [alias]
-    pu = pull --rebase
+    pu = pull
     ps = push
     st = status
     df = diff
@@ -40,3 +40,5 @@
     templatedir = ~/.git_template
 [help]
     autocorrect = 1
+[pull]
+	rebase = true

@@ -5,10 +5,14 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-
+export TERM="xterm-256color"
 DEFAULT_USER="lionel"
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_MODE='powerline'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -55,4 +59,9 @@ fi
 homeshick --quiet refresh
 
 # Customize to your needs...
+# android
+export PATH=${PATH}:~/android-sdk-linux/tools
+export PATH=${PATH}:~/android-sdk-linux/platform-tools
+export PATH=${PATH}:~/bin
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

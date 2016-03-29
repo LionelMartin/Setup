@@ -92,7 +92,7 @@
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
 
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 10
     colorscheme Tomorrow-Night
 
     "Highlight long lines
@@ -444,6 +444,21 @@
         let g:grepper.switch = 1
         let g:grepper.jump = 0
         let g:grepper.next_tool = '<leader>s'
+    " }
+    " php syntax coloring override {
+        function! PhpSyntaxOverride()
+          hi! def link phpDocTags  phpDefine
+          hi! def link phpDocParam phpType
+        endfunction
+
+        augroup phpSyntaxOverride
+          autocmd!
+          autocmd FileType php call PhpSyntaxOverride()
+        augroup END
+    " }
+    " Vim devicons {
+        let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+        let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['phtml'] = ''
     " }
 " }
 

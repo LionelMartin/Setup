@@ -7,7 +7,6 @@ alias vim='vim -T xterm-256color -c NeoCompleteTagMakeCache'
 alias nvim='TERM=xterm-256color nvim'
 
 alias gitcheck="python $HOME/Applications/gitcheck/gitcheck.py"
-alias clean_vim="rm $HOME/.vimswap/*"
 alias t="$HOME/.homesick/repos/Setup/todo.txt_cli/todo.sh -d $HOME/.homesick/repos/Setup/todo.txt_cli/todo.cfg"
 
 alias gitcheck='python ~/Applications/gitcheck/gitcheck.py'
@@ -16,3 +15,5 @@ alias log_mongo="tail /var/log/mongodb/mongod.log"
 alias gti="git"
 alias gpp="git pull --rebase && git push"
 alias gc="git commit"
+alias jstest="phantomjs tests/js/runner.js tests/js/main.html"
+alias phptest="cd ~sfx/tests && phpunit ."
