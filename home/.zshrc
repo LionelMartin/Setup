@@ -64,4 +64,6 @@ export PATH=${PATH}:~/android-sdk-linux/tools
 export PATH=${PATH}:~/android-sdk-linux/platform-tools
 export PATH=${PATH}:~/bin
 
+eval "$(grunt --completion=zsh)"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

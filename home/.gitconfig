@@ -5,7 +5,6 @@
 [core]
     autocrlf = input
     pager = /usr/bin/less
-    commentchar = ";"
     whitespace = "trailing-space,space-before-tab,blank-at-eol,tab-in-indent"
 [merge]
     tool = lvimdiff

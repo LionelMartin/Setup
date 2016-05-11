@@ -24,7 +24,9 @@ call plug#begin()
     " Pick one of the checksyntax, jslint, or syntastic
     Plug 'benekastah/neomake'
     Plug 'tpope/vim-fugitive'
+    Plug 'junegunn/gv.vim'
     Plug 'mattn/webapi-vim'
+    Plug 'whatyouhide/vim-lengthmatters'
     "Plug 'mattn/gist-vim'
     Plug 'godlygeek/tabular'
     Plug 'airblade/vim-gitgutter'
@@ -37,14 +39,13 @@ call plug#begin()
     Plug 'tpope/vim-dispatch'
     let g:dbgPavimPort = 9000
     if executable('ctags')
-	Plug 'majutsushi/tagbar'
+    Plug 'majutsushi/tagbar'
     endif
     Plug 'tpope/vim-commentary'
     Plug 'mhinz/vim-rfc'
-    Plug 'vim-scripts/rfc-syntax', { 'for': 'rfc' } " optional syntax highlighting for RFC files   
+    Plug 'vim-scripts/rfc-syntax', { 'for': 'rfc' } " optional syntax highlighting for RFC files
     Plug 'ryanoasis/vim-devicons'
 " }
-
 " Snippets & AutoComplete {
     "Plug 'Shougo/deoplete.nvim'
     Plug 'SirVer/ultisnips'
@@ -52,7 +53,6 @@ call plug#begin()
     "Plug 'Shougo/neosnippet-snippets'
     "Plug 'LionelMartin/vim-snippets'
 " }
-
 " PHP {
     Plug 'tobyS/vmustache', {'for': 'php'}
     Plug 'tobyS/pdv', {'for': 'php'}
@@ -62,10 +62,9 @@ call plug#begin()
     Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
     Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
     "Plug 'docteurklein/php-getter-setter.vim', {'for': 'php'}
-    "Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
+    Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
     "Plug 'stephpy/vim-php-cs-fixer', {'for': 'php'}
 " }
-
 " Python {
     " Pick either python-mode or pyflakes & pydoc
     Plug 'klen/python-mode', {'for': 'python'}
@@ -73,7 +72,6 @@ call plug#begin()
     Plug 'python_match.vim', {'for': 'python'}
     Plug 'pythoncomplete', {'for': 'python'}
 " }
-
 " Javascript {
     Plug 'elzr/vim-json', {'for': 'javascript'}
     Plug 'pangloss/vim-javascript', {'for': 'javascript'}
@@ -82,13 +80,11 @@ call plug#begin()
     Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
     Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
 " }
-
 " HTML {
     Plug 'amirh/HTML-AutoCloseTag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'gorodinskiy/vim-coloresque', {'for': 'css'}
 " }
-
 " Misc {
     Plug 'tpope/vim-markdown', {'for': 'markdown'}
     Plug 'jtratner/vim-flavored-markdown', {'for': 'markdown'}

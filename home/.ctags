@@ -1,5 +1,2 @@
--h ".php"
---recurse=yes
---exclude=".git"
 --PHP-kinds=cfid
---fields=+aimS
+--fields=+laimS

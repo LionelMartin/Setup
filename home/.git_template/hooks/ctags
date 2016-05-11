@@ -1,7 +1,8 @@
 #!/bin/sh
+echo "Building ctags..."
 set -e
 PATH="/usr/local/bin:$PATH"
 trap "rm -f .git/tags.$$" EXIT
-ctags --tag-relative -Rf .git/tags.$$ --exclude=.git --languages=php
-ctags -aRf .git/tags.$$ /usr/share/php/PHPUnit --languages=php
+ag --php -g "" | ctags -L - --tag-relative -f .git/tags.$$ --languages=php
 mv .git/tags.$$ .git/tags
+echo "Ctags build."

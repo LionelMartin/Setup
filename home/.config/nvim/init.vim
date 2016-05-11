@@ -1,6 +1,3 @@
-" Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-" }
 "
 " Use bundles config {
     if filereadable(expand("~/.config/nvim/bundles.vim"))
@@ -41,7 +38,8 @@
         autocmd!
         autocmd BufWinEnter * call ResCur()
     augroup END
-    let g:python_host_prog = '/usr/bin/python3'
+    let g:python_host_prog = '/usr/bin/python'
+    let g:python3_host_prog = '/usr/bin/python3'
     set ttimeout
     set ttimeoutlen=0
 
@@ -98,6 +96,8 @@
     "Highlight long lines
     hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
     match OverLength /\%120v.*/
+
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " }
 " Formatting {
@@ -423,6 +423,9 @@
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#buffer_nr_show = 1
 
+    " }
+    " php refactor {
+        let g:php_refactor_command = "php ~/.homesick/repos/Setup/refactor.phar"
     " }
     " php-cs-fixer {
         let g:php_cs_fixer_fixers_list = "short_tag,function_call_space,function_declaration,linefeed,lowercase_constants,lowercase_keywords,method_argument_space,parenthesis,php_closing_tag,trailing_spaces,visibility,operators_spaces"
