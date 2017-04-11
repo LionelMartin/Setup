@@ -5,4 +5,4 @@ PATH="/usr/local/bin:$PATH"
 trap "rm -f .git/tags.$$" EXIT
 ag --php -g "" | ctags -L - --tag-relative -f .git/tags.$$ --languages=php
 mv .git/tags.$$ .git/tags
-echo "Ctags build."
+echo "Ctags have been built."

@@ -33,7 +33,7 @@ POWERLEVEL9K_MODE='powerline'
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
@@ -46,7 +46,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(colored-man common-aliases command-not-found copydir copyfile cp dircycle dirhistory extract git git-extras gitfast github history json-tools last-working-dir nyan pip python rsync themes vim-interaction ssh-agent vundle z)
+plugins=(branch colored-man common-aliases command-not-found copydir copyfile cp dircycle dirhistory extract git git-extras gitfast grunt history json-tools last-working-dir themes ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
@@ -63,7 +63,5 @@ homeshick --quiet refresh
 export PATH=${PATH}:~/android-sdk-linux/tools
 export PATH=${PATH}:~/android-sdk-linux/platform-tools
 export PATH=${PATH}:~/bin
-
-eval "$(grunt --completion=zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

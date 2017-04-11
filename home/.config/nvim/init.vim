@@ -1,4 +1,23 @@
 "
+if (!has('nvim'))
+    set autoindent
+    set autoread
+    set backspace="indent,eol,start"
+    set display="lastline"
+    set encoding="utf8"
+    set history=10000
+    set hlsearch
+    set incsearch
+    set langnoremap
+    set laststatus=2
+    set mouse="a"
+    set nocompatible
+    set nrformats="bin,hex"
+    set smarttab
+    set ttyfast
+    set wildmenu
+endif
+
 " Use bundles config {
     if filereadable(expand("~/.config/nvim/bundles.vim"))
         source ~/.config/nvim/bundles.vim
@@ -9,7 +28,6 @@
     syntax on                   " Syntax highlighting
     scriptencoding utf-8
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
-    set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set nospell                           " Spell checking off
     set hidden                          " Allow buffer switching without saving
@@ -59,24 +77,23 @@
 
     set cursorline                  " Highlight current line
 
-    if has('cmdline_info')
-        set ruler                   " Show the ruler
-        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-        set showcmd                 " Show partial commands in status line and
-                                    " Selected characters/lines in visual mode
-    endif
+    " if has('cmdline_info')
+    "     set ruler                   " Show the ruler
+    "     set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+    "     set showcmd                 " Show partial commands in status line and
+    "                                 " Selected characters/lines in visual mode
+    " endif
 
-    if has('statusline')
-        set laststatus=2
+    " if has('statusline')
 
-        " Broken down into easily includeable segments
-        set statusline=%<%f\                     " Filename
-        set statusline+=%w%h%m%r                 " Options
-        set statusline+=%{fugitive#statusline()} " Git Hotness
-        set statusline+=\ [%{&ff}/%Y]            " Filetype
-        set statusline+=\ [%{getcwd()}]          " Current dir
-        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    endif
+    "     " Broken down into easily includeable segments
+    "     set statusline=%<%f\                     " Filename
+    "     set statusline+=%w%h%m%r                 " Options
+    "     set statusline+=%{fugitive#statusline()} " Git Hotness
+    "     set statusline+=\ [%{&ff}/%Y]            " Filetype
+    "     set statusline+=\ [%{getcwd()}]          " Current dir
+    "     set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+    " endif
 
     set linespace=0                 " No extra spaces between rows
     set nu                          " Line numbers on
@@ -93,10 +110,6 @@
     set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 10
     colorscheme Tomorrow-Night
 
-    "Highlight long lines
-    hi OverLength ctermbg=darkred ctermfg=white guibg=darkred
-    match OverLength /\%120v.*/
-
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " }
@@ -111,34 +124,11 @@
     set splitright                  " Puts new vsplit windows to the right of the current
     set splitbelow                  " Puts new split windows to the bottom of the current
 
-    "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
-    " Remove trailing whitespaces and ^M chars
-    " To disable the stripping of whitespace, add the following to your
-    " .vimrc.before.local file:
-    "   let g:spf13_keep_trailing_whitespace = 1
-    "autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer>
-    "if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
-
-    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-
 " }
 " Key (re)Mappings {
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
-
-    " Code folding options
-    nmap <leader>f0 :set foldlevel=0<CR>
-    nmap <leader>f1 :set foldlevel=1<CR>
-    nmap <leader>f2 :set foldlevel=2<CR>
-    nmap <leader>f3 :set foldlevel=3<CR>
-    nmap <leader>f4 :set foldlevel=4<CR>
-    nmap <leader>f5 :set foldlevel=5<CR>
-    nmap <leader>f6 :set foldlevel=6<CR>
-    nmap <leader>f7 :set foldlevel=7<CR>
-    nmap <leader>f8 :set foldlevel=8<CR>
-    nmap <leader>f9 :set foldlevel=9<CR>
-
 
     " better fold move commands
     nnoremap zk zk[z
@@ -162,14 +152,6 @@
     endfunction " }}}
     set foldtext=MyFoldText()
 
-    " fix tag jump for azerty keyboard
-    nnoremap <C-g> <C-]>zo
-
-    " Shortcuts
-    " Change Working Directory to that of the current file
-    cmap cwd lcd %:p:h
-    cmap cd. lcd %:p:h
-
     " Visual shifting (does not exit Visual mode)
     vnoremap < <gv
     vnoremap > >gv
@@ -184,14 +166,6 @@
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
     cnoremap %% <C-R>=expand('%:h').'/'<cr>
-    map <Leader>ew :e %%
-
-    " Adjust viewports to the same size
-    map <Leader>= <C-w>=
-
-    " Easier horizontal scrolling
-    map zl zL
-    map zh zH
 
     " Disable arrows
     noremap  <up> <nop>
@@ -222,10 +196,23 @@
     vmap <Leader>P "+P
 
     nnoremap <Leader>w :w<CR>
-    cnoremap %z /usr/share/php/libzend-framework-php/Zend/
+    cnoremap %z /var/www/sticker/vendor/zendframework/zendframework1/library/Zend/
+" }
+
+" Skeletons {
+    autocmd BufNewFile  *. php 0r ~/.config/nvim/skeletons/skeleton.php
+" }
+" Open Quickfix window when text is written in it {
+augroup vimrc
+    autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
+augroup END
 " }
 
 " Plugins {
+    " netrw {
+        let g:netrw_altv = 1 "open splits to the right
+        let g:netrw_liststyle = 3 " tree view
+    " }
     " Misc {
         let b:match_ignorecase = 1
     " }
@@ -235,7 +222,6 @@
     " }
     " Neomake {
         autocmd! BufWritePost * Neomake
-        let g:neomake_python_enabled_makers=['flake8']
         let g:neomake_php_enabled_makers=['php', 'phpcs']
         let g:neomake_javascript_enabled_makers=['jshint']
         let g:neomake_php_phpcs_args_standard="Zend"
@@ -276,62 +262,15 @@
         endif
 
     " }
-    " Tabularize {
-        nmap <Leader>a& :Tabularize /&<CR>
-        vmap <Leader>a& :Tabularize /&<CR>
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
-        nmap <Leader>a:: :Tabularize /:\zs<CR>
-        vmap <Leader>a:: :Tabularize /:\zs<CR>
-        nmap <Leader>a, :Tabularize /,<CR>
-        vmap <Leader>a, :Tabularize /,<CR>
-        nmap <Leader>a,, :Tabularize /,\zs<CR>
-        vmap <Leader>a,, :Tabularize /,\zs<CR>
-        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-    " }
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
     " }
-    " PyMode {
-        let g:pymode_lint_checker = "pyflakes"
-        let g:pymode_utils_whitespaces = 0
-        let g:pymode_options = 0
+    " fzf {
+        nnoremap <C-P> :Files<CR>
     " }
-    " ctrlp {
-        let g:ctrlp_working_path_mode = 'ra'
-        nnoremap <silent> <C-P> :CtrlPMRU<CR>
-        let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-        " On Windows use "dir" as fallback command.
-        if executable('ag')
-            let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-        elseif executable('ack')
-            let s:ctrlp_fallback = 'ack %s --nocolor -f'
-        else
-            let s:ctrlp_fallback = 'find %s -type f'
-        endif
-        let g:ctrlp_user_command = {
-            \ 'types': {
-                \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': s:ctrlp_fallback
-        \ }
-    "}
     " TagBar {
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
     "}
-    " PythonMode {
-        " Disable if python support not present
-        if !has('python')
-            let g:pymode = 0
-        endif
-    " }
     " Fugitive {
         nnoremap <silent> <leader>gs :Gstatus<CR>
         nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -345,67 +284,14 @@
         " Mnemonic _i_nteractive
         nnoremap <silent> <leader>gi :Git add -p %<CR>
         nnoremap <silent> <leader>gg :SignifyToggle<CR>
+        command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
     "}
-    " deoplete {
-        let g:deoplete#enable_at_startup = 1
-    " }
-    " neocomplete {
-        " let g:acp_enableAtStartup = 0
-        " let g:neocomplete#enable_at_startup = 1
-        " let g:neocomplete#enable_smart_case = 1
-        " let g:neocomplete#enable_auto_delimiter = 1
-        " let g:neocomplete#max_list = 15
-        " let g:neocomplete#force_overwrite_completefunc = 1
-
-
-        " " Define dictionary.
-        " let g:neocomplete#sources#dictionary#dictionaries = {
-        "             \ 'default' : '',
-        "             \ 'vimshell' : $HOME.'/.vimshell_hist',
-        "             \ 'scheme' : $HOME.'/.gosh_completions'
-        "             \ }
-
-        " " Define keyword.
-        " if !exists('g:neocomplete#keyword_patterns')
-        "     let g:neocomplete#keyword_patterns = {}
-        " endif
-        " let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-        "     iunmap <CR>
-        "     " <ESC> takes you out of insert mode
-        "     inoremap <expr> <Esc> pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-        "     " <CR> accepts first, then sends the <CR>
-        "     inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-        "     " <Down> and <Up> cycle like <Tab> and <S-Tab>
-        "     inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-        "     inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
-        "     " Jump up and down the list
-        "     inoremap <expr> <C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        "     inoremap <expr> <C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-        " " <TAB>: completion.
-        " inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-        " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
-        " " Courtesy of Matteo Cavalleri
-
-        " " Enable heavy omni completion.
-        " if !exists('g:neocomplete#sources#omni#input_patterns')
-        "     let g:neocomplete#sources#omni#input_patterns = {}
-        " endif
-        " let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        " let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-        " let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        " let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        " let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-    " }
     " Normal Vim omni-completion {
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
         autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-        autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-        autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     " }
     " vim-airline {
         " See `:echo g:airline_theme_map` for some more choices
@@ -422,6 +308,7 @@
         endif
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#buffer_nr_show = 1
+        let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
     " }
     " php refactor {
@@ -443,25 +330,19 @@
     " grepper {
         nnoremap <leader>s :Grepper<CR>
         let g:grepper = {}
+        let g:grepper.highlight = 1
         let g:grepper.open = 1
         let g:grepper.switch = 1
         let g:grepper.jump = 0
         let g:grepper.next_tool = '<leader>s'
-    " }
-    " php syntax coloring override {
-        function! PhpSyntaxOverride()
-          hi! def link phpDocTags  phpDefine
-          hi! def link phpDocParam phpType
-        endfunction
-
-        augroup phpSyntaxOverride
-          autocmd!
-          autocmd FileType php call PhpSyntaxOverride()
-        augroup END
+        let g:grepper.tools = ['git', 'ag', 'ack', 'grep', 'findstr', 'sift', 'pt']
     " }
     " Vim devicons {
         let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
         let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['phtml'] = ''
+    " }
+    " length matters {
+        let g:lengthmatters_start_at_column = 120
     " }
 " }
 
@@ -489,16 +370,7 @@
             let dir_list['undo'] = 'undodir'
         endif
 
-        " To specify a different directory in which to place the vimbackup,
-        " vimviews, vimundo, and vimswap files/directories, add the following to
-        " your .vimrc.before.local file:
-        "   let g:spf13_consolidated_directory = <full path to desired directory>
-        "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
-        if exists('g:spf13_consolidated_directory')
-            let common_dir = g:spf13_consolidated_directory . prefix
-        else
-            let common_dir = parent . '/.' . prefix
-        endif
+        let common_dir = parent . '/.' . prefix
 
         for [dirname, settingname] in items(dir_list)
             let directory = common_dir . dirname . '/'
@@ -531,33 +403,6 @@
         call cursor(l, c)
     endfunction
     " }
-    " TabPHPDoc {
-    function TabPHPDoc()
-        Tabularize/@\w\+\s\+\zs\S\+\|\%(@\w\+.*\)\@<=\u.*/
-    endfunction
-    " }
-    " Shell command {
-    function! s:RunShellCommand(cmdline)
-        botright new
-
-        setlocal buftype=nofile
-        setlocal bufhidden=delete
-        setlocal nobuflisted
-        setlocal noswapfile
-        setlocal nowrap
-        setlocal filetype=shell
-        setlocal syntax=shell
-
-        call setline(1, a:cmdline)
-        call setline(2, substitute(a:cmdline, '.', '=', 'g'))
-        execute 'silent $read !' . escape(a:cmdline, '%#')
-        setlocal nomodifiable
-        1
-    endfunction
-
-    command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-    " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
-    " }
     " get the test file associated to the current file {
       function! s:GetAssociatedTestFile()
          return 'tests/'.expand("%:r").'Test.php'
@@ -566,9 +411,9 @@
     " Launch unit tests {
       function! s:RunTestFile(file)
         if filereadable(a:file)
-            execute 'Dispatch phpunit --verbose -c tests/phpunit.xml --bootstrap tests/bootstrap.php '.a:file.'<cr>'
+            exec 'AsyncRun vendor/bin/phpunit --verbose -c tests/phpunit.xml --bootstrap tests/bootstrap.php ' . a:file
         else
-            echo 'file '+a:file+' not readable'
+            echo 'file '.a:file.' not readable'
         endif
       endfunction
       function! RunCurrentTestFile()
