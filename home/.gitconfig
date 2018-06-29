@@ -1,13 +1,13 @@
 [user]
     name = Lionel Martin
-    email = lionel@stickyads.tv
-    editor = nvim
+    email = lmartin@freewheel.tv
 [core]
     autocrlf = input
     pager = /usr/bin/less
     whitespace = "trailing-space,space-before-tab,blank-at-eol,tab-in-indent"
+    editor = nvim
 [merge]
-    tool = lvimdiff
+    tool = nvimdiff
 [mergetool "lvimdiff"]
     cmd = "nvim -d -c 'wincmd J' $MERGED $LOCAL $BASE $REMOTE"
 [diff]
@@ -30,7 +30,7 @@
     uncommit = reset --soft HEAD^
     ctags = !.git/hooks/ctags
 [push]
-    default = matching
+	default = simple
 [credential]
     helper = cache
 [include]
@@ -40,4 +40,4 @@
 [help]
     autocorrect = 1
 [pull]
-	rebase = true
+    rebase = true

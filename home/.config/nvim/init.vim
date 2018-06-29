@@ -74,27 +74,7 @@ endif
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
-
     set cursorline                  " Highlight current line
-
-    " if has('cmdline_info')
-    "     set ruler                   " Show the ruler
-    "     set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-    "     set showcmd                 " Show partial commands in status line and
-    "                                 " Selected characters/lines in visual mode
-    " endif
-
-    " if has('statusline')
-
-    "     " Broken down into easily includeable segments
-    "     set statusline=%<%f\                     " Filename
-    "     set statusline+=%w%h%m%r                 " Options
-    "     set statusline+=%{fugitive#statusline()} " Git Hotness
-    "     set statusline+=\ [%{&ff}/%Y]            " Filetype
-    "     set statusline+=\ [%{getcwd()}]          " Current dir
-    "     set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    " endif
-
     set linespace=0                 " No extra spaces between rows
     set nu                          " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
@@ -178,14 +158,17 @@ endif
     inoremap jj <Esc>
     inoremap kk <Esc>
 
+    nnoremap j gj
+    nnoremap k gk
+
     nnoremap <Leader>jd :JsDoc<cr>
 
     " move easily through buffers
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-    nnoremap <leader>ve :e $HOME/.nvimrc<cr>
-    nnoremap <leader>vs :source $HOME/.nvimrc<cr>
+    nnoremap <leader>ev :e $HOME/.config/nvim/init.vim<cr>
+    nnoremap <leader>sv :source $HOME/.config/nvim/init.vim<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -196,11 +179,10 @@ endif
     vmap <Leader>P "+P
 
     nnoremap <Leader>w :w<CR>
-    cnoremap %z /var/www/sticker/vendor/zendframework/zendframework1/library/Zend/
 " }
 
 " Skeletons {
-    autocmd BufNewFile  *. php 0r ~/.config/nvim/skeletons/skeleton.php
+    autocmd BufNewFile  *.php 0r ~/.config/nvim/skeletons/skeleton.php
 " }
 " Open Quickfix window when text is written in it {
 augroup vimrc
@@ -209,6 +191,8 @@ augroup END
 " }
 
 " Plugins {
+    " php {
+    " }
     " netrw {
         let g:netrw_altv = 1 "open splits to the right
         let g:netrw_liststyle = 3 " tree view
@@ -234,39 +218,10 @@ augroup END
         let g:used_javascript_libs = 'jquery'
         let g:jsdoc_default_mapping = 0
     " }
-    " OmniComplete {
-        " To disable omni complete, add the following to your .vimrc.before.local file:
-        "   let g:spf13_no_omni_complete = 1
-        if !exists('g:spf13_no_omni_complete')
-            if has("autocmd") && exists("+omnifunc")
-                autocmd Filetype *
-                    \if &omnifunc == "" |
-                    \setlocal omnifunc=syntaxcomplete#Complete |
-                    \endif
-            endif
-
-            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-            hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-            hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-            " Some convenient mappings
-            inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-            inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-            inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-            inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-            inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-            inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-            " Automatically open and close the popup menu / preview window
-            set completeopt=menu,preview,longest
-        endif
-
-    " }
-    " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-    " }
     " fzf {
-        nnoremap <C-P> :Files<CR>
+        nnoremap <leader>ff :Files<CR>
+        nnoremap <leader>fb :Buffers<CR>
+        nnoremap <leader>ft :Tags<CR>
     " }
     " TagBar {
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
@@ -311,12 +266,6 @@ augroup END
         let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
     " }
-    " php refactor {
-        let g:php_refactor_command = "php ~/.homesick/repos/Setup/refactor.phar"
-    " }
-    " php-cs-fixer {
-        let g:php_cs_fixer_fixers_list = "short_tag,function_call_space,function_declaration,linefeed,lowercase_constants,lowercase_keywords,method_argument_space,parenthesis,php_closing_tag,trailing_spaces,visibility,operators_spaces"
-    " }
     " Startify {
         let g:startify_change_to_dir = 0
         let g:startify_custom_header =
@@ -328,7 +277,7 @@ augroup END
         let g:startify_session_delete_buffers = 1
     " }
     " grepper {
-        nnoremap <leader>s :Grepper<CR>
+        nnoremap <leader>ss :Grepper<CR>
         let g:grepper = {}
         let g:grepper.highlight = 1
         let g:grepper.open = 1
@@ -336,6 +285,7 @@ augroup END
         let g:grepper.jump = 0
         let g:grepper.next_tool = '<leader>s'
         let g:grepper.tools = ['git', 'ag', 'ack', 'grep', 'findstr', 'sift', 'pt']
+        nnoremap <leader>s* :Grepper -cword -noprompt<CR>
     " }
     " Vim devicons {
         let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
@@ -343,6 +293,12 @@ augroup END
     " }
     " length matters {
         let g:lengthmatters_start_at_column = 120
+    " }
+    " editor config {
+        let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+    " }
+    " Debug {
+        let g:dbgPavimPort = 9000
     " }
 " }
 
@@ -390,6 +346,7 @@ augroup END
     endfunction
     call InitializeDirectories()
     " }
+
     " Strip whitespace {
     function! StripTrailingWhitespace()
         " Preparation: save last search, and cursor position.
@@ -408,17 +365,18 @@ augroup END
          return 'tests/'.expand("%:r").'Test.php'
       endfunction
     " }
+
     " Launch unit tests {
       function! s:RunTestFile(file)
         if filereadable(a:file)
-            exec 'AsyncRun vendor/bin/phpunit --verbose -c tests/phpunit.xml --bootstrap tests/bootstrap.php ' . a:file
+            exec 'AsyncRun '.g:phpunit_command.' '.a:file
         else
             echo 'file '.a:file.' not readable'
         endif
       endfunction
       function! RunCurrentTestFile()
-        if stridx(expand("%"), 'tests/') > -1
-            call s:RunTestFile(expand("%"))
+        if stridx(@%, 'tests/') > -1
+            call s:RunTestFile(@%))
         else
             call s:RunTestFile(s:GetAssociatedTestFile())
         endif

@@ -5,32 +5,32 @@ call plug#begin()
 " General {
     Plug 'tpope/vim-surround'
     Plug 'chriskempson/vim-tomorrow-theme'
-    Plug 'matchit.zip'
+    Plug 'vim-scripts/matchit.zip'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'tpope/vim-abolish'
+    "Plug 'tpope/vim-abolish'
     Plug 'tpope/vim-repeat'
     Plug 'AndrewRadev/splitjoin.vim'
     Plug 'wellle/targets.vim'
     Plug 'mhinz/vim-startify'
-    Plug 'mhinz/vim-grepper'
+    Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
     Plug 'vim-scripts/BufOnly.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'skywind3000/asyncrun.vim'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'tpope/vim-eunuch'
 " }
 " General Programming {
     Plug 'benekastah/neomake'
     Plug 'tpope/vim-fugitive'
-    Plug 'junegunn/gv.vim'
     Plug 'mattn/webapi-vim'
     Plug 'whatyouhide/vim-lengthmatters'
     "Plug 'mattn/gist-vim'
     Plug 'airblade/vim-gitgutter'
     Plug 'jaxbot/github-issues.vim'
-    Plug 'bkad/CamelCaseMotion'
-    Plug 'joonty/vdebug', {'for': 'php'}
-    let g:dbgPavimPort = 9000
+    "Plug 'bkad/CamelCaseMotion'
+    Plug 'joonty/vdebug'
     if executable('ctags')
     Plug 'majutsushi/tagbar'
     endif
@@ -47,12 +47,12 @@ call plug#begin()
     Plug 'StanAngeloff/php.vim', {'for': 'php'}
     Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
     Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
-    Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
+    "Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
 " }
 " Javascript {
     Plug 'elzr/vim-json', {'for': 'javascript'}
     Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-    Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
+    "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
     Plug 'heavenshell/vim-jsdoc', {'for': 'javascript'}
     Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
     Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
