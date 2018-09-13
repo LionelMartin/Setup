@@ -6,10 +6,6 @@
     pager = /usr/bin/less
     whitespace = "trailing-space,space-before-tab,blank-at-eol,tab-in-indent"
     editor = nvim
-[merge]
-    tool = nvimdiff
-[mergetool "lvimdiff"]
-    cmd = "nvim -d -c 'wincmd J' $MERGED $LOCAL $BASE $REMOTE"
 [diff]
     tool = nvimdiff
 [color]
@@ -30,14 +26,14 @@
     uncommit = reset --soft HEAD^
     ctags = !.git/hooks/ctags
 [push]
-	default = simple
+    default = simple
 [credential]
     helper = cache
-[include]
-    path= ~/.gitconfig.local
 [init]
     templatedir = ~/.git_template
 [help]
     autocorrect = 1
 [pull]
     rebase = true
+[include]
+    path = ~/.gitconfig.local
