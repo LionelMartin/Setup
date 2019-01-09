@@ -61,3 +61,4 @@ call plug#begin()
     Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " }
 call plug#end()
+runtime plugin/shortcut.vim

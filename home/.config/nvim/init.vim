@@ -1,4 +1,3 @@
-"
 if (!has('nvim'))
     set autoindent
     set autoread
@@ -18,21 +17,23 @@ if (!has('nvim'))
     set wildmenu
 endif
 
-    if filereadable(expand("~/.config/nvim/before.vim"))
-        source ~/.config/nvim/before.vim
-    endif
+if filereadable(expand("~/.config/nvim/before.vim"))
+    source ~/.config/nvim/before.vim
+endif
+
 " Use bundles config {
     if filereadable(expand("~/.config/nvim/bundles.vim"))
         source ~/.config/nvim/bundles.vim
     endif
 " }
+
 " General {
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     scriptencoding utf-8
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set virtualedit=onemore             " Allow for cursor beyond last character
-    set nospell                           " Spell checking off
+    set nospell                         " Spell checking off
     set hidden                          " Allow buffer switching without saving
     if has('clipboard')
         if has('unnamedplus')  " When possible use + register for copy-paste
@@ -73,8 +74,8 @@ endif
         endif
     " }
 " }
-" Vim UI {
 
+" Vim UI {
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
     set cursorline                  " Highlight current line
@@ -95,10 +96,9 @@ endif
     colorscheme Tomorrow-Night
 
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 " }
-" Formatting {
 
+" Formatting {
     set nowrap                      " Do not wrap long lines
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
@@ -107,8 +107,8 @@ endif
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
     set splitright                  " Puts new vsplit windows to the right of the current
     set splitbelow                  " Puts new split windows to the bottom of the current
-
 " }
+
 " Folding {
     function! MyFoldText() " {{{
         let line = getline(v:foldstart)
@@ -117,18 +117,14 @@ endif
         let windowwidth = winwidth(0) - nucolwidth - 3
         let foldedlinecount = v:foldend - v:foldstart
 
-        " expand tabs into spaces
-        "let onetab = strpart(' ', 0, &tabstop)
-        "let line = substitute(line, '\t', onetab, 'g')
-
         let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
         let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
         return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
     endfunction " }}}
     set foldtext=MyFoldText()
 " }
-" Key (re)Mappings {
 
+" Key (re)Mappings {
     nnoremap Y y$
 
     " better fold move commands
@@ -165,7 +161,6 @@ endif
     nnoremap j gj
     nnoremap k gk
 
-
     " move easily through buffers
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
@@ -182,19 +177,20 @@ endif
     nmap <Leader>P "+P
     vmap <Leader>p "+p
     vmap <Leader>P "+P
-
 " }
 
 " Open Quickfix window when text is written in it {
-augroup vimrc
-    autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
-augroup END
+    augroup vimrc
+        autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
+    augroup END
 " }
-" source every plugin configs {
-for file in split(glob("~/nvim/pluginconf/*.vim"), '\n')
-    exe 'source' file
-endfor
+
+" Source every plugin configs {
+    for file in split(glob("~/nvim/pluginconf/*.vim"), '\n')
+        exe 'source' file
+    endfor
 " }
+
 " Plugins {
     " Normal Vim omni-completion {
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -214,8 +210,7 @@ endfor
         let prefix = 'vim'
         let dir_list = {
                     \ 'backup': 'backupdir',
-                    \ 'views': 'viewdir',
-                    \ 'swap': 'directory' }
+                    \ 'views': 'viewdir' }
 
         if has('persistent_undo')
             let dir_list['undo'] = 'undodir'
