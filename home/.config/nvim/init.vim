@@ -18,6 +18,9 @@ if (!has('nvim'))
     set wildmenu
 endif
 
+    if filereadable(expand("~/.config/nvim/before.vim"))
+        source ~/.config/nvim/before.vim
+    endif
 " Use bundles config {
     if filereadable(expand("~/.config/nvim/bundles.vim"))
         source ~/.config/nvim/bundles.vim
@@ -86,8 +89,9 @@ endif
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
+    set completeopt=noinsert,menuone,noselect " don't insert automatically, display even when there is only one option, don't select automatically
 
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 10
+    set guifont=DroidSansMono\ Nerd\ Font\ 10
     colorscheme Tomorrow-Night
 
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -105,16 +109,7 @@ endif
     set splitbelow                  " Puts new split windows to the bottom of the current
 
 " }
-" Key (re)Mappings {
-
-    " Yank from the cursor to the end of the line, to be consistent with C and D.
-    nnoremap Y y$
-
-    " better fold move commands
-    nnoremap zk zk[z
-    nnoremap zK zk
-    nnoremap zJ zj]z
-
+" Folding {
     function! MyFoldText() " {{{
         let line = getline(v:foldstart)
 
@@ -123,14 +118,23 @@ endif
         let foldedlinecount = v:foldend - v:foldstart
 
         " expand tabs into spaces
-        let onetab = strpart(' ', 0, &tabstop)
-        let line = substitute(line, '\t', onetab, 'g')
+        "let onetab = strpart(' ', 0, &tabstop)
+        "let line = substitute(line, '\t', onetab, 'g')
 
         let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
         let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
         return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
     endfunction " }}}
     set foldtext=MyFoldText()
+" }
+" Key (re)Mappings {
+
+    nnoremap Y y$
+
+    " better fold move commands
+    nnoremap zk zk[z
+    nnoremap zK zk
+    nnoremap zJ zj]z
 
     " Visual shifting (does not exit Visual mode)
     vnoremap < <gv
@@ -140,8 +144,8 @@ endif
     " http://stackoverflow.com/a/8064607/127816
     vnoremap . :normal .<CR>
 
-    " For when you forget to sudo.. Really Write the file.
-    cmap w!! w !sudo tee % >/dev/null
+    Shortcut Saves as sudo
+     \ cmap w!! w !sudo tee % >/dev/null
 
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
@@ -161,14 +165,15 @@ endif
     nnoremap j gj
     nnoremap k gk
 
-    nnoremap <Leader>jd :JsDoc<cr>
 
     " move easily through buffers
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-    nnoremap <leader>ev :e $HOME/.config/nvim/init.vim<cr>
-    nnoremap <leader>sv :source $HOME/.config/nvim/init.vim<cr>
+    Shortcut Edit vim config
+        \ nnoremap <leader>ev :e $HOME/.config/nvim/init.vim<cr>
+    Shortcut Reloads vim config
+        \ nnoremap <leader>sv :source $HOME/.config/nvim/init.vim<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -178,138 +183,28 @@ endif
     vmap <Leader>p "+p
     vmap <Leader>P "+P
 
-    nnoremap <Leader>w :w<CR>
 " }
 
-" Skeletons {
-    autocmd BufNewFile  *.php 0r ~/.config/nvim/skeletons/skeleton.php
-" }
 " Open Quickfix window when text is written in it {
 augroup vimrc
     autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 augroup END
 " }
-
+" source every plugin configs {
+for file in split(glob("~/nvim/pluginconf/*.vim"), '\n')
+    exe 'source' file
+endfor
+" }
 " Plugins {
-    " php {
-    " }
-    " netrw {
-        let g:netrw_altv = 1 "open splits to the right
-        let g:netrw_liststyle = 3 " tree view
-    " }
-    " Misc {
-        let b:match_ignorecase = 1
-    " }
-    " Git Gutter {
-        let g:gitgutter_realtime = 0
-        let g:gitgutter_eager = 0
-    " }
-    " Neomake {
-        autocmd! BufWritePost * Neomake
-        let g:neomake_php_enabled_makers=['php', 'phpcs']
-        let g:neomake_javascript_enabled_makers=['jshint']
-        let g:neomake_php_phpcs_args_standard="Zend"
-        let g:neomake_error_symbol = "✗"
-        let g:neomake_warning_symbol = "⚠"
-        let g:neomake_enable_balloons = 1
-    " }
-    " javascript {
-        let tern#is_show_argument_hints_enabled = 1
-        let g:used_javascript_libs = 'jquery'
-        let g:jsdoc_default_mapping = 0
-    " }
-    " fzf {
-        nnoremap <leader>ff :Files<CR>
-        nnoremap <leader>fb :Buffers<CR>
-        nnoremap <leader>ft :Tags<CR>
-    " }
-    " TagBar {
-        nnoremap <silent> <leader>tt :TagbarToggle<CR>
-    "}
-    " Fugitive {
-        nnoremap <silent> <leader>gs :Gstatus<CR>
-        nnoremap <silent> <leader>gd :Gdiff<CR>
-        nnoremap <silent> <leader>gc :Gcommit<CR>
-        nnoremap <silent> <leader>gb :Gblame<CR>
-        nnoremap <silent> <leader>gl :Glog<CR>
-        nnoremap <silent> <leader>gp :Git push<CR>
-        nnoremap <silent> <leader>gr :Gread<CR>
-        nnoremap <silent> <leader>gw :Gwrite<CR>
-        nnoremap <silent> <leader>ge :Gedit<CR>
-        " Mnemonic _i_nteractive
-        nnoremap <silent> <leader>gi :Git add -p %<CR>
-        nnoremap <silent> <leader>gg :SignifyToggle<CR>
-        command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-    "}
     " Normal Vim omni-completion {
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
         autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    " }
-    " vim-airline {
-        " See `:echo g:airline_theme_map` for some more choices
-        " Default in terminal vim is 'dark'
-        let g:airline_exclude_preview = 1
-        if !exists('g:airline_theme')
-            let g:airline_theme = 'tomorrow'
-        endif
-        let g:airline_powerline_fonts = 1
-        if !exists('g:airline_powerline_fonts')
-            " Use the default set of separators with a few customizations
-            let g:airline_left_sep=''  " Slightly fancier than '>'
-            let g:airline_right_sep='' " Slightly fancier than '<'
-        endif
-        let g:airline#extensions#tabline#enabled = 1
-        let g:airline#extensions#tabline#buffer_nr_show = 1
-        let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
-
-    " }
-    " Startify {
-        let g:startify_change_to_dir = 0
-        let g:startify_custom_header =
-              \ map(split(system('fortune | cowsay -f apt'), '\n'), '"   ". v:val') + ['']
-        let g:startify_custom_footer =
-              \ ['', "   Vim is charityware. Please read ':help uganda'.", '']
-        let g:startify_session_autoload       = 1
-        let g:startify_session_persistence    = 1
-        let g:startify_session_delete_buffers = 1
-    " }
-    " grepper {
-        nnoremap <leader>ss :Grepper<CR>
-        let g:grepper = {}
-        let g:grepper.highlight = 1
-        let g:grepper.open = 1
-        let g:grepper.switch = 1
-        let g:grepper.jump = 0
-        let g:grepper.next_tool = '<leader>s'
-        let g:grepper.tools = ['git', 'ag', 'ack', 'grep', 'findstr', 'sift', 'pt']
-        nnoremap <leader>s* :Grepper -cword -noprompt<CR>
-    " }
-    " Vim devicons {
-        let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-        let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['phtml'] = ''
     " }
     " length matters {
         let g:lengthmatters_start_at_column = 120
     " }
-    " editor config {
-        let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-    " }
-    " Debug {
-        let g:dbgPavimPort = 9000
-    " }
-" }
-
-" GUI Settings {
-
-    " GVIM- (here instead of .gvimrc)
-    if has('gui_running')
-        set guioptions-=T           " Remove the toolbar
-        set lines=40                " 40 lines of text instead of 24
-    endif
-
 " }
 
 " Functions {
@@ -346,42 +241,6 @@ augroup END
     endfunction
     call InitializeDirectories()
     " }
-
-    " Strip whitespace {
-    function! StripTrailingWhitespace()
-        " Preparation: save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        " do the business:
-        %s/\s\+$//e
-        " clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
-    endfunction
-    " }
-    " get the test file associated to the current file {
-      function! s:GetAssociatedTestFile()
-         return 'tests/'.expand("%:r").'Test.php'
-      endfunction
-    " }
-
-    " Launch unit tests {
-      function! s:RunTestFile(file)
-        if filereadable(a:file)
-            exec 'AsyncRun '.g:phpunit_command.' '.a:file
-        else
-            echo 'file '.a:file.' not readable'
-        endif
-      endfunction
-      function! RunCurrentTestFile()
-        if stridx(@%, 'tests/') > -1
-            call s:RunTestFile(@%))
-        else
-            call s:RunTestFile(s:GetAssociatedTestFile())
-        endif
-      endfunction
-      " }
 " }
 
 " Use local vimrc if available {

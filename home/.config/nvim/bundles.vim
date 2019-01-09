@@ -20,20 +20,14 @@ call plug#begin()
     Plug 'skywind3000/asyncrun.vim'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-eunuch'
+    Plug 'sunaku/vim-shortcut'
 " }
 " General Programming {
     Plug 'benekastah/neomake'
     Plug 'tpope/vim-fugitive'
-    Plug 'mattn/webapi-vim'
     Plug 'whatyouhide/vim-lengthmatters'
-    "Plug 'mattn/gist-vim'
     Plug 'airblade/vim-gitgutter'
-    Plug 'jaxbot/github-issues.vim'
-    "Plug 'bkad/CamelCaseMotion'
     Plug 'joonty/vdebug'
-    if executable('ctags')
-    Plug 'majutsushi/tagbar'
-    endif
     Plug 'tpope/vim-commentary'
     Plug 'ryanoasis/vim-devicons'
 " }
@@ -41,21 +35,22 @@ call plug#begin()
     Plug 'SirVer/ultisnips'
 " }
 " PHP {
-    Plug 'tobyS/vmustache', {'for': 'php'}
-    Plug 'tobyS/pdv', {'for': 'php'}
-    Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
-    Plug 'StanAngeloff/php.vim', {'for': 'php'}
-    Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
-    Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
-    "Plug 'vim-php/vim-php-refactoring', {'for': 'php'}
+    if (exists('g:languages_php'))
+        Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
+        Plug 'StanAngeloff/php.vim', {'for': 'php'}
+        Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
+        Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
+        Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev'}
+    endif
 " }
 " Javascript {
-    Plug 'elzr/vim-json', {'for': 'javascript'}
-    Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-    "Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
-    Plug 'heavenshell/vim-jsdoc', {'for': 'javascript'}
-    Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-    Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
+    if (exists('g:languages_javascript'))
+        Plug 'elzr/vim-json', {'for': 'javascript'}
+        Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+        Plug 'heavenshell/vim-jsdoc', {'for': 'javascript'}
+        Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+        Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
+    endif
 " }
 " HTML {
     Plug 'gorodinskiy/vim-coloresque', {'for': 'css'}

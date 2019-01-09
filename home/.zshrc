@@ -10,7 +10,7 @@ DEFAULT_USER="lmarti778"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time time)
 POWERLEVEL9K_STATUS_VERBOSE=false
 POWERLEVEL9K_MODE='powerline'
 
@@ -43,7 +43,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(branch colored-man common-aliases command-not-found docker git gitfast last-working-dir themes ssh-agent)
+plugins=(branch colored-man command-not-found docker git gitfast last-working-dir themes ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
