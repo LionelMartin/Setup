@@ -27,7 +27,6 @@ call plug#begin()
     Plug 'tpope/vim-fugitive'
     Plug 'whatyouhide/vim-lengthmatters'
     Plug 'airblade/vim-gitgutter'
-    Plug 'joonty/vdebug'
     Plug 'tpope/vim-commentary'
     Plug 'ryanoasis/vim-devicons'
 " }
@@ -41,6 +40,7 @@ call plug#begin()
         Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
         Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
         Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev'}
+        Plug 'joonty/vdebug'
     endif
 " }
 " Javascript {

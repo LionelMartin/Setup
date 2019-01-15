@@ -17,6 +17,11 @@ if (!has('nvim'))
     set wildmenu
 endif
 
+" Declare the general config group for autocommand
+augroup vimrc
+  autocmd!
+augroup END
+
 if filereadable(expand("~/.config/nvim/before.vim"))
     source ~/.config/nvim/before.vim
 endif
@@ -180,13 +185,11 @@ endif
 " }
 
 " Open Quickfix window when text is written in it {
-    augroup vimrc
-        autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
-    augroup END
+    autocmd vimrc QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 " }
 
 " Source every plugin configs {
-    for file in split(glob("~/nvim/pluginconf/*.vim"), '\n')
+    for file in split(glob("~/.config/nvim/pluginconf/*.vim"), '\n')
         exe 'source' file
     endfor
 " }
@@ -202,8 +205,10 @@ endif
         let g:lengthmatters_start_at_column = 120
     " }
 " }
-
 " Functions {
+    " open devdocs.io with firefox and search the word under the cursor
+    command! -nargs=? DevDocs :call system('type -p open >/dev/null 2>&1 && open https://devdocs.io/#q='.&filetype.'%20<args> || firefox -url https://devdocs.io/#q='.&filetype.'%20<args>')
+    autocmd vimrc FileType python,javascript,go,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
     " Initialize directories {
     function! InitializeDirectories()
         let parent = $HOME
