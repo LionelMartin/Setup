@@ -1,0 +1,22 @@
+{
+    "languageserver": {
+        "phplang": {
+            "command": "php",
+            "args": ["vendor/felixfbecker/language-server/bin/php-language-server.php"],
+            "filetypes": ["php", "phtml"]
+        },
+        "golang": {
+            "command": "bingo",
+            "rootPatterns": ["go.mod", ".vim/", ".git/"],
+            "filetypes": ["go"]
+        },
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cpp", "objc", "objcpp"],
+            "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/"],
+            "initializationOptions": {
+                "cacheDirectory": "/tmp/ccls"
+            }
+        }
+    }
+}

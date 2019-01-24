@@ -1,0 +1,11 @@
+{
+    "src/main/<...>/*.py": {
+        "alternate": "src/test/<...>/{}.py",
+        "type": "source"
+    },
+    "src/test/<...>/*.py": {
+        "alternate": "src/main/<...>/{}.py",
+        "type": "test"
+    },
+    "*": {"make": "python", "console": "python"}
+}

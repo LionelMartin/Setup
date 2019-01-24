@@ -60,3 +60,5 @@ homeshick --quiet refresh
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 [ -f "$HOME/Applications/sfx/tools/sfx-commandline/sfxrc" ] && source "$HOME/Applications/sfx/tools/sfx-commandline/sfxrc"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

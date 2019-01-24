@@ -29,9 +29,11 @@ call plug#begin()
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-commentary'
     Plug 'ryanoasis/vim-devicons'
+    Plug 'tpope/vim-projectionist' "Per project settings
 " }
 " Snippets & AutoComplete {
     Plug 'SirVer/ultisnips'
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " }
 " PHP {
     if (exists('g:languages_php'))
@@ -40,7 +42,17 @@ call plug#begin()
         Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
         Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
         Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev'}
-        Plug 'joonty/vdebug'
+        Plug 'joonty/vdebug', {'for': 'php'}
+    endif
+" }
+" Go {
+    if (exists('g:languages_go'))
+        Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
+    endif
+" }
+" Python {
+    if (exists('g:languages_python'))
+        Plug 'tmhedberg/SimpylFold', {'for': 'python'}
     endif
 " }
 " Javascript {
