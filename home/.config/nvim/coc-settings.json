@@ -2,7 +2,7 @@
     "languageserver": {
         "phplang": {
             "command": "php",
-            "args": ["vendor/felixfbecker/language-server/bin/php-language-server.php"],
+            "args": ["/home/lmarti778/.config/nvim/plugged/phpactor/vendor/felixfbecker/language-server/bin/php-language-server.php"],
             "filetypes": ["php", "phtml"]
         },
         "golang": {
