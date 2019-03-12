@@ -145,9 +145,6 @@ endif
     " http://stackoverflow.com/a/8064607/127816
     vnoremap . :normal .<CR>
 
-    Shortcut Saves as sudo
-     \ cmap w!! w !sudo tee % >/dev/null
-
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
     cnoremap %% <C-R>=expand('%:h').'/'<cr>

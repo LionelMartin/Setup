@@ -21,6 +21,7 @@ call plug#begin()
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-eunuch'
     Plug 'sunaku/vim-shortcut'
+    Plug 'lambdalisue/suda.vim'
 " }
 " General Programming {
     Plug 'benekastah/neomake'
