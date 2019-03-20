@@ -5,11 +5,6 @@
             "args": ["/home/lmarti778/.config/nvim/plugged/phpactor/vendor/felixfbecker/language-server/bin/php-language-server.php"],
             "filetypes": ["php", "phtml"]
         },
-        "golang": {
-            "command": "bingo",
-            "rootPatterns": ["go.mod", ".vim/", ".git/"],
-            "filetypes": ["go"]
-        },
         "ccls": {
             "command": "ccls",
             "filetypes": ["c", "cpp", "objc", "objcpp"],

@@ -37,22 +37,21 @@ call plug#begin()
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " }
 " PHP {
-    if executable('php')
+    if (exists('g:languages_php'))
         Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
         Plug 'StanAngeloff/php.vim', {'for': 'php'}
         Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
         Plug 'LionelMartin/vim-php-manual', {'for': 'php'}
-        Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev'}
         Plug 'joonty/vdebug', {'for': 'php'}
     endif
 " }
 " Go {
-    if executable('go')
+    if (exists('g:languages_go'))
         Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
     endif
 " }
 " Python {
-    if executable('python')
+    if (exists('g:languages_python'))
         Plug 'tmhedberg/SimpylFold', {'for': 'python'}
     endif
 " }
