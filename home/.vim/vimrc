@@ -97,6 +97,7 @@ endif
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
     set completeopt=noinsert,menuone,noselect " don't insert automatically, display even when there is only one option, don't select automatically
+    set updatetime=500 "updates cursor info on location every 100ms (instead of 800ms)
 
     set guifont=DroidSansMono\ Nerd\ Font\ 10
     colorscheme Tomorrow-Night
