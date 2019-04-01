@@ -9,13 +9,13 @@ if [ `whoami` = 'root' ]; then
     fccache='fc-cache'
 fi
 $aptget update
-$aptget install -y zsh exuberant-ctags ack gvim git python fasd
+$aptget install -y zsh exuberant-ctags git python fasd
 
 git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
 alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 homeshick clone LionelMartin/Setup
-homeshick clone LionelMartin/cheats
 homeshick clone robbyrussell/oh-my-zsh
+git clone https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
 
 echo "installing oh my zsh"
 ln -s ~/.homesick/repos/oh-my-zsh ~/.oh-my-zsh

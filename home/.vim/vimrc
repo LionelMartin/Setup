@@ -22,16 +22,9 @@ augroup vimrc
   autocmd!
 augroup END
 
-let g:config_path = "~/.vim"
-if filereadable(expand("~/.vim/before.vim"))
-    source ~/.vim/before.vim
-endif
+runtime before.vim
 
-" Use bundles config {
-    if filereadable(expand("~/.vim/bundles.vim"))
-        source ~/.vim/bundles.vim
-    endif
-" }
+runtime bundles.vim
 
 " General {
     filetype plugin indent on   " Automatically detect file types.
@@ -97,7 +90,6 @@ endif
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
     set completeopt=noinsert,menuone,noselect " don't insert automatically, display even when there is only one option, don't select automatically
-    set updatetime=500 "updates cursor info on location every 100ms (instead of 800ms)
 
     set guifont=DroidSansMono\ Nerd\ Font\ 10
     colorscheme Tomorrow-Night
@@ -149,7 +141,8 @@ endif
 
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
-    cnoremap %% <C-R>=expand('%:h').'/'<cr>
+    Shortcut alias to current directory
+        \ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
     " Disable arrows
     noremap  <up> <nop>
@@ -170,9 +163,13 @@ endif
     nnoremap <C-l> :bn<cr>
 
     Shortcut Edit vim config
-        \ nnoremap <leader>ev :e $HOME/.vim/vimrc<cr>
+        \ nnoremap <leader>ev :e $MYVIMRC<cr>
+
     Shortcut Reloads vim config
-        \ nnoremap <leader>sv :source $HOME/.vim/vimrc<cr>
+        \ nnoremap <leader>sv :source $MYVIMRC<cr>
+
+    Shortcut Alias to vim folder
+        \ cnoremap %v <C-R>='~/.vim/'<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -210,8 +207,6 @@ endif
     autocmd vimrc FileType python,javascript,go,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
     " Initialize directories {
     function! InitializeDirectories()
-        let parent = $HOME
-        let prefix = 'vim/'
         let dir_list = {
                     \ 'backup': 'backupdir',
                     \ 'views': 'viewdir' }
@@ -220,7 +215,7 @@ endif
             let dir_list['undo'] = 'undodir'
         endif
 
-        let common_dir = parent . '/.' . prefix
+        let common_dir = expand("~/.vim/")
 
         for [dirname, settingname] in items(dir_list)
             let directory = common_dir . dirname . '/'
@@ -242,8 +237,4 @@ endif
     " }
 " }
 
-" Use local vimrc if available {
-    if filereadable(expand("~/.vim/local.vim"))
-        source ~/.vim/local.vim
-    endif
-" }
+runtime local.vim
