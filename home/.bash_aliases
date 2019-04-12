@@ -1,4 +1,3 @@
-alias vi='vim'
 alias big_dirs='du -xk | sort -n | tail -20'
 alias cable_plugged='mii-tool eth0'
 alias open_ports='netstat -ntauple'
@@ -12,3 +11,4 @@ alias gti="git"
 alias gpp="git pull --rebase && git push"
 alias gc="git commit"
 alias meteo="curl http://wttr.in/Montpellier"
+alias start="sh ~/start_tmux.sh"

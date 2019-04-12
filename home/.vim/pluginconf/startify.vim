@@ -1,6 +1,6 @@
 let g:startify_change_to_dir = 0
 let g:startify_custom_header =
-      \ map(split(system('fortune | cowsay -f apt'), '\n'), '"   ". v:val') + ['']
+      \ map(split(system('figlet -f lean Vim'), '\n'), '"   ". v:val') + ['']
 let g:startify_custom_footer =
       \ ['', "   Vim is charityware. Please read ':help uganda'.", '']
 let g:startify_session_autoload       = 1

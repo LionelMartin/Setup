@@ -43,7 +43,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(branch command-not-found docker git gitfast last-working-dir themes ssh-agent)
+plugins=(branch colored-man-pages command-not-found docker git gitfast jira last-working-dir lol themes ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases

@@ -22,9 +22,11 @@ augroup vimrc
   autocmd!
 augroup END
 
-runtime before.vim
+if filereadable(expand("~/.vim/before.vim"))
+    source ~/.vim/before.vim
+fi
 
-runtime bundles.vim
+source ~/.vim/bundles.vim
 
 " General {
     filetype plugin indent on   " Automatically detect file types.
@@ -163,13 +165,13 @@ runtime bundles.vim
     nnoremap <C-l> :bn<cr>
 
     Shortcut Edit vim config
-        \ nnoremap <leader>ev :e $MYVIMRC<cr>
+        \ nnoremap <leader>ev :e ~/.vim/vimrc<cr>
 
     Shortcut Reloads vim config
         \ nnoremap <leader>sv :source $MYVIMRC<cr>
 
     Shortcut Alias to vim folder
-        \ cnoremap %v <C-R>='~/.vim/'<cr>
+        \ cnoremap %v <C-R>=expand('~/.vim/')<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -198,7 +200,7 @@ runtime bundles.vim
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     " }
     " length matters {
-        let g:lengthmatters_start_at_column = 120
+        let g:lengthmatters_start_at_column = 80
     " }
 " }
 " Functions {
@@ -237,4 +239,6 @@ runtime bundles.vim
     " }
 " }
 
-runtime local.vim
+if filereadable(expand("~/.vim/local.vim"))
+    source ~/.vim/local.vim
+fi
