@@ -24,7 +24,7 @@ augroup END
 
 if filereadable(expand("~/.vim/before.vim"))
     source ~/.vim/before.vim
-fi
+endif
 
 source ~/.vim/bundles.vim
 
@@ -95,8 +95,6 @@ source ~/.vim/bundles.vim
 
     set guifont=DroidSansMono\ Nerd\ Font\ 10
     colorscheme Tomorrow-Night
-
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " }
 
 " Formatting {
@@ -241,4 +239,4 @@ source ~/.vim/bundles.vim
 
 if filereadable(expand("~/.vim/local.vim"))
     source ~/.vim/local.vim
-fi
+endif

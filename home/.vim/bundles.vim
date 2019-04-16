@@ -30,7 +30,8 @@ call plug#begin()
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-commentary'
     Plug 'ryanoasis/vim-devicons'
-    Plug 'tpope/vim-projectionist' "Per project settings
+    "Plug 'tpope/vim-projectionist' "Per project settings
+    Plug 'elzr/vim-json', {'for': 'javascript'}
 " }
 " Snippets & AutoComplete {
     Plug 'SirVer/ultisnips'
@@ -57,7 +58,7 @@ call plug#begin()
 " }
 " Javascript {
     if (exists('g:languages_javascript'))
-        Plug 'elzr/vim-json', {'for': 'javascript'}
+
         Plug 'pangloss/vim-javascript', {'for': 'javascript'}
         Plug 'heavenshell/vim-jsdoc', {'for': 'javascript'}
         Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
