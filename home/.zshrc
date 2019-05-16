@@ -7,6 +7,7 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 DEFAULT_USER="lmarti778"
 ZSH_THEME="powerlevel10k/powerlevel10k"
+# TERM="xterm-256color"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time time)
@@ -42,7 +43,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(branch colored-man-pages command-not-found docker git gitfast jira last-working-dir lol themes ssh-agent)
+plugins=(branch colored-man-pages command-not-found docker git gitfast jira last-working-dir lol themes)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
@@ -57,5 +58,6 @@ homeshick --quiet refresh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 autoload -U +X compinit && compinit
+kitty + complete setup zsh | source /dev/stdin
 autoload -U +X bashcompinit && bashcompinit
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:/snap/bin:$PATH"

@@ -4,7 +4,7 @@
 [core]
     autocrlf = input
     pager = /usr/bin/less
-    whitespace = "trailing-space,space-before-tab,blank-at-eol,tab-in-indent"
+    whitespace = "trailing-space,space-before-tab,blank-at-eol"
     editor = nvim
 [diff]
     tool = nvimdiff
@@ -27,15 +27,13 @@
     ctags = !.git/hooks/ctags
 [push]
     default = simple
-[credential]
-	helper = cache
-[init]
-    templatedir = ~/.git_template
 [help]
     autocorrect = 1
 [pull]
     rebase = true
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+[credential "https://github.com"]
+    username = LionelMartin
 [include]
     path = ~/.gitconfig.local
-[hub]
-	host = github.freewheel.tv
