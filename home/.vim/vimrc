@@ -153,7 +153,6 @@ source ~/.vim/bundles.vim
     let mapleader = " "
 
     inoremap jj <Esc>
-    inoremap kk <Esc>
 
     nnoremap j gj
     nnoremap k gk
@@ -178,6 +177,10 @@ source ~/.vim/bundles.vim
     nmap <Leader>P "+P
     vmap <Leader>p "+p
     vmap <Leader>P "+P
+
+    "terminal mode escape
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap jj <C-\><C-n>
 " }
 
 " Open Quickfix window when text is written in it {
@@ -198,13 +201,13 @@ source ~/.vim/bundles.vim
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     " }
     " length matters {
-        let g:lengthmatters_start_at_column = 80
+        let g:lengthmatters_start_at_column = 120
     " }
 " }
 " Functions {
     " open devdocs.io with firefox and search the word under the cursor
     command! -nargs=? DevDocs :call system('type -p open >/dev/null 2>&1 && open https://devdocs.io/#q='.&filetype.'%20<args> || firefox -url https://devdocs.io/#q='.&filetype.'%20<args>')
-    autocmd vimrc FileType python,javascript,go,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
+    autocmd vimrc FileType python,javascript,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
     " Initialize directories {
     function! InitializeDirectories()
         let dir_list = {

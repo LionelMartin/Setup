@@ -9,3 +9,4 @@ set noexpandtab "go uses tabs
 set foldmethod=syntax
 let g:go_updatetime = 500
 let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1

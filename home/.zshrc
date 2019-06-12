@@ -1,18 +1,25 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
+if [ -f $HOME/.bash_local ]; then
+    source $HOME/.bash_local
+fi
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-DEFAULT_USER="lmarti778"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 # TERM="xterm-256color"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time time)
 POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_MODE='powerline'
+POWERLEVEL9K_MODE='nerdfont-complete'
+# POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+POWERLEVEL9K_VCS_SHORTEN_LENGTH=9
+POWERLEVEL9K_VCS_SHORTEN_MIN_LENGTH=11
+POWERLEVEL9K_VCS_SHORTEN_STRATEGY="truncate_middle"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -49,10 +56,6 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 
-if [ -f $HOME/.bash_local ]; then
-    source $HOME/.bash_local
-fi
-
 homeshick --quiet refresh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -61,3 +64,6 @@ autoload -U +X compinit && compinit
 kitty + complete setup zsh | source /dev/stdin
 autoload -U +X bashcompinit && bashcompinit
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:/snap/bin:$PATH"
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
