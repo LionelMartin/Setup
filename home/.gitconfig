@@ -32,7 +32,7 @@
 [pull]
     rebase = true
 [credential]
-	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+    helper = cache --timeout=3600
 [credential "https://github.com"]
     username = LionelMartin
 [include]

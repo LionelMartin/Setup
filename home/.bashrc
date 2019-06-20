@@ -108,5 +108,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-# SFX special command tool, created from /YOUR_SFX/tools/install.sh
-. /home/lmarti778/Applications/sfx/tools/sfx-commandline/sfxrc
+
+[[ -s "/home/lionel/.gvm/scripts/gvm" ]] && source "/home/lionel/.gvm/scripts/gvm"

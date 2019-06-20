@@ -1,6 +1,14 @@
-if [ -f $HOME/.bash_local ]; then
-    source $HOME/.bash_local
-fi
+source "$HOME/.shell_config/functions.sh"
+
+sourcePath ".shell_config/before.d"
+
+# set PATH so it includes user's private bin if it exists
+prependToPath "$HOME/bin"
+
+# set PATH so it includes user's private bin if it exists
+prependToPath "$HOME/.local/bin"
+
+
 source $HOME/.zplug/init.zsh
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
@@ -47,14 +55,18 @@ COMPLETION_WAITING_DOTS="true"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-source $HOME/.bash_aliases
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-
 homeshick --quiet refresh
 
 autoload -U +X compinit && compinit
 kitty + complete setup zsh | source /dev/stdin
 autoload -U +X bashcompinit && bashcompinit
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:/snap/bin:$PATH"
+
+prependToPath "/snap/bin"
+export PATH
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+sourcePath ".shell_config/after.d"
