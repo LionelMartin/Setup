@@ -1,5 +1,5 @@
 sourcePath () {
-    local PATHVARIABLE = "$HOME/$1"
+    local PATHVARIABLE="$HOME/$1"
     if [ -d $PATHVARIABLE ] ; then
         for script in $PATHVARIABLE/*.sh ; do
             if [ -r $script ] ; then
