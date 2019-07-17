@@ -17,14 +17,49 @@ if (!has('nvim'))
     set wildmenu
 endif
 
+function! LoadDir(path)
+    for file in split(glob(a:path . "/*.vim"), '\n')
+        exe 'source' file
+    endfor
+endfunction
+
 " Declare the general config group for autocommand
 augroup vimrc
   autocmd!
 augroup END
 
-if filereadable(expand("~/.vim/before.vim"))
-    source ~/.vim/before.vim
-endif
+call LoadDir("~/.vim/before")
+
+" Initialize directories {
+    function! InitializeDirectories()
+        let dir_list = {
+                    \ 'backup': 'backupdir',
+                    \ 'views': 'viewdir' }
+
+        if has('persistent_undo')
+            let dir_list['undo'] = 'undodir'
+        endif
+
+        let common_dir = expand("~/.vim/")
+
+        for [dirname, settingname] in items(dir_list)
+            let directory = common_dir . dirname . '/'
+            if exists("*mkdir")
+                if !isdirectory(directory)
+                    call mkdir(directory)
+                endif
+            endif
+            if !isdirectory(directory)
+                echo "Warning: Unable to create backup directory: " . directory
+                echo "Try: mkdir -p " . directory
+            else
+                let directory = substitute(directory, " ", "\\\\ ", "g")
+                exec "set " . settingname . "=" . directory
+            endif
+        endfor
+    endfunction
+    call InitializeDirectories()
+"}
 
 source ~/.vim/bundles.vim
 
@@ -188,58 +223,23 @@ source ~/.vim/bundles.vim
 " }
 
 " Source every plugin configs {
-    for file in split(glob("~/.vim/pluginconf/*.vim"), '\n')
-        exe 'source' file
-    endfor
+    call LoadDir("~/.vim/pluginconf")
 " }
 
-" Plugins {
-    " Normal Vim omni-completion {
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    " }
-    " length matters {
-        let g:lengthmatters_start_at_column = 120
-    " }
+" Normal Vim omni-completion {
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " }
-" Functions {
-    " open devdocs.io with firefox and search the word under the cursor
-    command! -nargs=? DevDocs :call system('type -p open >/dev/null 2>&1 && open https://devdocs.io/#q='.&filetype.'%20<args> || firefox -url https://devdocs.io/#q='.&filetype.'%20<args>')
-    autocmd vimrc FileType python,javascript,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
-    " Initialize directories {
-    function! InitializeDirectories()
-        let dir_list = {
-                    \ 'backup': 'backupdir',
-                    \ 'views': 'viewdir' }
-
-        if has('persistent_undo')
-            let dir_list['undo'] = 'undodir'
-        endif
-
-        let common_dir = expand("~/.vim/")
-
-        for [dirname, settingname] in items(dir_list)
-            let directory = common_dir . dirname . '/'
-            if exists("*mkdir")
-                if !isdirectory(directory)
-                    call mkdir(directory)
-                endif
-            endif
-            if !isdirectory(directory)
-                echo "Warning: Unable to create backup directory: " . directory
-                echo "Try: mkdir -p " . directory
-            else
-                let directory = substitute(directory, " ", "\\\\ ", "g")
-                exec "set " . settingname . "=" . directory
-            endif
-        endfor
-    endfunction
-    call InitializeDirectories()
-    " }
+" length matters {
+    let g:lengthmatters_start_at_column = 120
 " }
 
-if filereadable(expand("~/.vim/local.vim"))
-    source ~/.vim/local.vim
-endif
+" open devdocs.io with firefox and search the word under the cursor
+command! -nargs=? DevDocs :call system('type -p open >/dev/null 2>&1 && open https://devdocs.io/#q='.&filetype.'%20<args> || firefox -url https://devdocs.io/#q='.&filetype.'%20<args>')
+autocmd vimrc FileType python,javascript,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
+
+cd `=expand($VIM_DEFAULT_FOLDER)`
+
+call LoadDir("~/.vim/local")

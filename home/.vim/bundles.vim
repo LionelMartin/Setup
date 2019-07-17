@@ -22,6 +22,8 @@ call plug#begin()
     Plug 'tpope/vim-eunuch'
     Plug 'sunaku/vim-shortcut'
     Plug 'lambdalisue/suda.vim'
+    Plug 'junegunn/vim-peekaboo'
+    Plug 'zxqfl/tabnine-vim'
 " }
 " General Programming {
     Plug 'benekastah/neomake'
@@ -32,6 +34,7 @@ call plug#begin()
     Plug 'ryanoasis/vim-devicons'
     "Plug 'tpope/vim-projectionist' "Per project settings
     Plug 'elzr/vim-json', {'for': 'javascript'}
+    Plug 'janko/vim-test'
 " }
 " Snippets & AutoComplete {
     Plug 'SirVer/ultisnips'
