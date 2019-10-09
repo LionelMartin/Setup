@@ -68,6 +68,11 @@ call plug#begin()
         Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
     endif
 " }
+" HCL/Terraform {
+    if (exists('g:languages_terraform'))
+        Plug 'hashivim/vim-terraform'
+    endif
+" }
 " HTML {
     Plug 'gorodinskiy/vim-coloresque', {'for': 'css'}
 " }
