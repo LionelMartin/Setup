@@ -1,6 +1,6 @@
 [user]
     name = Lionel Martin
-    email = lmartin@freewheel.tv
+    email = lmartin@freewheel.com
 [core]
     autocrlf = input
     pager = /usr/bin/less
