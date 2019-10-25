@@ -66,6 +66,14 @@ autoload -U +X bashcompinit && bashcompinit
 prependToPath "/snap/bin"
 export PATH
 
+# force ignoredups and ignorespace
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+HISTSIZE=1000
+export HISTSIZE HISTCONTROL
+
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
