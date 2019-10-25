@@ -23,7 +23,7 @@ call plug#begin()
     Plug 'sunaku/vim-shortcut'
     Plug 'lambdalisue/suda.vim'
     Plug 'junegunn/vim-peekaboo'
-    Plug 'zxqfl/tabnine-vim'
+    "Plug 'zxqfl/tabnine-vim'
 " }
 " General Programming {
     Plug 'benekastah/neomake'

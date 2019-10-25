@@ -10,3 +10,4 @@ set foldmethod=syntax
 let g:go_updatetime = 500
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
+let g:go_test_show_name = 1 "Show the name of the failed test before its log
