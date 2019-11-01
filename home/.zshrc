@@ -70,8 +70,7 @@ export PATH
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-shopt -s histappend
-HISTSIZE=1000
+HISTSIZE=10000
 export HISTSIZE HISTCONTROL
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
