@@ -16,6 +16,8 @@ zplug "ael-code/zsh-colored-man-pages"
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "djui/alias-tips"
+zplug "Tarrasch/zsh-command-not-found"
 zplug load
 # TERM="xterm-256color"
 
