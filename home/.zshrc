@@ -11,14 +11,22 @@ prependToPath "$HOME/.local/bin"
 
 source $HOME/.zplug/init.zsh
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
+zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "ael-code/zsh-colored-man-pages"
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "djui/alias-tips"
 zplug "Tarrasch/zsh-command-not-found"
-zplug load
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load --verbose
 # TERM="xterm-256color"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
