@@ -17,7 +17,10 @@ zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "djui/alias-tips"
-zplug "Tarrasch/zsh-command-not-found"
+zplug "plugins/command-not-found", from:"oh-my-zsh"
+zplug "plugins/common-aliases", from:"oh-my-zsh"
+zplug "plugins/fasd", from:"oh-my-zsh"
+zplug "plugins/extract", from:"oh-my-zsh"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -74,10 +77,6 @@ if type "kitty" > /dev/null; then
 	kitty + complete setup zsh | source /dev/stdin
 fi
 autoload -U +X bashcompinit && bashcompinit
-
-if type "fasd" > /dev/null; then
-	eval "$(fasd --init auto)"
-fi
 
 prependToPath "/snap/bin"
 export PATH
