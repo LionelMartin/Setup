@@ -70,8 +70,14 @@ fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 homeshick --quiet refresh
 
 autoload -U +X compinit && compinit
-kitty + complete setup zsh | source /dev/stdin
+if type "kitty" > /dev/null; then
+	kitty + complete setup zsh | source /dev/stdin
+fi
 autoload -U +X bashcompinit && bashcompinit
+
+if type "fasd" > /dev/null; then
+	eval "$(fasd --init auto)"
+fi
 
 prependToPath "/snap/bin"
 export PATH
