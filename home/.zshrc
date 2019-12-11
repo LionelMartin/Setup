@@ -85,8 +85,10 @@ export PATH
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-HISTSIZE=10000
-export HISTSIZE HISTCONTROL
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE=~/.zhistory
+export HISTSIZE HISTCONTROL HISTFILE SAVEHIST
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
