@@ -38,7 +38,8 @@ call plug#begin()
 " }
 " Snippets & AutoComplete {
     Plug 'SirVer/ultisnips'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'Shougo/deoplete.nvim'
+    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " }
 " PHP {
     if (exists('g:languages_php'))
@@ -69,9 +70,10 @@ call plug#begin()
     endif
 " }
 " HCL/Terraform {
-    if (exists('g:languages_terraform'))
-        Plug 'hashivim/vim-terraform'
-    endif
+    Plug 'hashivim/vim-terraform'
+" }
+" Google Protobuf {
+    Plug 'uarun/vim-protobuf'
 " }
 " HTML {
     Plug 'gorodinskiy/vim-coloresque', {'for': 'css'}

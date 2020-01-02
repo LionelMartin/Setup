@@ -16,3 +16,7 @@ let g:go_test_show_name = 1 "Show the name of the failed test before its log
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+
+if has_key(g:plugs, 'deoplete.vim')
+	call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+endif
