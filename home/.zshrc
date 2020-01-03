@@ -68,6 +68,8 @@ COMPLETION_WAITING_DOTS="true"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+setopt AUTO_CD
+
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 homeshick --quiet refresh
@@ -89,6 +91,10 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.zhistory
 export HISTSIZE HISTCONTROL HISTFILE SAVEHIST
+
+if [ -v EDITOR ]; then
+    export EDITOR="nvim"
+fi
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
