@@ -9,28 +9,28 @@ prependToPath "$HOME/bin"
 prependToPath "$HOME/.local/bin"
 
 
-source $HOME/.zplug/init.zsh
-zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "romkatv/powerlevel10k", as:theme, depth:1
-zplug "ael-code/zsh-colored-man-pages"
-zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "djui/alias-tips"
-zplug "plugins/command-not-found", from:"oh-my-zsh"
-zplug "plugins/common-aliases", from:"oh-my-zsh"
-zplug "plugins/fasd", from:"oh-my-zsh"
-zplug "plugins/extract", from:"oh-my-zsh"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+### Added by Zplugin's installer
+if [[ ! -d $HOME/.zplugin/bin ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing Zplugin…%f"
+    command mkdir -p $HOME/.zplugin
+    command git clone https://github.com/zdharma/zplugin $HOME/.zplugin/bin && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
+        print -P "%F{160}▓▒░ The clone has failed.%F"
 fi
-zplug load --verbose
-# TERM="xterm-256color"
+source "$HOME/.zplugin/bin/zplugin.zsh"
+### End of Zplugin installer's chunk
+
+zplugin ice depth=1; zplugin light romkatv/powerlevel10k
+zplugin light "ael-code/zsh-colored-man-pages"
+zplugin snippet "https://github.com/junegunn/fzf/raw/master/shell/key-bindings.zsh"
+zplugin ice as"completion"; zplugin snippet "https://github.com/junegunn/fzf/raw/master/shell/completion.zsh"
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light "djui/alias-tips"
+zplugin snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
+zplugin snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
+zplugin snippet OMZ::plugins/fasd/fasd.plugin.zsh
+zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+zplugin light zsh-users/zsh-syntax-highlighting #should be last
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time time)
@@ -79,6 +79,9 @@ if type "kitty" > /dev/null; then
 	kitty + complete setup zsh | source /dev/stdin
 fi
 autoload -U +X bashcompinit && bashcompinit
+
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
 
 prependToPath "/snap/bin"
 export PATH

@@ -9,8 +9,6 @@ if (!has('nvim'))
     set incsearch
     set langnoremap
     set laststatus=2
-    set mouse="a"
-    set nocompatible
     set nrformats="bin,hex"
     set smarttab
     set ttyfast
@@ -24,9 +22,6 @@ function! LoadDir(path)
 endfunction
 
 " Declare the general config group for autocommand
-augroup vimrc
-  autocmd!
-augroup END
 
 call LoadDir("~/.vim/before")
 
@@ -100,6 +95,7 @@ source ~/.vim/bundles.vim
     let g:python3_host_prog = '/usr/bin/python3'
     set ttimeout
     set ttimeoutlen=0
+    set mouse="a"
 
     " Setting up the directories {
         set backup                  " Backups are nice ...
@@ -216,10 +212,16 @@ source ~/.vim/bundles.vim
     "terminal mode escape
     tnoremap <Esc> <C-\><C-n>
     tnoremap jj <C-\><C-n>
+
+	cnoremap vterm vsplit term://zsh
+	cnoremap sterm split term://zsh
 " }
 
 " Open Quickfix window when text is written in it {
-    autocmd vimrc QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
+    augroup quickfix
+        autocmd!
+        autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
+    augroup END
 " }
 
 " Source every plugin configs {
@@ -227,10 +229,13 @@ source ~/.vim/bundles.vim
 " }
 
 " Normal Vim omni-completion {
+augroup filetypes
+  autocmd!
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 " }
 " length matters {
     let g:lengthmatters_start_at_column = 120
@@ -238,7 +243,10 @@ source ~/.vim/bundles.vim
 
 " open devdocs.io with firefox and search the word under the cursor
 command! -nargs=? DevDocs :call system('type -p open >/dev/null 2>&1 && open https://devdocs.io/#q='.&filetype.'%20<args> || firefox -url https://devdocs.io/#q='.&filetype.'%20<args>')
-autocmd vimrc FileType python,javascript,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
+augroup devdoc
+    autocmd!
+    autocmd FileType python,javascript,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
+augroup END
 
 cd `=expand($VIM_DEFAULT_FOLDER)`
 
