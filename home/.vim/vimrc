@@ -13,6 +13,8 @@ if (!has('nvim'))
     set smarttab
     set ttyfast
     set wildmenu
+else
+    setglobal scrollback=-1
 endif
 
 function! LoadDir(path)
@@ -74,28 +76,12 @@ source ~/.vim/bundles.vim
         endif
     endif
     set noswapfile
-    " Instead of reverting the cursor to the last position in the buffer, we
-    " set it to the first line when editing a git commit message
-    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-    " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
-    " Restore cursor to file position in previous editing session
-    function! ResCur()
-        if line("'\"") <= line("$")
-            normal! g`"
-            return 1
-        endif
-    endfunction
-
-    augroup resCur
-        autocmd!
-        autocmd BufWinEnter * call ResCur()
-    augroup END
     let g:python_host_prog = '/usr/bin/python'
     let g:python3_host_prog = '/usr/bin/python3'
     set ttimeout
     set ttimeoutlen=0
     set mouse="a"
+	set shiftround
 
     " Setting up the directories {
         set backup                  " Backups are nice ...
@@ -123,6 +109,8 @@ source ~/.vim/bundles.vim
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
     set completeopt=noinsert,menuone,noselect " don't insert automatically, display even when there is only one option, don't select automatically
+    set complete-=i
+    set complete-=t
 
     set guifont=DroidSansMono\ Nerd\ Font\ 10
     colorscheme Tomorrow-Night
@@ -211,10 +199,14 @@ source ~/.vim/bundles.vim
 
     "terminal mode escape
     tnoremap <Esc> <C-\><C-n>
-    tnoremap jj <C-\><C-n>
+    "tnoremap jj <C-\><C-n>
 
-	cnoremap vterm vsplit term://zsh
-	cnoremap sterm split term://zsh
+	cnoremap vterm vsplit term://
+	cnoremap sterm split term://
+
+    nnoremap <Leader>taa :Test<CR>
+    nnoremap <Leader>tas :Tests<CR>
+    nnoremap <Leader>tav :Testv<CR>
 " }
 
 " Open Quickfix window when text is written in it {
@@ -240,13 +232,6 @@ augroup END
 " length matters {
     let g:lengthmatters_start_at_column = 120
 " }
-
-" open devdocs.io with firefox and search the word under the cursor
-command! -nargs=? DevDocs :call system('type -p open >/dev/null 2>&1 && open https://devdocs.io/#q='.&filetype.'%20<args> || firefox -url https://devdocs.io/#q='.&filetype.'%20<args>')
-augroup devdoc
-    autocmd!
-    autocmd FileType python,javascript,html nmap <buffer> K :exec "DevDocs " . fnameescape(expand('<cword>'))<CR>
-augroup END
 
 cd `=expand($VIM_DEFAULT_FOLDER)`
 

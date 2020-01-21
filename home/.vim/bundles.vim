@@ -35,6 +35,7 @@ call plug#begin()
     "Plug 'tpope/vim-projectionist' "Per project settings
     Plug 'elzr/vim-json', {'for': 'javascript'}
     Plug 'janko/vim-test'
+    Plug 'romainl/vim-devdocs'
 " }
 " Snippets & AutoComplete {
     Plug 'SirVer/ultisnips'

@@ -26,7 +26,7 @@
     uncommit = reset --soft HEAD^
     ctags = !.git/hooks/ctags
 [push]
-    default = simple
+	default = current
 [help]
     autocorrect = 1
 [pull]

@@ -13,3 +13,5 @@ endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+" allow term windows to be displayed in tab line
+let g:airline#extensions#tabline#ignore_bufadd_pat = 'defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'

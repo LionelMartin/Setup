@@ -30,6 +30,7 @@ zplugin snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
 zplugin snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
 zplugin snippet OMZ::plugins/fasd/fasd.plugin.zsh
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+zplugin ice as"completion"; zplugin snippet "https://github.com/github/hub/blob/master/etc/hub.zsh_completion"
 zplugin light zsh-users/zsh-syntax-highlighting #should be last
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
@@ -69,6 +70,8 @@ COMPLETION_WAITING_DOTS="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 setopt AUTO_CD
+
+eval "$(hub alias -s)"
 
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
