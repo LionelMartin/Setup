@@ -2,14 +2,18 @@ if (!has('nvim'))
     set autoindent
     set autoread
     set backspace="indent,eol,start"
-    set display="lastline"
+    set belloff="all"
+    set complete-=i
+    set display="lastline,msgsep"
     set encoding=utf-8
+    set fillchars="vert:│,fold:·,sep:│"
     set history=10000
     set hlsearch
     set incsearch
     set langnoremap
     set laststatus=2
     set nrformats="bin,hex"
+    set showcmd
     set smarttab
     set ttyfast
     set wildmenu
@@ -17,7 +21,7 @@ else
     setglobal scrollback=-1
 endif
 
-function! LoadDir(path)
+function! LoadDir(path) abort
     for file in split(glob(a:path . "/*.vim"), '\n')
         exe 'source' file
     endfor
@@ -28,7 +32,7 @@ endfunction
 call LoadDir("~/.vim/before")
 
 " Initialize directories {
-    function! InitializeDirectories()
+    function! InitializeDirectories() abort
         let dir_list = {
                     \ 'backup': 'backupdir',
                     \ 'views': 'viewdir' }
@@ -76,8 +80,6 @@ source ~/.vim/bundles.vim
         endif
     endif
     set noswapfile
-    let g:python_host_prog = '/usr/bin/python'
-    let g:python3_host_prog = '/usr/bin/python3'
     set ttimeout
     set ttimeoutlen=0
     set mouse="a"
@@ -98,7 +100,7 @@ source ~/.vim/bundles.vim
     set showmode                    " Display the current mode
     set cursorline                  " Highlight current line
     set linespace=0                 " No extra spaces between rows
-    set nu                          " Line numbers on
+    set number                         " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
     set winminheight=0              " Windows can be 0 line high
     set ignorecase                  " Case insensitive search
@@ -109,7 +111,6 @@ source ~/.vim/bundles.vim
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:␣ " Highlight problematic whitespace
     set completeopt=noinsert,menuone,noselect " don't insert automatically, display even when there is only one option, don't select automatically
-    set complete-=i
     set complete-=t
 
     set guifont=DroidSansMono\ Nerd\ Font\ 10
@@ -128,7 +129,7 @@ source ~/.vim/bundles.vim
 " }
 
 " Folding {
-    function! MyFoldText() " {{{
+    function! MyFoldText() abort " {{{
         let line = getline(v:foldstart)
 
         let nucolwidth = &fdc + &number * &numberwidth
@@ -160,8 +161,7 @@ source ~/.vim/bundles.vim
 
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
-    Shortcut alias to current directory
-        \ cnoremap %% <C-R>=expand('%:h').'/'<cr>
+    cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
     " Disable arrows
     noremap  <up> <nop>
@@ -180,14 +180,20 @@ source ~/.vim/bundles.vim
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-    Shortcut Edit vim config
-        \ nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+	"switch to test file
+	nnoremap <C-t> :A<cr>
 
-    Shortcut Reloads vim config
-        \ nnoremap <leader>sv :source $MYVIMRC<cr>
+	"switch to previous file
+	nnoremap <C-j> :b#<cr>
 
-    Shortcut Alias to vim folder
-        \ cnoremap %v <C-R>=expand('~/.vim/')<cr>
+    "Edit vim config
+    nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+
+    "Reloads vim config
+    nnoremap <leader>sv :source $MYVIMRC<cr>
+
+    "Alias to vim folder
+    cnoremap %v <C-R>=expand('~/.vim/')<cr>
 
     "copy/paste from system clipboard
     vmap <Leader>y "+y
@@ -199,7 +205,6 @@ source ~/.vim/bundles.vim
 
     "terminal mode escape
     tnoremap <Esc> <C-\><C-n>
-    "tnoremap jj <C-\><C-n>
 
 	cnoremap vterm vsplit term://
 	cnoremap sterm split term://
