@@ -34,6 +34,7 @@ if exists('*minpac#init')
     call minpac#add('elzr/vim-json')
     call minpac#add('janko/vim-test')
     call minpac#add('romainl/vim-devdocs')
+    call minpac#add('wellle/context.vim')
 " }
 " Snippets & AutoComplete {
     if has('nvim')

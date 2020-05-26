@@ -6,7 +6,7 @@ if (!has('nvim'))
     set complete-=i
     set display="lastline,msgsep"
     set encoding=utf-8
-    set fillchars="vert:│,fold:·,sep:│"
+    set fillchars=vert:│,fold:·,sep:│
     set history=10000
     set hlsearch
     set incsearch
@@ -51,7 +51,7 @@ call LoadDir("~/.vim/before")
                 endif
             endif
             if !isdirectory(directory)
-                echo "Warning: Unable to create backup directory: " . directory
+                echo "Warning: Unable to create ".settingname." directory: " . directory
                 echo "Try: mkdir -p " . directory
             else
                 let directory = substitute(directory, " ", "\\\\ ", "g")
@@ -83,7 +83,7 @@ source ~/.vim/bundles.vim
     set ttimeout
     set ttimeoutlen=0
     set mouse="a"
-	set shiftround
+    set shiftround
 
     " Setting up the directories {
         set backup                  " Backups are nice ...
@@ -126,20 +126,30 @@ source ~/.vim/bundles.vim
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
     set splitright                  " Puts new vsplit windows to the right of the current
     set splitbelow                  " Puts new split windows to the bottom of the current
+
+    function! TrimWhiteSpace() abort
+        %s/\s*$//
+        ''
+    endfunction
 " }
 
 " Folding {
-    function! MyFoldText() abort " {{{
+"
+    function! CleanLine(line) abort
+        let comment = substitute(&commentstring, '%s', '', '')
+        let line = substitute(a:line, comment, '', '')
+        let line = substitute(line, "^\\s*", '', '')
+        let line = substitute(line, "\\s*$", '', '')
+        return line
+    endfunction
+    function! MyFoldText() abort "{
         let line = getline(v:foldstart)
-
         let nucolwidth = &fdc + &number * &numberwidth
-        let windowwidth = winwidth(0) - nucolwidth - 3
         let foldedlinecount = v:foldend - v:foldstart
-
-        let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-        let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-        return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-    endfunction " }}}
+        let dashes = repeat(v:folddashes, v:foldlevel)
+        let line = CleanLine(line)
+        return ' ' .dashes. ' '. line . ' (' . foldedlinecount ." lines)"
+    endfunction "}
     set foldtext=MyFoldText()
 " }
 
@@ -161,7 +171,7 @@ source ~/.vim/bundles.vim
 
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
-    cnoremap %% <C-R>=expand('%:h').'/'<cr>
+    cnoremap %% <C-R>=expand('%:h')<cr>
 
     " Disable arrows
     noremap  <up> <nop>
@@ -180,38 +190,38 @@ source ~/.vim/bundles.vim
     nnoremap <C-h> :bp<cr>
     nnoremap <C-l> :bn<cr>
 
-	"switch to test file
-	nnoremap <C-t> :A<cr>
+    "switch to test file
+    nnoremap <C-t> :A<cr>
 
-	"switch to previous file
-	nnoremap <C-j> :b#<cr>
+    "switch to previous file
+    nnoremap <C-j> :b#<cr>
 
     "Edit vim config
-    nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+    nnoremap <leader>ce :e ~/.vim/vimrc<cr>
 
     "Reloads vim config
-    nnoremap <leader>sv :source $MYVIMRC<cr>
+    nnoremap <leader>cl :source $MYVIMRC<cr>
 
     "Alias to vim folder
-    cnoremap %v <C-R>=expand('~/.vim/')<cr>
+    cnoremap dvim <C-R>=expand('~/.vim')<cr>
 
     "copy/paste from system clipboard
-    vmap <Leader>y "+y
-    vmap <Leader>d "+d
-    nmap <Leader>p "+p
-    nmap <Leader>P "+P
-    vmap <Leader>p "+p
-    vmap <Leader>P "+P
+    vnoremap <Leader>y "+y
+    vnoremap <Leader>d "+d
+    nnoremap <Leader>p "+p
+    nnoremap <Leader>P "+P
+    vnoremap <Leader>p "+p
+    vnoremap <Leader>P "+P
 
     "terminal mode escape
     tnoremap <Esc> <C-\><C-n>
 
-	cnoremap vterm vsplit term://
-	cnoremap sterm split term://
+    cnoremap vterm vsplit term://
+    cnoremap sterm split term://
 
-    nnoremap <Leader>taa :Test<CR>
-    nnoremap <Leader>tas :Tests<CR>
-    nnoremap <Leader>tav :Testv<CR>
+    nnoremap <Leader>tf :Test<CR>
+    nnoremap <Leader>ts :Tests<CR>
+    nnoremap <Leader>tv :Testv<CR>
 " }
 
 " Open Quickfix window when text is written in it {

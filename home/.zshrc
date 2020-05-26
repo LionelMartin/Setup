@@ -87,6 +87,8 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
 prependToPath "/snap/bin"
+prependToPath "/usr/local/opt/mysql-client/bin"
+
 export PATH
 
 # force ignoredups and ignorespace

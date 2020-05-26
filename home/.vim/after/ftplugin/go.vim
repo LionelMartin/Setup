@@ -1,9 +1,9 @@
-nmap <leader>tu  <Plug>(go-test-split)
+nmap <leader>tf  <Plug>(go-test-split)
 nmap <leader>ru  <Plug>(go-run-split)
 nmap <leader>a  <Plug>(go-alternate)
-nmap <leader>co  <Plug>(go-coverage)
+nmap <leader>tc  <Plug>(go-coverage-toggle)
 
-let g:go_auto_sameids = 1
+let g:go_auto_sameids = 0
 set noexpandtab "go uses tabs
 set foldmethod=syntax
 let g:go_updatetime = 500
