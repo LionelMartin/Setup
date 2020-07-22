@@ -22,6 +22,7 @@ if exists('*minpac#init')
     call minpac#add('lambdalisue/suda.vim')
     call minpac#add('junegunn/vim-peekaboo')
     "call minpac#add('zxqfl/tabnine-vim')
+		call minpac#add('danilamihailov/beacon.nvim')
 " }
 " General Programming {
     call minpac#add('benekastah/neomake')
