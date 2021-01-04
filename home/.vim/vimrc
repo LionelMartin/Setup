@@ -193,8 +193,11 @@ source ~/.vim/bundles.vim
     "switch to test file
     nnoremap <C-t> :A<cr>
 
-    "switch to previous file
+    "switch to previous buffer
     nnoremap <C-j> :b#<cr>
+
+	"switch to buffer
+	nnoremap gb :ls<cr>:b
 
     "Edit vim config
     nnoremap <leader>ce :e ~/.vim/vimrc<cr>
@@ -247,7 +250,5 @@ augroup END
 " length matters {
     let g:lengthmatters_start_at_column = 120
 " }
-
-cd `=expand($VIM_DEFAULT_FOLDER)`
 
 call LoadDir("~/.vim/local")
