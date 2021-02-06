@@ -1,5 +1,5 @@
 packadd minpac
-if exists('*minpac#init')
+if exists('g:loaded_minpac')
   " minpac is loaded.
   call minpac#init()
   call minpac#add('k-takata/minpac', {'type': 'opt'})
