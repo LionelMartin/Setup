@@ -97,5 +97,8 @@ command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 
+" from homebrew
 set rtp+=/usr/local/opt/fzf
+" from git
+set rtp+=~/.fzf
 let g:deoplete#enable_at_startup = 1
