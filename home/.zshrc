@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source "$HOME/.shell_config/functions.sh"
 
 sourcePath ".shell_config/before.d"
@@ -32,16 +39,6 @@ zplugin snippet OMZ::plugins/fasd/fasd.plugin.zsh
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 zplugin ice as"completion"; zplugin snippet "https://github.com/github/hub/blob/master/etc/hub.zsh_completion"
 zplugin light zsh-users/zsh-syntax-highlighting #should be last
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status background_jobs_joined context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time time)
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
-# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_VCS_SHORTEN_LENGTH=9
-POWERLEVEL9K_VCS_SHORTEN_MIN_LENGTH=11
-POWERLEVEL9K_VCS_SHORTEN_STRATEGY="truncate_middle"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -111,3 +108,6 @@ fi
 sourcePath ".shell_config/after.d"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bit bit
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

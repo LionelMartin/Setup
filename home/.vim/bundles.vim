@@ -5,9 +5,11 @@ if exists('g:loaded_minpac')
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 " General {
     call minpac#add('tpope/vim-surround')
+	" Themes {
     call minpac#add('chriskempson/vim-tomorrow-theme')
     call minpac#add('vim-airline/vim-airline')
     call minpac#add('vim-airline/vim-airline-themes')
+	" }
     "call minpac#add('tpope/vim-abolish')
     call minpac#add('tpope/vim-repeat')
     call minpac#add('AndrewRadev/splitjoin.vim')
@@ -16,26 +18,26 @@ if exists('g:loaded_minpac')
     call minpac#add('mhinz/vim-grepper')
     call minpac#add('vim-scripts/BufOnly.vim')
     call minpac#add('junegunn/fzf.vim')
-    call minpac#add('skywind3000/asyncrun.vim')
-    call minpac#add('editorconfig/editorconfig-vim')
-    call minpac#add('tpope/vim-eunuch')
+	call minpac#add('skywind3000/asyncrun.vim')
+    call minpac#add('editorconfig/editorconfig-vim') "Reads .editorconfig files
+    call minpac#add('tpope/vim-eunuch') "Adds commands for file management :Rename :Move ...
     call minpac#add('lambdalisue/suda.vim')
-    call minpac#add('junegunn/vim-peekaboo')
-    "call minpac#add('zxqfl/tabnine-vim')
-		call minpac#add('danilamihailov/beacon.nvim')
+    call minpac#add('junegunn/vim-peekaboo') " \" or @ displays the list of registers
+	call minpac#add('danilamihailov/beacon.nvim') "Displays a cursor highlight when moving through the files
+	call minpac#add('zegervdv/nrpattern.nvim') "Allows to increment/decrement numbers with formats, booleans...
 " }
 " General Programming {
     call minpac#add('benekastah/neomake')
-    call minpac#add('tpope/vim-fugitive')
-    call minpac#add('whatyouhide/vim-lengthmatters')
+    call minpac#add('tpope/vim-fugitive') "Git integration
+    call minpac#add('whatyouhide/vim-lengthmatters') "line length warning
     call minpac#add('airblade/vim-gitgutter')
-    call minpac#add('tpope/vim-commentary')
+    call minpac#add('tpope/vim-commentary') "Comment several lines
     call minpac#add('ryanoasis/vim-devicons')
     "call minpac#add('tpope/vim-projectionist') "Per project settings
     call minpac#add('elzr/vim-json')
     call minpac#add('janko/vim-test')
     call minpac#add('romainl/vim-devdocs')
-    call minpac#add('wellle/context.vim')
+    call minpac#add('wellle/context.vim') "Displays function names (wraps contents)
 " }
 " Snippets & AutoComplete {
     if has('nvim')
