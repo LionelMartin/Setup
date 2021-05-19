@@ -5,9 +5,9 @@ if exists('g:loaded_minpac')
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 " General {
     call minpac#add('tpope/vim-surround')
+    call minpac#add('vim-airline/vim-airline')
 	" Themes {
     call minpac#add('chriskempson/vim-tomorrow-theme')
-    call minpac#add('vim-airline/vim-airline')
     call minpac#add('vim-airline/vim-airline-themes')
 	" }
     "call minpac#add('tpope/vim-abolish')
@@ -25,6 +25,7 @@ if exists('g:loaded_minpac')
     call minpac#add('junegunn/vim-peekaboo') " \" or @ displays the list of registers
 	call minpac#add('danilamihailov/beacon.nvim') "Displays a cursor highlight when moving through the files
 	call minpac#add('zegervdv/nrpattern.nvim') "Allows to increment/decrement numbers with formats, booleans...
+    call minpac#add('liuchengxu/vim-which-key') "Menu for leader shortcuts
 " }
 " General Programming {
     call minpac#add('benekastah/neomake')
