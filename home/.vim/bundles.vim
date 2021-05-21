@@ -90,7 +90,6 @@ if exists('g:loaded_minpac')
     call minpac#add('gorodinskiy/vim-coloresque')
 " }
 " Misc {
-    call minpac#add('tpope/vim-markdown')
     call minpac#add('jtratner/vim-flavored-markdown')
     call minpac#add('suan/vim-instant-markdown')
 " }

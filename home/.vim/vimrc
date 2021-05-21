@@ -252,7 +252,7 @@ source ~/.vim/bundles.vim
     nnoremap <Leader>ba <Cmd>A
     let g:which_key_map.b.a = 'buffer-alternate'
     nnoremap <Leader>b# <Cmd>b#
-    let g:which_key_map.b.# = 'buffer-switch'
+    let g:which_key_map.b['#'] = 'buffer-switch'
 " }
 
 " Open Quickfix window when text is written in it {
