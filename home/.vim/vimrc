@@ -40,37 +40,6 @@ let g:which_key_map.e = { 'name': '+edit'}
 
 call LoadDir("~/.vim/before")
 
-" Initialize directories {
-    function! InitializeDirectories() abort
-        let dir_list = {
-                    \ 'backup': 'backupdir',
-                    \ 'views': 'viewdir' }
-
-        if has('persistent_undo')
-            let dir_list['undo'] = 'undodir'
-        endif
-
-        let common_dir = expand("~/.vim/")
-
-        for [dirname, settingname] in items(dir_list)
-            let directory = common_dir . dirname . '/'
-            if exists("*mkdir")
-                if !isdirectory(directory)
-                    call mkdir(directory)
-                endif
-            endif
-            if !isdirectory(directory)
-                echo "Warning: Unable to create ".settingname." directory: " . directory
-                echo "Try: mkdir -p " . directory
-            else
-                let directory = substitute(directory, " ", "\\\\ ", "g")
-                exec "set " . settingname . "=" . directory
-            endif
-        endfor
-    endfunction
-    call InitializeDirectories()
-"}
-
 source ~/.vim/bundles.vim
 
 " General {
@@ -164,6 +133,38 @@ source ~/.vim/bundles.vim
 " }
 
 " Key (re)Mappings {
+
+    " function! DeclareMapping(mode, keys, target, text)
+    "     if a:text
+    "     endif
+    " endfunction
+
+    " function! s:declareMappingShortcut(keys, text)
+    "     if !exists("g:loaded_shortcut")
+    "         return
+    "     endif
+    "     execute "Shortcut! ".a:keys." ".a:text
+    " endfunction
+
+    " function! s:declareMappingWhichKey(mode, keys, text)
+    "     if !exists("g:loaded_vim_which_key")
+    "         return
+    "     endif
+    "     if a:text && a:keys =~# "<leader>"
+    "         count = len(a:keys)
+    "         i = len("<leader>")
+    "         item = g:which_key_map[a:keys[i]]
+    "         while i<count
+    "             i+=1
+    "             if i<count
+    "                 item = item[a:keys[i]]
+    "             else
+    "                 item = text
+    "             endif
+    "         endwhile
+    "     endif
+    " endfunction
+
     nnoremap Y y$
 
     " better fold move commands
@@ -206,8 +207,8 @@ source ~/.vim/bundles.vim
     "switch to previous buffer
     nnoremap <C-j> :b#<cr>
 
-	"switch to buffer
-	nnoremap gb :ls<cr>:b
+    "switch to buffer
+    nnoremap gb :ls<cr>:b
 
     "Edit vim config
     nnoremap <leader>ce :e ~/.vim/vimrc<cr>
