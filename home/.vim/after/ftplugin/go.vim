@@ -16,7 +16,7 @@ let g:which_key_map.f.d="find-definition"
 nmap <leader>er <Plug>(go-rename)
 let g:which_key_map.e.r="edit-rename"
 
-let g:go_auto_sameids = 0
+let g:go_auto_sameids = 1
 setlocal noexpandtab "go uses tabs
 setlocal foldmethod=syntax
 let g:go_updatetime = 500
@@ -30,6 +30,8 @@ let g:go_test_show_name = 1 "Show the name of the failed test before its log
 let g:gofmt_exe = "goimports"
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'revive']
 
-command! -buffer A call go#alternate#Swhich()
+command! -buffer -bang A  call go#alternate#Switch(<bang>0, 'edit')
+command! -buffer -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+command! -buffer -bang AS call go#alternate#Switch(<bang>0, 'split')
 
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
