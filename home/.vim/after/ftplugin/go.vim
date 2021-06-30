@@ -18,6 +18,9 @@ let g:which_key_map.e.r="edit-rename"
 
 let g:go_auto_sameids = 1
 setlocal noexpandtab "go uses tabs
+setlocal shiftwidth=4                " Use indents of x spaces
+setlocal tabstop=4                   " An indentation every x columns
+setlocal softtabstop=4               " Let backspace delete indent
 setlocal foldmethod=syntax
 let g:go_updatetime = 500
 
