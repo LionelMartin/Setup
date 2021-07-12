@@ -3,13 +3,14 @@ if exists('g:loaded_minpac')
   " minpac is loaded.
   call minpac#init()
   call minpac#add('k-takata/minpac', {'type': 'opt'})
+" Themes {
+"    call minpac#add('chriskempson/vim-tomorrow-theme')
+"    call minpac#add('vim-airline/vim-airline-themes')
+    call minpac#add('ghifarit53/tokyonight-vim')
+" }
 " General {
     call minpac#add('tpope/vim-surround')
     call minpac#add('vim-airline/vim-airline')
-	" Themes {
-    call minpac#add('chriskempson/vim-tomorrow-theme')
-    call minpac#add('vim-airline/vim-airline-themes')
-	" }
     "call minpac#add('tpope/vim-abolish')
     call minpac#add('tpope/vim-repeat')
     call minpac#add('AndrewRadev/splitjoin.vim')

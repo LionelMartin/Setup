@@ -6,7 +6,7 @@ if (!has('nvim'))
     set complete-=i
     set display="lastline,msgsep"
     set encoding=utf-8
-    set fillchars=vert:│,fold:·,sep:│
+    set fillchars=vert:│,sep:│
     set history=10000
     set hlsearch
     set incsearch
@@ -124,7 +124,11 @@ source ~/.vim/bundles.vim
     set complete-=t
 
     set guifont=DroidSansMono\ Nerd\ Font\ 10
-    colorscheme Tomorrow-Night
+    let &t_ut='' " fix background issues
+    set t_Co=256
+    set fillchars=fold:\ 
+    set termguicolors
+    colorscheme tokyonight
 " }
 
 " Formatting {
@@ -153,12 +157,9 @@ source ~/.vim/bundles.vim
         return line
     endfunction
     function! MyFoldText() abort "{
-        let line = getline(v:foldstart)
-        let nucolwidth = &fdc + &number * &numberwidth
-        let foldedlinecount = v:foldend - v:foldstart
+        let line = CleanLine(getline(v:foldstart))
         let dashes = repeat(v:folddashes, v:foldlevel)
-        let line = CleanLine(line)
-        return ' ' .dashes. ' '. line . ' (' . foldedlinecount ." lines)"
+        return sprintf(' %s %s (%d lines)', dashes, line, v:foldend - v:foldstart)
     endfunction "}
     set foldtext=MyFoldText()
 " }
