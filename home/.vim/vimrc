@@ -148,7 +148,7 @@ source ~/.vim/bundles.vim
 " }
 
 " Folding {
-"
+
     function! CleanLine(line) abort
         let comment = substitute(&commentstring, '%s', '', '')
         let line = substitute(a:line, comment, '', '')
@@ -159,7 +159,7 @@ source ~/.vim/bundles.vim
     function! MyFoldText() abort "{
         let line = CleanLine(getline(v:foldstart))
         let dashes = repeat(v:folddashes, v:foldlevel)
-        return sprintf(' %s %s (%d lines)', dashes, line, v:foldend - v:foldstart)
+        return printf(' %s %s (%d lines)', dashes, line, v:foldend - v:foldstart)
     endfunction "}
     set foldtext=MyFoldText()
 " }
@@ -263,19 +263,6 @@ source ~/.vim/bundles.vim
     augroup END
 " }
 
-" Source every plugin configs {
-    call LoadDir("~/.vim/pluginconf")
-" }
-
-" Normal Vim omni-completion {
-augroup filetypes
-  autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-" }
 " length matters {
     let g:lengthmatters_start_at_column = 120
 " }

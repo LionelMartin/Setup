@@ -1,95 +1,6 @@
 #
-# Powerline Blue Block - Tmux Theme
-# Created by Jim Myhrberg <contact@jimeh.me>.
+# Tokyonight theme
 #
-# Inspired by vim-powerline: https://github.com/Lokaltog/powerline
-#
-# Requires terminal to be using a powerline compatible font, find one here:
-# https://github.com/Lokaltog/powerline-fonts
-#
-# # Color key:
-# #   #1d1f21 Background
-# #   #282a2e Current Line
-# #   #373b41 Selection
-# #   #c5c8c6 Foreground
-# #   #969896 Comment
-# #   #cc6666 Red
-# #   #de935f Orange
-# #   #f0c674 Yellow
-# #   #b5bd68 Green
-# #   #8abeb7 Aqua
-# #   #81a2be Blue
-# #   #b294bb Purple
-
-# # Status update interval
-# set -g status-interval 1
-
-# # Basic status bar colors
-# set -g status-style bg="#1d1f21"
-
-# # Left side of status bar
-# set -g status-left-style bg=colour233,fg=colour243
-# set -g status-left-length 40
-# set -g status-left "" #[fg=colour232,bg=#8abeb7] #S #[fg=#c5c8c6,bg=colour240] #(whoami) #[fg=#c5c8c6,bg=#393939]"
-
-# # Right side of status bar
-# set -g status-right-style bg=colour233,fg=colour243
-# set -g status-right-length 150
-# set -g status-right "#[fg=#f99157,bg=#2d2d2d] %H:%M:%S #[fg=#c5c8c6,bg=#393939] %d %b %y " #[fg=colour232,bg=#8abeb7] #H "
-
-# # Window status
-# set -g window-status-format "#[fg=#6699cc,bg=colour235] #I #[fg=#999999,bg=#2d2d2d] #W #[default]"
-# set -g window-status-current-format "#[fg=#f99157,bg=#2d2d2d] #I:#P #[fg=#cccccc,bg=#393939] #W #[default]"
-
-# # Current window status
-# set -g window-status-current-style none
-
-# # Window with activity status
-# set -g window-status-activity-style bg="#1d1f21",fg="#8abeb7"
-
-# # Window separator
-# set -g window-status-separator ""
-
-# # Window status alignment
-# set -g status-justify centre
-
-# # Pane border
-# set -g pane-border-style bg=default,fg="#373b41"
-
-# # Active pane border
-# set -g pane-active-border-style bg=default,fg="#373b41"
-
-# # Pane number indicator
-# set -g display-panes-colour colour233
-# set -g display-panes-active-colour colour245
-
-# # Clock mode
-# set -g clock-mode-colour "#81a2be"
-# set -g clock-mode-style 24
-
-# # Message
-# set -g message-style bg="#2d2d2d",fg="#f99157"
-
-# # Command message
-# set -g message-command-style bg="#2d2d2d",fg="#f99157"
-
-# # Mode
-# set -g mode-style bg="#1d1f21",fg="#de935f"
-
-# Color key:
-#   #1d1f21 Background
-#   #282a2e Current Line
-#   #373b41 Selection
-#   #c5c8c6 Foreground
-#   #969896 Comment
-#   #cc6666 Red
-#   #de935f Orange
-#   #f0c674 Yellow
-#   #b5bd68 Green
-#   #8abeb7 Aqua
-#   #81a2be Blue
-#   #b294bb Purple
-
 # Status update interval
 set -g status-interval 1
 
@@ -108,7 +19,7 @@ set -g status-right "#[fg=colour203,bg=#444B6A] %H:%M:%S #[fg=#232433,bg=#7AA2F7
 
 # Window status
 set -g window-status-format "#[fg=#6699cc,bg=#444B6A] #I #[fg=#a9b1d6,bg=#232433] #W #[default]"
-set -g window-status-current-format "#[fg=colour203,bg=#444B6A] #I:#P #[fg=#cccccc,bg=#232433] #W #[default]"
+set -g window-status-current-format "#[fg=colour203,bg=#444B6A] #I:#P #[fg=colour107,bg=#232433] #W #[default]"
 
 # Current window status
 set -g window-status-current-style none
